@@ -1,0 +1,25 @@
+{
+  "name": "poshangyan-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Team2626Creative/poshangyan-backend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Team2626Creative/poshangyan-backend/issues"
+  },
+  "homepage": "https://github.com/Team2626Creative/poshangyan-backend#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "firebase-admin": "^9.4.1",
+    "firebase-functions": "^3.11.0"
+  }
+}
