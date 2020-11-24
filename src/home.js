@@ -133,6 +133,14 @@ export class Feed extends Component {
       .post("/getFilteredInfo", FilterData)
       .then((res) => {
         // console.log(res.data);
+        var l = res.data.length;
+        var ans=0;
+        if(l%12) ans++;
+        ans+=Math.floor(l/12);
+
+        this.setState({totalPage:ans});
+        this.setState({pageNo:1})
+
         this.setState({posts:res.data});
         this.setState({themeOfTheMonth:[]});
         this.setState({here:true});
@@ -162,9 +170,10 @@ export class Feed extends Component {
         ans+=Math.floor(l/12);
 
         this.setState({totalPage:ans});
+        this.setState({pageNo:1})
 
-        console.log(this.state.totalPage)
-        console.log(l)
+        // console.log(this.state.totalPage)
+        // console.log(l)
         
         this.setState({posts:res.data});
       })

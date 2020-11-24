@@ -4,6 +4,7 @@ import axios from "axios";
 import Snackbar from "@material-ui/core/Snackbar";
 import Alert from "@material-ui/lab/Alert";
 import { v4 as uuidv4 } from "uuid";
+import {  Progress } from 'semantic-ui-react'
 // import entire SDK
 import AWS from "aws-sdk";
 // import individual service
@@ -322,6 +323,9 @@ export class Feed extends Component {
     }
     var link = "https://poshangyan.s3.ap-south-1.amazonaws.com/dataFeed.png";
     let per = this.state.percentCompleted == 0 ? null : this.state.percentCompleted; 
+
+    // if(per) let pro =  
+    // if(per==100) pro=null;
     return (
       <div className="root">
         <p style={{ textAlign: "center", marginTop: 40, marginBottom: 20 }}>
@@ -340,6 +344,8 @@ export class Feed extends Component {
           </form>
           <p style={{marginLeft:-60,marginTop:5}} > Preview Image </p>
         </p>
+      {  (per && !((per==0) || (per==100))) ?   <Progress style={{height:10,width:'100%'}} 
+      percent={this.state.percentCompleted} indicating /> : (null) }
         <Input
           style={{ width: "100%", marginTop: 10 }}
           onChange={this.handleNameChange}
