@@ -61,7 +61,12 @@ app.use((error, req, res, next) => {
 
 mongoose.connect(
     MONGODB_URI,
-    { useNewUrlParser: true, useUnifiedTopology: true }
+    {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        useFindAndModify: false,
+        useCreateIndex: true
+    }
 )
 .then(result =>{
     app.listen(process.env.PORT || 8080, ()=>{
@@ -69,5 +74,5 @@ mongoose.connect(
     })
 }).catch(err => {
     console.log(err);
-    next(err);
+    // next(err);
 })
