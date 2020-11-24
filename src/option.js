@@ -31,7 +31,7 @@ export class options extends Component {
       arr.push(data.option.value);
     }
     this.setState({ themes: arr });
-    console.log(this.state.themes);
+    // console.log(this.state.themes);
 
     // this.setState({ source: data.value });
   };
@@ -47,7 +47,7 @@ export class options extends Component {
       arr.push(data.option.value);
     }
     this.setState({ languages: arr });
-    console.log(this.state.languages);
+    // console.log(this.state.languages);
   };
   handleMediaTypeChange = (e, data) => {
     let arr = this.state.mediaType;
@@ -61,7 +61,7 @@ export class options extends Component {
       arr.push(data.option.value);
     }
     this.setState({ mediaType: arr });
-    console.log(this.state.mediaType);
+    // console.log(this.state.mediaType);
   };
   handleAudienceChange = (e, data) => {
     let arr = this.state.targetAudience;
@@ -75,7 +75,7 @@ export class options extends Component {
       arr.push(data.option.value);
     }
     this.setState({ targetAudience: arr });
-    console.log(this.state.targetAudience);
+    // console.log(this.state.targetAudience);
   };
   handleSourceChange = (e, data) => {
     let arr = this.state.source;
@@ -89,7 +89,7 @@ export class options extends Component {
       arr.push(data.option.value);
     }
     this.setState({ source: arr });
-    console.log(this.state.source);
+    // console.log(this.state.source);
   };
 
   handleFilter = () => {
@@ -100,17 +100,17 @@ export class options extends Component {
       mediaType:this.state.mediaType.toString(),
       source:this.state.source.toString(),
     }
-    console.log(data)
+    // console.log(data)
     axios
       .get("/getPopolarVideos", formData)
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         this.setState({popularVid:res.data});
         
       })
       .catch((err) => {
-        console.log(err);
-        
+        // console.log(err);
+        // 
       });
   }
 

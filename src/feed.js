@@ -54,19 +54,19 @@ export class Feed extends Component {
   }
 
   handleThemeChange = (e, data) => {
-    console.log(data.value);
+    // console.log(data.value);
     this.setState({
       themes: data.value
     });
   };
   handleLangChange = (e, data) => {
-    console.log(data.value);
+    // console.log(data.value);
     this.setState({
       languages: data.value
     });
   };
   handleSourceChange = (e, data) => {
-    console.log(data.value);
+    // console.log(data.value);
     this.setState({
       source: data.value
     });
@@ -77,7 +77,7 @@ export class Feed extends Component {
     });
   };
   handleMediaTypeChange = (e, data) => {
-    console.log(data.value);
+    // console.log(data.value);
     this.setState({
       mediaType: data.value
     });
@@ -86,19 +86,19 @@ export class Feed extends Component {
     this.setState({
       label: data.value
     });
-    console.log(data.value);
+    // console.log(data.value);
   };
   handleNameChange = (e, data) => {
     this.setState({
       name: data.value
     });
-    console.log(data.value);
+    // console.log(data.value);
   };
   handleAudienceChange = (e, data) => {
     this.setState({
       targetAudience: data.value
     });
-    console.log(data.value);
+    // console.log(data.value);
   };
 
   handleSubmit = (e) => {
@@ -109,7 +109,7 @@ export class Feed extends Component {
         var percentCompleted = Math.round(
           (progressEvent.loaded * 100) / progressEvent.total
         );
-        console.log(percentCompleted);
+        // console.log(percentCompleted);
         // this.setState({percentCompleted})
       }.bind(this)
     };
@@ -173,9 +173,9 @@ export class Feed extends Component {
         })
         .send((error, data) => {
           if (error) {
-            console.log(error)
+            // console.log(error)
           }else{
-          console.log(data);
+          // console.log(data);
           // newPosts.ETag = data.ETag;
           newPosts.Location = data.Location;
           newPosts.key = data.key;
@@ -203,9 +203,9 @@ export class Feed extends Component {
               })
               .send((error, data) => {
                 if (error) {
-                  console.log(error)
+                  // console.log(error)
                 }else{
-                  console.log(data);
+                  // console.log(data);
                   // newPosts.thumbETag = data.ETag;
                   newPosts.thumbLocation = data.Location;
                   newPosts.thumbkey = data.key;
@@ -232,7 +232,7 @@ export class Feed extends Component {
     axios
       .post("/upload", newPost)
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         this.setState({
           snackbarType: 1
         });
@@ -241,7 +241,7 @@ export class Feed extends Component {
         }, 5000); // After 5 secs
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         this.setState({
           snackbarType: 2
         });
@@ -309,6 +309,15 @@ export class Feed extends Component {
         key: i,
         text: langs[i],
         value: langs[i]
+      });
+    }
+    var target = ['Children under 5','Adolescent Girls Mothers','Pregnant Women','PRI member','other']
+    var targetArray = [];
+    for (var i = 0; i < target.length; i++) {
+      targetArray.push({
+        key: i,
+        text: target[i],
+        value: target[i]
       });
     }
     var link = "https://poshangyan.s3.ap-south-1.amazonaws.com/dataFeed.png";
@@ -388,20 +397,18 @@ export class Feed extends Component {
           <option value="Outdoor">Outdoor</option>
           <option value="Social Media">Social Media</option>
         </datalist>
-        <Input
-          list="targetAudience"
-          style={{ width: "100%", marginTop: 10 }}
-          onChange={this.handleAudienceChange}
+        <Dropdown
           placeholder="Target Audience"
+          fluid
+          multiple
+          search
+          selection
+          style={{ marginTop: 10 }}
+          options={targetArray}
+          onChange={this.handleAudienceChange}
         />
-        <datalist id="targetAudience">
-          <option value="Children under 5">Children under 5</option>
-          <option value="Adolescent Girls Mothers">Adolescent Girls Mothers</option>
-          <option value="Pregnant Women">Pregnant Women</option>
-          <option value="PRI member">PRI member</option>
-          <option value="Civil society">Civil society</option>
-          <option value="Any other (please specify)">Any other (please specify)</option>
-        </datalist>
+        
+        
         <div style={{ textAlign: "center",marginBottom:50 }}>
           <Button
             inverted

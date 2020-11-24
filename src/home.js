@@ -8,33 +8,8 @@ import NoPostFound from "./nopostfound";
 import { Button, Dropdown, Grid, Menu,Pagination,Progress } from "semantic-ui-react";
 import go from "./go.png";
 import rext from "./Rectangle1.png";
-import Fab from '@material-ui/core/Fab';
 import ReactMultiSelectCheckboxes from "react-multiselect-checkboxes";
-const useStyles = {
-  editor: {
-    marginLeft: "200px",
-    background: "linear-gradient(45deg, #1E1BFB 30%, #FF8E53 90%)",
-    marginTop: "10px",
-    border: "5px solid #eb4559",
-    width: "1000px"
-  },
-  root: {
-    marginTop: "10px"
-  },
-  uploads: {
-    marginTop: "10px",
-    marginLeft: "910px"
-  },
-  button: {
-    background: "linear-gradient(45deg, #1E1BFB 30%, #FF8E53 90%)",
-    border: 0,
-    borderRadius: 3,
-    boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
-    color: "white",
-    height: 60,
-    padding: "0 30px"
-  }
-};
+
 
 export class Feed extends Component {
   constructor() {
@@ -48,7 +23,7 @@ export class Feed extends Component {
       themeOfTheMonth : [],
       popularVid:[],
       posts:[],
-      pageNo:0,
+      pageNo:1,
       totalPage:0,
       here:false,
       percentDownloaded:20
@@ -72,7 +47,7 @@ export class Feed extends Component {
       arr.push(data.option.value);
     }
     this.setState({ themes: arr });
-    console.log(this.state.themes);
+    // console.log(this.state.themes);
 
     // this.setState({ source: data.value });
   };
@@ -88,7 +63,7 @@ export class Feed extends Component {
       arr.push(data.option.value);
     }
     this.setState({ languages: arr });
-    console.log(this.state.languages);
+    // console.log(this.state.languages);
   };
   handleMediaTypeChange = (e, data) => {
     let arr = this.state.mediaType;
@@ -102,7 +77,7 @@ export class Feed extends Component {
       arr.push(data.option.value);
     }
     this.setState({ mediaType: arr });
-    console.log(this.state.mediaType);
+    // console.log(this.state.mediaType);
   };
   handleAudienceChange = (e, data) => {
     let arr = this.state.targetAudience;
@@ -116,7 +91,7 @@ export class Feed extends Component {
       arr.push(data.option.value);
     }
     this.setState({ targetAudience: arr });
-    console.log(this.state.targetAudience);
+    // console.log(this.state.targetAudience);
   };
   handleSourceChange = (e, data) => {
     let arr = this.state.source;
@@ -130,7 +105,12 @@ export class Feed extends Component {
       arr.push(data.option.value);
     }
     this.setState({ source: arr });
-    console.log(this.state.source);
+    // console.log(this.state.source);
+  };
+  handlePageChange = (e, data) => {
+    // console.log(data.value)
+    console.log(data)
+    this.setState({pageNo:data.activePage})
   };
 
   handleFilter = () => {
@@ -148,76 +128,83 @@ export class Feed extends Component {
     formData.append("source", this.state.source.toString());
     formData.append("mediaType", this.state.mediaType.toString());
     // console.log('hereeeeeeeeeeeeeeeeeeeeeeeeeeee')
-    console.log(FilterData)
+    // console.log(FilterData)
     axios
-      .post("/getFilteredInfo", formData)
+      .post("/getFilteredInfo", FilterData)
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         this.setState({posts:res.data});
         this.setState({themeOfTheMonth:[]});
         this.setState({here:true});
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   }
 
 
   componentDidMount(){
-    const formData = new FormData();
-    formData.append("themes", this.state.themes);
-    formData.append("languages", this.state.languages);
-    formData.append("label", this.state.label);
-    formData.append("source", this.state.source);
-    formData.append("mediaType", this.state.mediaType);
+    var FilterData = {
+      themes:this.state.themes.toString(),
+      languages:this.state.languages.toString(),
+      targetAudience:this.state.targetAudience.toString(),
+      mediaType:this.state.mediaType.toString(),
+      source:this.state.source.toString(),
+    }
     axios
-      .post("/getFilteredInfo", formData)
+      .post("/getFilteredInfo", FilterData)
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
 
         var l = res.data.length;
         var ans=0;
         if(l%12) ans++;
-        ans+=(l/12);
+        ans+=Math.floor(l/12);
 
         this.setState({totalPage:ans});
+
+        console.log(this.state.totalPage)
+        console.log(l)
         
         this.setState({posts:res.data});
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         
       });
       axios
-      .get("/getThemesOfTheMonth", formData)
+      .get("/getThemesOfTheMonth")
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         this.setState({themeOfTheMonth:res.data});
         
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         
       });
       axios
-      .get("/getPopolarVideos", formData)
+      .get("/getPopolarVideos")
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         this.setState({popularVid:res.data});
         
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         
       });
+      
   }
+
+  
   
   render() {
     
     var currPage = this.state.pageNo;
     var themeOfTheMonth = this.state.themeOfTheMonth ? this.state.themeOfTheMonth.slice(0,4)  : null;
     var popularVideos = this.state.popularVid ? this.state.popularVid.slice(0,4) : null
-    var posts = this.state.posts ? this.state.posts.slice(currPage*12,(currPage+1)*12) : null
+    var posts = this.state.posts ? this.state.posts.slice((currPage-1)*12,currPage*12) : null
     var link =
       "https://poshangyan.s3.ap-south-1.amazonaws.com/niti-aayog-logo.png";
     var back =
@@ -490,14 +477,14 @@ export class Feed extends Component {
             </MuiGrid>
             <Pagination
                boundaryRange={0}
-                defaultActivePage={1}
+                defaultActivePage={currPage}
                 ellipsisItem={null}
                 firstItem={null}
                 lastItem={null}
                 siblingRange={1}
-                totalPages={10}
+                totalPages={this.state.totalPage}
                 style={{margin:10}}
-                onClick={this.handlePageChange}
+                onPageChange={this.handlePageChange}
             />
           </center>
         </div>

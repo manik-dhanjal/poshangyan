@@ -18,9 +18,16 @@ styleLink.href = "https://cdn.jsdelivr.net/npm/semantic-ui/dist/semantic.min.css
 document.head.appendChild(styleLink);
 import {BrowserRouter as Router , Switch, Route } from 'react-router-dom'
 import SingleComponent from "./singleCmponent";
+import axios from 'axios'
+// axios.DERA 
+axios.defaults.baseURL = "https://poshangyan-backend.herokuapp.com/"
+// axios.defaults.headers.common['Access-Control-Allow-Origin']='*'
+// axios.defaults.headers.common['Access-Control-Allow-Credentials'] = true
+// axios.defaults.headers.common['Access-Control-Allow-Headers'] = 'Origin, X-Requested-With, Content-Type, Accept'
+// axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 ReactDOM.render(
   <App 
-  // style={{minWidth:900}}
+  style={{minWidth:600}}
    >
 
     <Router>

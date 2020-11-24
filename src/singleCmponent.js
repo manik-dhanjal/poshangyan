@@ -50,15 +50,28 @@ export class SingleComponent extends Component {
   handleDownload = () => {
     let url=this.props.post.Location
     let filename= this.props.post.Key
-    const link = document.createElement('a');
-    link.href = url;
-    link.setAttribute('download', filename);
-    document.body.appendChild(link);
-    console.log("Download Strted")
+    this.addDownloadCount();
+    // const link = document.createElement('a');
+    // link.href = url;
+    // link.setAttribute('download', filename);
+    // document.body.appendChild(link);
+    // console.log("Download Strted")
     this.downloadImage(filename)
     // link.click();
     // this.download(url)
 
+  }
+  addDownloadCount = () => {
+    axios
+      .post("/adddownload",{
+        "_id":this.props.post._id
+      })
+      .then((res) => {
+        // console.log(res.data);
+      })
+      .catch((err) => {
+        // console.log(err);
+      });
   }
   // download(url){
   //   $('<iframe>', { id:'idown', src:url }).hide().appendTo('body').click();
@@ -72,7 +85,7 @@ export class SingleComponent extends Component {
    if(thumbLocation) back=thumbLocation;
    else if(!back) back = Location; 
    let playBtn = null;
-   if(mimetype.includes('video')) playBtn = <ReactPlayer src={Location} />
+   if(mimetype.includes('video')) playBtn = <ReactPlayer post={this.props.post} src={Location} />
   //  console.log(post)
     return (
       <Grid xs={6} item sm={4} lg={3}  >

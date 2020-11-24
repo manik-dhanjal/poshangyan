@@ -59,25 +59,25 @@ export class Feed extends Component {
     // this.setState({hidden:false});
   };
   handleThemeChange = (e, data) => {
-    console.log(data.value);
+    // console.log(data.value);
     this.setState({ themes: data.value });
   };
   handleLangChange = (e, data) => {
-    console.log(data.value);
+    // console.log(data.value);
     this.setState({ languages: data.value });
   };
   handleSourceChange = (e, data) => {
-    console.log(data.value);
+    // console.log(data.value);
     this.setState({ source: data.value });
   };
 
   handleMediaTypeChange = (e, data) => {
-    console.log(data.value);
+    // console.log(data.value);
     this.setState({ mediaType: data.value });
   };
   handleLabelChange = (e, data) => {
     this.setState({ label: data.value });
-    console.log(data.value);
+    // console.log(data.value);
   };
   handleClose = () => {
     this.setState({ snackbarType: 0 });
@@ -95,7 +95,7 @@ export class Feed extends Component {
     formData.append("source", this.state.source);
     formData.append("mediaType", this.state.mediaType);
     //  console.log(formData);
-    console.log(JSON.stringify(Object.fromEntries(formData)));
+    // console.log(JSON.stringify(Object.fromEntries(formData)));
   };
   render() {
     // const Feed = useRef(null);
