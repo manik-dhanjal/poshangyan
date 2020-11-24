@@ -1,5 +1,5 @@
 {
-  "name": "mongo-poshangyan-server",
+  "name": "poshangyan-backend",
   "version": "1.2.0",
   "description": "",
   "main": "index.js",
