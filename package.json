@@ -1,0 +1,47 @@
+{
+  "name": "semantic-ui-example-forked",
+  "version": "0.2.0",
+  "description": "An exported example from Semantic UI React, https://react.semantic-ui.com/",
+  "private": true,
+  "engines": {
+    "npm": "6.13.4",
+    "node": "13.6.0"
+  },
+  "dependencies": {
+    "@material-ui/core": "4.11.0",
+    "@material-ui/lab": "^4.0.0-alpha.56",
+    "@material-ui/styles": "4.10.0",
+    "aws-sdk": "^2.797.0",
+    "axios": "^0.21.0",
+    "jquery": "^3.5.1",
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0",
+    "react-multiselect-checkboxes": "^0.1.1",
+    "react-router-dom": "^5.2.0",
+    "semantic-ui-react": "2.0.1",
+    "uuid": "^8.3.1",
+    "video-react": "^0.14.1"
+  },
+  "devDependencies": {
+    "react-scripts": "^4.0.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "proxy": "http://localhost:5000/poshangyan/us-central1/api",
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
