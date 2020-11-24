@@ -1,5 +1,5 @@
 {
-  "name": "poshangyan-backend",
+  "name": "mongo-poshangyan-server",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,16 +10,19 @@
     "type": "git",
     "url": "git+https://github.com/Team2626Creative/poshangyan-backend.git"
   },
-  "author": "",
+  "dependencies": {
+    "aws-sdk": "^2.798.0",
+    "body-parser": "1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "mongoose": "5.9.7",
+    "multer": "^1.4.2",
+    "uuid": "^8.3.1"
+  },
+  "author": "Anshaj Kumar",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Team2626Creative/poshangyan-backend/issues"
   },
-  "homepage": "https://github.com/Team2626Creative/poshangyan-backend#readme",
-  "dependencies": {
-    "cors": "^2.8.5",
-    "express": "^4.17.1",
-    "firebase-admin": "^9.4.1",
-    "firebase-functions": "^3.11.0"
-  }
+  "homepage": "https://github.com/Team2626Creative/poshangyan-backend#readme"
 }
