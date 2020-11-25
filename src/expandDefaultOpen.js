@@ -2,17 +2,68 @@ import React from 'react'
 import { Button, Header, Image, Modal } from 'semantic-ui-react'
 import { Icon, Table } from 'semantic-ui-react'
 import './App.css'
+import axios from 'axios'
+
 function ModalExampleModal(props) {
   const [open, setOpen] = React.useState(true)
-
   const myWebSite = 'https://www.poshangyan.com/?postId=';
-
+ 
+const downloadImage = (filename) => {
+  const s3 = new AWS.S3({
+   accessKeyId: process.env.REACT_APP_ACCESS_ID,
+   secretAccessKey: process.env.REACT_APP_ACCESS_KEY,
+   signatureVersion: 'v4',
+   region: 'ap-south-1'
+ });
+  const url = s3.getSignedUrlPromise('getObject', {
+  Bucket: process.env.REACT_APP_BUCKET_NAME , Key: filename,
+  Expires: 300,
+});
+       let link = document.createElement("a");
+       link.href = url;
+       link.setAttribute('download', filename);
+        link.click();
+}
+const handleDownload = () => {
+  let url=props.post.Location
+  let filename= props.post.Key
+  addDownloadCount();
+  const link = document.createElement('a');
+  link.href = url;
+  link.setAttribute('download', filename);
+  downloadImage(filename)
+}
+const addDownloadCount = () => {
+  axios
+    .post("/adddownload",{
+      "_id":props.post._id
+    })
+    .then((res) => {
+      // console.log(res.data);
+    })
+    .catch((err) => {
+      // console.log(err);
+    });
+}
+let downloadBtn = <Button onClick={handleDownload} animated 
+style={{background:'#EF5287',
+marginTop: 4}} >
+<Button.Content visible style={{ color: 'white' }} >Download</Button.Content>
+<Button.Content hidden>
+  <Icon name='download' inverted />
+</Button.Content>
+</Button>
   return (
     <Modal
       onClose={() => setOpen(false)}
       onOpen={() => setOpen(true)}
       open={open}
-      trigger={''}
+      trigger={<Button animated='vertical' className= "bottomLeft" style={{background:'#EF5287',opacity: '0.5'}}>
+      <Button.Content hidden style={{ color: 'white' }}>Expand</Button.Content>
+      <Button.Content visible>
+        <Icon name='external alternate' inverted  />
+      </Button.Content>
+    </Button>}
     >
       <Modal.Header>Expanded View
       
@@ -75,12 +126,7 @@ function ModalExampleModal(props) {
         </Modal.Description>
       </Modal.Content>
       <Modal.Actions>
-        <Button animated style={{background:'#EF5287'}} >
-      <Button.Content visible style={{ color: 'white' }} >Download</Button.Content>
-      <Button.Content hidden>
-        <Icon name='download' inverted />
-      </Button.Content>
-    </Button>
+        {downloadBtn}
       </Modal.Actions>
     </Modal>
   )
