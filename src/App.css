@@ -16,12 +16,27 @@
   left: 50%;
   transform: translate(-50%, -50%);
 }
+.bottomLeft{
+  position: absolute;
+  transform: translate(0%,535%)
+}
+/* .leftDown{
+  position: absolute;
+  bottom: 1px;
+  left: 1px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+} */
+/* .bottom-left {
+  position: absolute;
+  bottom: 8px;
+  left: 16px;
+} */
 #thisDiv{
   position:absolute;
   left:50%;
   transform: translateX(-50%);
   -webkit-transform: translateX(-50%);
 }
-/* .react-select-container{
-  width: '100%'
-} */
+

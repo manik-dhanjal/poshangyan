@@ -5,6 +5,8 @@ import "./App.css";
 import axios from "axios";
 import SingleComponent from "./singleCmponent";
 import NoPostFound from "./nopostfound";
+import PopupPostNotFound from "./postNotFound";
+import PopupFoundPost from "./expandDefaultOpen";
 import { Button, Dropdown, Grid, Menu,Pagination,Progress } from "semantic-ui-react";
 import go from "./go.png";
 import rext from "./Rectangle1.png";
@@ -26,7 +28,9 @@ export class Feed extends Component {
       pageNo:1,
       totalPage:0,
       here:false,
-      percentDownloaded:20
+      percentDownloaded:20,
+      popUpShowType:0,
+      popupData:null
     };
   }
   getPriview = () => {
@@ -176,6 +180,27 @@ export class Feed extends Component {
         // console.log(l)
         
         this.setState({posts:res.data});
+
+        const url = new URL(window.location.href);
+        const params = new URLSearchParams(url.search);
+        const postId = params.get('postId')
+        // console.log(params.get('postId'))
+        if(params.get('postId') != null){
+            let myPost = null;
+            let pos = this.state.posts;
+            for(var i=0;i<l;i++)
+            {
+              if(pos[i]._id == postId) myPost=pos[i];
+            }
+            if(myPost!=null){
+              this.setState({popupData:myPost})
+              this.setState({popUpShowType:1})
+            }else{
+              this.setState({popUpShowType:2})
+            }
+          
+
+        }
       })
       .catch((err) => {
         // console.log(err);
@@ -203,6 +228,8 @@ export class Feed extends Component {
         // console.log(err);
         
       });
+
+      
       
   }
 
@@ -338,6 +365,11 @@ export class Feed extends Component {
       });
     }
 
+    let popUp = null;
+
+    if(this.state.popUpShowType==1&&this.state.popupData) popUp = <PopupFoundPost post={this.state.popupData} />
+    if(this.state.popUpShowType==2) popUp = <PopupPostNotFound post={this.state.popupData} />
+
     let option = <Grid columns={6} 
     style={{   height:'80%' , marginLeft: "5%", width: "90%",    backgroundImage: `url(${rext})`,
     backgroundPosition: 'center',
@@ -412,6 +444,7 @@ export class Feed extends Component {
         {/* <Fab>
         <Progress percent={this.state.percentDownloaded} style={{width:'100%',height:10}} indicating />
         </Fab> */}
+        {popUp}
         <Paper
           variant="outlined"
           style={{
@@ -486,7 +519,7 @@ export class Feed extends Component {
             </MuiGrid>
             <Pagination
                boundaryRange={0}
-                defaultActivePage={currPage}
+                defaultActivePage={this.state.pageNo}
                 ellipsisItem={null}
                 firstItem={null}
                 lastItem={null}
