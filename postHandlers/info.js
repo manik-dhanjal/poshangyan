@@ -14,19 +14,19 @@ exports.getFilteredInfo = (req, res) => {
   // targetAudience: this.state.targetAudience.toString(),
   console.log(req.body)
   let filter = {} ;
-  if(req.body.themes && !(req.body.themes.includes('any')||req.body.themes.includes('all')||req.body.themes=='')){
+  if(req.body.themes && !(req.body.themes.toLowerCase().includes('any')||req.body.themes.toLowerCase().includes('all')||req.body.themes=='')){
     filter.themes = req.body.themes;
   }
-  if(req.body.languages && !(req.body.languages.includes('any')||req.body.languages.includes('all')||req.body.languages=='')){
+  if(req.body.languages && !(req.body.languages.toLowerCase().includes('any')||req.body.languages.toLowerCase().includes('all')||req.body.languages=='')){
     filter.languages = req.body.languages;
   }
-  if(req.body.targetAudience && !(req.body.targetAudience.includes('any')||req.body.targetAudience.includes('all')||req.body.targetAudience=='')){
+  if(req.body.targetAudience && !(req.body.targetAudience.toLowerCase().includes('any')||req.body.targetAudience.toLowerCase().includes('all')||req.body.targetAudience=='')){
     filter.targetAudience = req.body.targetAudience;
   }
-  if(req.body.source && !(req.body.source.includes('any')||req.body.source.includes('all')||req.body.source=='')){
+  if(req.body.source && !(req.body.source.toLowerCase().includes('any')||req.body.source.toLowerCase().includes('all')||req.body.source=='')){
     filter.source = req.body.source;
   }
-  if(req.body.mediaType && !(req.body.mediaType.includes('any')||req.body.mediaType.includes('all')||req.body.mediaType=='')){
+  if(req.body.mediaType && !(req.body.mediaType.toLowerCase().includes('any')||req.body.mediaType.toLowerCase().includes('all')||req.body.mediaType=='')){
     filter.mediaType = req.body.mediaType;
   }
   // console.log(req.body)
