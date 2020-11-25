@@ -58,12 +58,7 @@ marginTop: 4}} >
       onClose={() => setOpen(false)}
       onOpen={() => setOpen(true)}
       open={open}
-      trigger={<Button animated='vertical' className= "bottomLeft" style={{background:'#EF5287',opacity: '0.5'}}>
-      <Button.Content hidden style={{ color: 'white' }}>Expand</Button.Content>
-      <Button.Content visible>
-        <Icon name='external alternate' inverted  />
-      </Button.Content>
-    </Button>}
+      trigger={''}
     >
       <Modal.Header>Expanded View
       
