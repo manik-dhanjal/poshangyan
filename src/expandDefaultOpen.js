@@ -8,22 +8,31 @@ function ModalExampleModal(props) {
   const [open, setOpen] = React.useState(true)
   const myWebSite = 'https://www.poshangyan.com/?postId=';
  
-const downloadImage = (filename) => {
-  const s3 = new AWS.S3({
-   accessKeyId: process.env.REACT_APP_ACCESS_ID,
-   secretAccessKey: process.env.REACT_APP_ACCESS_KEY,
-   signatureVersion: 'v4',
-   region: 'ap-south-1'
- });
-  const url = s3.getSignedUrlPromise('getObject', {
-  Bucket: process.env.REACT_APP_BUCKET_NAME , Key: filename,
-  Expires: 300,
-});
-       let link = document.createElement("a");
-       link.href = url;
-       link.setAttribute('download', filename);
-        link.click();
-}
+  const downloadImage = (filename) => {
+    const s3 = new AWS.S3({
+     accessKeyId: process.env.REACT_APP_ACCESS_ID,
+     secretAccessKey: process.env.REACT_APP_ACCESS_KEY,
+     signatureVersion: 'v4',
+     region: 'ap-south-1'
+   });
+  let url = s3.getSignedUrl('getObject', {
+    Bucket: process.env.REACT_APP_BUCKET_NAME , 
+    Key: filename,
+    Expires: 300,
+    ResponseContentDisposition :  `attachment; filename=${filename}`
+  })
+  // .then((err,data)=>{
+  //   console.log(data)
+    let link = document.createElement("a");
+         link.href = url;
+         link.setAttribute('download', filename);
+        //  link.setAttribute('target', '_blank');
+          link.click();
+  // })
+  
+  console.log({data:url,asd:'asd'})
+         
+  }
 const handleDownload = () => {
   let url=props.post.Location
   let filename= props.post.Key
@@ -73,7 +82,7 @@ marginTop: 4}} >
           <Table celled striped>
     <Table.Header>
       <Table.Row>
-        <Table.HeaderCell colSpan='3'>Infrormation</Table.HeaderCell>
+        <Table.HeaderCell colSpan='3'>Information</Table.HeaderCell>
       </Table.Row>
     </Table.Header>
 

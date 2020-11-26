@@ -115,14 +115,14 @@ export class SingleComponent extends Component {
    if(mimetype.includes('video')) playBtn = <ReactPlayer post={this.props.post} src={Location} />
   //  console.log(post)
     return (
-      <Grid xs={12} item sm={6} lg={6} style={{marginTop:-38}}  >
+      <Grid xs={12} item sm={6} lg={6} style={{marginTop:5}}  >
                 <ExpandView post={this.props.post} />
         <center>
                 <Paper className="paper" style={{ overflow: "hidden" }}>
                   <div style={{position:'relative'}} >
                   {playBtn}
                 
-                  <img
+                  {/* <img
                     src={back}
                     alt="asd"
                     style={{
@@ -132,23 +132,14 @@ export class SingleComponent extends Component {
                       objectPosition: "center",
                       height: 200,
                     }}
-                  />
+                  /> */}
                   </div>
 
                 </Paper>
                 {
                   fromPost ? <div>
                   <h5 style={{ marginTop: 4, marginBottom: 0 }}>{label}</h5>
-                {/* <input
-                  type="image"
-                  src={Download}
-                  style={{
-                    height: 22,
-                    marginTop: 4
-                  }}
-                  alt="go"
-                  onClick={this.handleDownload}
-                /> */}
+                
                 {downloadBtn}
 
 

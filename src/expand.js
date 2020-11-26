@@ -3,10 +3,21 @@ import { Button, Header, Image, Modal } from 'semantic-ui-react'
 import { Icon, Table } from 'semantic-ui-react'
 import './App.css'
 import axios from 'axios'
+import {  Redirect } from 'react-router-dom';
+
+import { useHistory   } from "react-router";
 
 function ModalExampleModal(props) {
   const [open, setOpen] = React.useState(false)
+  const [reDir, setreDir] = React.useState(false)
   const myWebSite = 'https://www.poshangyan.com/?postId=';
+  const history = useHistory();
+ 
+  const removeQuery = (...queryNames) => {
+    const location = Object.assign({}, browserHistory.getCurrentLocation());
+    queryNames.forEach(q => delete location.query[q]);
+    browserHistory.push(location);
+  };
  
 const downloadImage = (filename) => {
   const s3 = new AWS.S3({
@@ -15,14 +26,22 @@ const downloadImage = (filename) => {
    signatureVersion: 'v4',
    region: 'ap-south-1'
  });
-  const url = s3.getSignedUrlPromise('getObject', {
+let url = s3.getSignedUrl('getObject', {
   Bucket: process.env.REACT_APP_BUCKET_NAME , Key: filename,
   Expires: 300,
-});
-       let link = document.createElement("a");
+  ResponseContentDisposition :  `attachment; filename=${filename}`
+})
+// .then((err,data)=>{
+//   console.log(data)
+  let link = document.createElement("a");
        link.href = url;
        link.setAttribute('download', filename);
+      //  link.setAttribute('target', '_blank');
         link.click();
+// })
+
+console.log({data:url,asd:'asd'})
+       
 }
 const handleDownload = () => {
   let url=props.post.Location
@@ -45,6 +64,11 @@ const addDownloadCount = () => {
       // console.log(err);
     });
 }
+let Redir = <Redirect to="/" />;
+if(!reDir) Redir = null; 
+var back=null ;
+   if(props.post && props.post.thumbLocation) back=props.post.thumbLocation;
+   else if(props.post && !back) back = props.post.Location; 
 let downloadBtn = <Button onClick={handleDownload} animated 
 style={{background:'#EF5287',
 marginTop: 4}} >
@@ -55,19 +79,53 @@ marginTop: 4}} >
 </Button>
   return (
     <Modal
-      onClose={() => setOpen(false)}
-      onOpen={() => setOpen(true)}
+
+      onClose={() => {
+        // window.location.href = "http://foo.com/error.php";
+      //   history.replace({
+      //     pathname: '/',
+      //    search: '?'
+      //  })
+        setOpen(false)
+      }}
+      onOpen={() => {
+        setreDir(false)
+        setOpen(true)
+        if(props.post)
+      history.replace({
+         pathname: '/',
+        search: '?postId='+props.post._id
+      })
+      }}
       open={open}
-      trigger={<Button animated='vertical' className= "bottomLeft" style={{background:'#EF5287',opacity: '0.5'}}>
-      <Button.Content hidden style={{ color: 'white' }}>Expand</Button.Content>
-      <Button.Content visible>
-        <Icon name='external alternate' inverted  />
-      </Button.Content>
-    </Button>}
+      trigger={
+    //   <Button animated='vertical' className= "bottomLeft" style={{background:'#EF5287',opacity: '0.5'}}>
+    //   <Button.Content hidden style={{ color: 'white' }}>Expand</Button.Content>
+    //   <Button.Content visible>
+    //     <Icon name='external alternate' inverted  />
+    //   </Button.Content>
+    // </Button>
+    <img
+                    src={back}
+                    alt="asd"
+                    style={{
+                      objectFit: "cover",
+                      minWidth: "100%",
+                      marginBottom: -5,
+                      objectPosition: "center",
+                      height: 200,
+                    }}
+                  />
+    }
     >
+      {Redir}
       <Modal.Header>Expanded View
       
-        <Icon name='close' onClick={() => setOpen(false)} style={{float:'right'}} />
+        
+        <Icon name='close' onClick={() => {setOpen(false); history.replace({
+         pathname: '/',
+         })  
+      }} style={{float:'right'}} />
       
        </Modal.Header>
       <Modal.Content image>
@@ -78,7 +136,7 @@ marginTop: 4}} >
           <Table celled striped>
     <Table.Header>
       <Table.Row>
-        <Table.HeaderCell colSpan='3'>Infrormation</Table.HeaderCell>
+        <Table.HeaderCell colSpan='3'>Information</Table.HeaderCell>
       </Table.Row>
     </Table.Header>
 

@@ -263,7 +263,7 @@ export class Feed extends Component {
       "Sanitation/ WASH",
       "Diarrhoea Management",
       "Diet Diversity/ Overall Nutrition",
-      "Millet Free ",
+      "Millet",
       "Food Fortication ",
       "Girls Education, Diet & Right Age of Marriage",
       "Poshan Pakhwada"

@@ -265,13 +265,13 @@ export class Feed extends Component {
     let latestPosts = posts;
     let behav = posts;
 
-    if(latestPosts) {
-      latestPosts.sort((a,b)=>{
-        return a.createdAt > b.createdAt;
-      })
+    if(latestPosts && posts.length>0 ) {
+      // latestPosts.sort((a,b)=>{
+      //   return a.createdAt > b.createdAt;
+      // })
       latestPosts = latestPosts.slice(posts.length-3,posts.length-1);
-      let ind = Math.floor(Math.random() * posts.length-2);
-      behav = posts.slice(ind,ind+2);
+      // let ind = Math.floor(Math.random() * posts.length-2);
+      behav = posts.slice(5,5+2);
     }
 
     if(latestPosts) latestMedia = latestPosts.map(pos => <SingleComponent2 post={pos} key={pos.postId} /> )
@@ -288,7 +288,7 @@ export class Feed extends Component {
       "Sanitation/ WASH",
       "Diarrhoea Management",
       "Diet Diversity/ Overall Nutrition",
-      "Millet Free ",
+      "Millet",
       "Food Fortication ",
       "Girls Education, Diet & Right Age of Marriage",
       "Poshan Pakhwada"
@@ -431,7 +431,7 @@ export class Feed extends Component {
     <Grid.Column width={4}>
     <ReactMultiSelectCheckboxes
         style={{ width: "18%" }}
-        placeholderButtonLabel="Target Audiuance"
+        placeholderButtonLabel="Target Audience"
         options={AudiuanceArray}
         onChange={this.handleAudienceChange}
       />
@@ -477,7 +477,7 @@ export class Feed extends Component {
           </span>
           <span style={{ float: "right", marginRight: 10, marginTop: 20 }}>
             {/* <h4>Sign Up</h4> */}
-            <a href='https://docs.google.com/forms/d/e/1FAIpQLSciK2SDLtVkMhjH_TUqjmVOJv1ZlhbGMaLg8di0dymvf4axpg/viewform?usp=sf_link' target="_blanck"> <h4>Upload</h4> </a>
+            <a href='https://docs.google.com/forms/d/e/1FAIpQLSciK2SDLtVkMhjH_TUqjmVOJv1ZlhbGMaLg8di0dymvf4axpg/viewform?usp=sf_link' target="_blanck"> <h4>Upload content</h4> </a>
           </span>
         </Paper>
         <div></div>
@@ -500,7 +500,7 @@ export class Feed extends Component {
                   marginBottom:10
                 }}
               >
-                Use this repository to educate tourself on all the nutrition
+                Use this repository to educate yourself on all the nutrition
                 information. To keep yourself and your loved ones safe and
                 healthy.
               </h3>
@@ -552,7 +552,7 @@ export class Feed extends Component {
   </MuiGrid>
   <MuiGrid container item xs={12} sm={6} style={{marginLeft:5,marginTop:5}} lg={6} spacing={3}>
   <div style={{ padding: 12,width:'100%', position: "relative",background:'#ffffff' }}>
-          <h3><strong>Behavioral Focussed</strong></h3>
+          <h3><strong>Applying Behavioural Insights</strong></h3>
           <h5
             style={{
               position: "absolute",

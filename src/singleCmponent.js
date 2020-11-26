@@ -12,55 +12,29 @@ import { Button, Icon } from 'semantic-ui-react'
 import axios from 'axios'
 export class SingleComponent extends Component {
 
-  // downloadImage = url2 => {
-  //   const s3 = new AWS.S3()
-  //   AWS.config.update({accessKeyId: process.env.REACT_APP_ACCESS_ID, secretAccessKey: process.env.REACT_APP_ACCESS_KEY})
-
-  //   const myBucket = process.env.REACT_APP_BUCKET_NAME
-  //   const myKey = this.props.post.Key
-  //   const signedUrlExpireSeconds = 60 * 5 // your expiry time in seconds.
-
-  //   const url = s3.getSignedUrl('getObject', {
-  //   Bucket: myBucket,
-  //   Key: myKey,
-  //   Expires: signedUrlExpireSeconds
-  //   })
-
-
-  //   consnsole.log(url);
-
-  // }
-   downloadImage = (filename) => {
+ downloadImage = (filename) => {
     const s3 = new AWS.S3({
      accessKeyId: process.env.REACT_APP_ACCESS_ID,
      secretAccessKey: process.env.REACT_APP_ACCESS_KEY,
      signatureVersion: 'v4',
      region: 'ap-south-1'
    });
-  //  s3.getObject({ Bucket: process.env.REACT_APP_BUCKET_NAME , Key: filename }, function (
-  //    error,
-  //    data
-  //  ) {
-  //    if (error != null) {
-  //      alert("Object retrival was a failure");
-  //    } else {
-  //      let blob = new Blob([data.Body], { type: data.ContentType });
-  //      let link = document.createElement("a");
-  //      link.href = window.URL.createObjectURL(blob);
-  //      link.download = filename;
-  //      link.click();
-  //    }
-  //  });
-  const url = s3.getSignedUrlPromise('getObject', {
+  let url = s3.getSignedUrl('getObject', {
     Bucket: process.env.REACT_APP_BUCKET_NAME , Key: filename,
     Expires: 300,
-  });
-         let link = document.createElement("a");
+    ResponseContentDisposition :  `attachment; filename=${filename}`
+  })
+  // .then((err,data)=>{
+  //   console.log(data)
+    let link = document.createElement("a");
          link.href = url;
          link.setAttribute('download', filename);
+        //  link.setAttribute('target', '_blank');
           link.click();
-
-        // console.log(url);
+  // })
+  
+  console.log({data:url,asd:'asd'})
+         
   }
   handleDownload = () => {
     let url=this.props.post.Location
@@ -115,24 +89,13 @@ export class SingleComponent extends Component {
    if(mimetype.includes('video')) playBtn = <ReactPlayer post={this.props.post} src={Location} />
   //  console.log(post)
     return (
-      <Grid xs={6} item sm={4} lg={3} style={{marginTop:-38}}  >
-                <ExpandView post={this.props.post} />
+      <Grid xs={6} item sm={4} lg={3} style={{marginTop:0}}  >
         <center>
                 <Paper className="paper" style={{ overflow: "hidden" }}>
                   <div style={{position:'relative'}} >
                   {playBtn}
                 
-                  <img
-                    src={back}
-                    alt="asd"
-                    style={{
-                      objectFit: "cover",
-                      minWidth: "100%",
-                      marginBottom: -5,
-                      objectPosition: "center",
-                      height: 200,
-                    }}
-                  />
+                  <ExpandView post={this.props.post} />
                   </div>
 
                 </Paper>
