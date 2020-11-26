@@ -4,6 +4,7 @@ import MuiGrid from "@material-ui/core/Grid";
 import "./App.css";
 import axios from "axios";
 import SingleComponent from "./singleCmponent";
+import SingleComponent2 from "./singleComp2";
 import NoPostFound from "./nopostfound";
 import PopupPostNotFound from "./postNotFound";
 import PopupFoundPost from "./expandDefaultOpen";
@@ -11,6 +12,7 @@ import { Button, Dropdown, Grid, Menu,Pagination,Progress } from "semantic-ui-re
 import go from "./go.png";
 import rext from "./Rectangle1.png";
 import ReactMultiSelectCheckboxes from "react-multiselect-checkboxes";
+import ContactUs from "./ContactUs";
 
 
 export class Feed extends Component {
@@ -245,7 +247,7 @@ export class Feed extends Component {
       "https://poshangyan.s3.ap-south-1.amazonaws.com/niti-aayog-logo.png";
     var back =
       "https://poshangyan.s3.ap-south-1.amazonaws.com/30MPYUVANGO1.jpg";
-      let post=null,them=null,popVid=null;
+      let post=null,them=null,popVid=null,latestMedia=null,Behavioral=null;
     if(posts) post = posts.map(pos => <SingleComponent post={pos} fromPos='true' key={pos.postId} /> )
     if(post && posts.length==0) post = <NoPostFound />
     if(themeOfTheMonth) them = themeOfTheMonth.map(pos => <SingleComponent post={pos} key={pos.postId} /> )
@@ -257,6 +259,24 @@ export class Feed extends Component {
       mediaTypeArray = [],
       sourceArray = [],
       AudiuanceArray = [];
+
+      let popUp = null;
+
+    let latestPosts = posts;
+    let behav = posts;
+
+    if(latestPosts) {
+      latestPosts.sort((a,b)=>{
+        return a.createdAt > b.createdAt;
+      })
+      latestPosts = latestPosts.slice(posts.length-3,posts.length-1);
+      let ind = Math.floor(Math.random() * posts.length-2);
+      behav = posts.slice(ind,ind+2);
+    }
+
+    if(latestPosts) latestMedia = latestPosts.map(pos => <SingleComponent2 post={pos} key={pos.postId} /> )
+    if(behav) Behavioral = behav.map(pos => <SingleComponent2 post={pos} key={pos.postId} /> )
+    
 
     var themes = [
       'Any',
@@ -365,7 +385,7 @@ export class Feed extends Component {
       });
     }
 
-    let popUp = null;
+    
 
     if(this.state.popUpShowType==1&&this.state.popupData) popUp = <PopupFoundPost post={this.state.popupData} />
     if(this.state.popUpShowType==2) popUp = <PopupPostNotFound post={this.state.popupData} />
@@ -456,7 +476,8 @@ export class Feed extends Component {
             <img src={link} style={{ height: 50, margin: 4 }} alt="logo" />
           </span>
           <span style={{ float: "right", marginRight: 10, marginTop: 20 }}>
-            <h4>Sign Up</h4>
+            {/* <h4>Sign Up</h4> */}
+            <a href='https://docs.google.com/forms/d/e/1FAIpQLSciK2SDLtVkMhjH_TUqjmVOJv1ZlhbGMaLg8di0dymvf4axpg/viewform?usp=sf_link' target="_blanck"> <h4>Upload</h4> </a>
           </span>
         </Paper>
         <div></div>
@@ -506,14 +527,58 @@ export class Feed extends Component {
         <div style={{ background: "#DEE3D0" }}>
          { !this.state.here? <center>
             
-            <h1 style={{ paddingTop: 10 }}><em>Theme of the month</em></h1>
+            <h1 style={{ paddingTop: 10 }}>Theme of the month</h1>
             <MuiGrid container style={{ padding: 10 }} spacing={3}>
               {them}
             </MuiGrid>
-          </center> :null}
-          <center>
+            <MuiGrid container spacing={3}>
+  <MuiGrid container item xs={12} sm={6} style={{marginLeft:5,marginTop:5}} lg={6} spacing={3}>
+  <div style={{ padding: 12,width:'100%', position: "relative",background:'#ffffff' }}>
+          <h3><strong>Latest Media</strong></h3>
+          <h5
+            style={{
+              position: "absolute",
+              right: "8px",
+              color: "red",
+              top: "0px"
+            }}
+          >
+            {"view all> "}
+          </h5>
+          <MuiGrid container xs={12} sm={12} lg={12} style={{padding:5}}  spacing={3}>
+            {latestMedia}
+          </MuiGrid>
+        </div>
+  </MuiGrid>
+  <MuiGrid container item xs={12} sm={6} style={{marginLeft:5,marginTop:5}} lg={6} spacing={3}>
+  <div style={{ padding: 12,width:'100%', position: "relative",background:'#ffffff' }}>
+          <h3><strong>Behavioral Focussed</strong></h3>
+          <h5
+            style={{
+              position: "absolute",
+              right: "8px",
+              color: "red",
+              top: "0px"
+            }}
+          >
+            {"view all> "}
+          </h5>
+          <MuiGrid container xs={12} sm={12} lg={12} style={{padding:5}} spacing={3}>
+            {Behavioral}
+          </MuiGrid>
+        </div>
+  </MuiGrid>
+</MuiGrid>
+          </center>
             
-            <h1 style={{marginTop:10}} ><em>Most Downloaded Media</em></h1>
+        
+          
+          
+          :null}
+          <center>
+
+            
+            <h1 style={{marginTop:10}} >Most Downloaded Media</h1>
             <MuiGrid container style={{ padding: 10 }} spacing={3}>
               {post}
             </MuiGrid>
@@ -546,6 +611,7 @@ export class Feed extends Component {
             {popVid}
           </MuiGrid>
         </div>
+        <ContactUs />
       </div>
     );
   }
