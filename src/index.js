@@ -1,11 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Container } from "semantic-ui-react";
-import { Feed } from "./Pages/feed";
-import home from "./Pages/home";
+import { Feed } from "./components/template/feed";
+import home from "./components/template/home";
 
 const App = ({ children }) => (
-  <div style={{ marginLeft: 2, marginRight:2  }}>
+  <div >
     {children}
   </div>
 );

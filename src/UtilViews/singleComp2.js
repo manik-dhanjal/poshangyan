@@ -1,7 +1,7 @@
 import { Grid, Paper } from "@material-ui/core";
 import React, { Component } from "react";
 import "../App.css";
-import play from '../Images/play.png'
+import play from '../assets/Images/play.png'
 import ReactPlayer from './reactPlayer'
 import ExpandView from './expand'
 import $ from 'jquery'
