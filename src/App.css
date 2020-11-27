@@ -20,6 +20,15 @@
   position: absolute;
   transform: translate(0%,535%)
 }
+.css-1r4vtzz,.css-48ayfv{
+  box-shadow: none !important;
+  margin: 0 auto !important;
+  display: flex !important;
+  /* flex-direction: column; */
+}
+
+
+ 
 /* .leftDown{
   position: absolute;
   bottom: 1px;

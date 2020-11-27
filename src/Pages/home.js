@@ -1,18 +1,18 @@
 import React, { Component } from "react";
 import {  Paper } from "@material-ui/core";
 import MuiGrid from "@material-ui/core/Grid";
-import "./App.css";
+import "../App.css";
 import axios from "axios";
-import SingleComponent from "./singleCmponent";
-import SingleComponent2 from "./singleComp2";
-import NoPostFound from "./nopostfound";
-import PopupPostNotFound from "./postNotFound";
-import PopupFoundPost from "./expandDefaultOpen";
+import SingleComponent from "../UtilViews/singleCmponent";
+import SingleComponent2 from "../UtilViews/singleComp2";
+import NoPostFound from "../UtilViews/nopostfound";
+import PopupPostNotFound from "../UtilViews/postNotFound";
+import PopupFoundPost from "../UtilViews/expandDefaultOpen";
 import { Button, Dropdown, Grid, Menu,Pagination,Progress } from "semantic-ui-react";
-import go from "./go.png";
-import rext from "./Rectangle1.png";
+import go from "../Images/go.png";
+import rext from "../Images/Rectangle1.png";
 import ReactMultiSelectCheckboxes from "react-multiselect-checkboxes";
-import ContactUs from "./ContactUs";
+import ContactUs from "../UtilViews/ContactUs";
 
 
 export class Feed extends Component {
@@ -390,6 +390,25 @@ export class Feed extends Component {
     if(this.state.popUpShowType==1&&this.state.popupData) popUp = <PopupFoundPost post={this.state.popupData} />
     if(this.state.popUpShowType==2) popUp = <PopupPostNotFound post={this.state.popupData} />
 
+    const customStyles = {
+      option: (provided, state) => ({
+        ...provided,
+        borderBottom: '1px dotted pink',
+        color: state.isSelected ? 'red' : 'blue',
+        padding: 20,
+      }),
+      control: () => ({
+        // none of react-select's styles are passed to <Control />
+        width: 200,
+      }),
+      singleValue: (provided, state) => {
+        const opacity = state.isDisabled ? 0.5 : 1;
+        const transition = 'opacity 300ms';
+    
+        return { ...provided, opacity, transition };
+      }
+    }
+
     let option = <Grid columns={6} 
     style={{   height:'80%' , marginLeft: "5%", width: "90%",    backgroundImage: `url(${rext})`,
     backgroundPosition: 'center',
@@ -401,7 +420,9 @@ export class Feed extends Component {
 
     <Grid.Column width={2} >
           <ReactMultiSelectCheckboxes
-          style={{ width:10 }}
+          // style={{ 
+          //   customStyles
+          // }}
           placeholderButtonLabel="Theme"
           options={themeArray}
           onChange={this.handleThemeChange}
@@ -414,6 +435,7 @@ export class Feed extends Component {
         placeholderButtonLabel="Language"
         options={langsArray}
         onChange={this.handleLanguageChange}
+        // className="select-dropdown"
       />
     </Grid.Column >
 

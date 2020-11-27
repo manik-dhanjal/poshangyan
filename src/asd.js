@@ -6,7 +6,7 @@ import { Button, Dropdown, Header, Input } from "semantic-ui-react";
 import { Paper, Snackbar, Typography } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 import { Player } from "video-react";
-import rect from "./Rectangle1.png";
+import rect from "./Images/Rectangle1.png";
 import "./App.css";
 // import entire SDK
 import AWS from 'aws-sdk';

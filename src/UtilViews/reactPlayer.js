@@ -1,9 +1,9 @@
 import React from 'react'
 import { Button, Header, Image, Modal } from 'semantic-ui-react'
 import { Player,LoadingSpinner,BigPlayButton } from 'video-react';
-import "../node_modules/video-react/dist/video-react.css";
-import play from './play.png' 
-import cross from './cross.png' 
+import "../../node_modules/video-react/dist/video-react.css";
+import play from '../Images/play.png' 
+import cross from '../Images/cross.png' 
 import axios from 'axios'
 function ReactPlayer(props) {
   const [open, setOpen] = React.useState(false)

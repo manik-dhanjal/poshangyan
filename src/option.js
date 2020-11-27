@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import { Button, Dropdown, Grid, Menu } from "semantic-ui-react";
 import "./App.css";
 import { Checkbox } from "semantic-ui-react";
-import go from "./go.png";
-import rext from "./Rectangle1.png";
+import go from "./Images/go.png";
+import rext from "./Images/Rectangle1.png";
 import ReactMultiSelectCheckboxes from "react-multiselect-checkboxes";
 import axios from "axios";
 export class options extends Component {
