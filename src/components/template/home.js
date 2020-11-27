@@ -12,6 +12,7 @@ import { Button, Dropdown, Grid, Menu,Pagination,Progress } from "semantic-ui-re
 import rext from "../../assets/Images/Rectangle1.png";
 import ContactUs from "../../UtilViews/ContactUs";
 import Banner from "../organism/banner";
+import ThemeOfMonth from "../organism/theme-of-month"
 import { Container } from 'semantic-ui-react'
 export class Feed extends Component {
   constructor() {
@@ -447,55 +448,53 @@ export class Feed extends Component {
 
         {/* Banner of home page */}
         <Banner menuData={menuData} arrow={this.handleFilter}/>
+        
         <div style={{ background: "#DEE3D0" }}>
          { !this.state.here? <center>
-            
-            <h1 style={{ paddingTop: 10 }}>Theme of the month</h1>
+          <ThemeOfMonth> {them} </ThemeOfMonth>
+          
+            {/* <h1 style={{ paddingTop: 10 }}>Theme of the month</h1>
             <MuiGrid container style={{ padding: 10 }} spacing={3}>
               {them}
-            </MuiGrid>
+            </MuiGrid> */}
             <MuiGrid container spacing={3}>
               <MuiGrid container item xs={12} sm={6} style={{marginLeft:5,marginTop:5}} lg={6} spacing={3}>
-              <div style={{ padding: 12,width:'100%', position: "relative",background:'#ffffff' }}>
-                <h3><strong>Latest Media</strong></h3>
-                <h5 style={{
-                    position: "absolute",
-                    right: "8px",
-                    color: "red",
-                    top: "0px"
-                  }}
-                >
-                  {"view all > "}
-                </h5>
-              <MuiGrid container xs={12} sm={12} lg={12} style={{padding:5}}  spacing={3}>
-                {latestMedia}
+                <div style={{ padding: 12,width:'100%', position: "relative",background:'#ffffff' }}>
+                  <h3><strong>Latest Media</strong></h3>
+                  <h5 style={{
+                      position: "absolute",
+                      right: "8px",
+                      color: "red",
+                      top: "0px"
+                    }}
+                  >
+                    {"view all > "}
+                  </h5>
+                  <MuiGrid container xs={12} sm={12} lg={12} style={{padding:5}}  spacing={3}>
+                    {latestMedia}
+                  </MuiGrid>
+                </div>
               </MuiGrid>
-            </div>
-      </MuiGrid>
-  <MuiGrid container item xs={12} sm={6} style={{marginLeft:5,marginTop:5}} lg={6} spacing={3}>
-  <div style={{ padding: 12,width:'100%', position: "relative",background:'#ffffff' }}>
-          <h3><strong>Applying Behavioural Insights</strong></h3>
-          <h5
-            style={{
-              position: "absolute",
-              right: "8px",
-              color: "red",
-              top: "0px"
-            }}
-          >
-            {"view all> "}
-          </h5>
-          <MuiGrid container xs={12} sm={12} lg={12} style={{padding:5}} spacing={3}>
-            {Behavioral}
-          </MuiGrid>
-        </div>
-  </MuiGrid>
-</MuiGrid>
+              <MuiGrid container item xs={12} sm={6} style={{marginLeft:5,marginTop:5}} lg={6} spacing={3}>
+              <div style={{ padding: 12,width:'100%', position: "relative",background:'#ffffff' }}>
+                      <h3><strong>Applying Behavioural Insights</strong></h3>
+                      <h5
+                        style={{
+                          position: "absolute",
+                          right: "8px",
+                          color: "red",
+                          top: "0px"
+                        }}
+                      >
+                        {"view all> "}
+                      </h5>
+                      <MuiGrid container xs={12} sm={12} lg={12} style={{padding:5}} spacing={3}>
+                        {Behavioral}
+                      </MuiGrid>
+                    </div>
+              </MuiGrid>
+            </MuiGrid>
           </center>
-            
-        
-          
-          
           :null}
           <center>
 

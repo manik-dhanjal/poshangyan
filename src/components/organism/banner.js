@@ -2,7 +2,7 @@ import React from 'react'
 import styled from "styled-components"
 import bannerBg from "../../assets/Images/banner-bg.png"
 import BannerMenu from "../molecules/banner-menu"
-import {Container} from "semantic-ui-react"
+import { Container } from '@material-ui/core';
 const Div = styled.div`
 position: relative;
 overflow: visible;
