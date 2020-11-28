@@ -1,8 +1,7 @@
 import { Container } from '@material-ui/core'
 import React from 'react'
 import styled from "styled-components"
-
-
+import {Link} from "react-router-dom"
 const Nav = styled.nav`
 padding:15px 0;
 display:flex;
@@ -11,6 +10,7 @@ align-items:center;
 .logo{
     width:10p%;
     max-width:100px;
+    margin-left: -20px;
     img{
         width:100%;
     }
@@ -28,13 +28,14 @@ const Header = () => {
     return (
         <Container>
             <Nav>
-            
-                    <div className="logo">
+                 
+                    <Link to="/" className="logo">
+                   
                         <img src="https://poshangyan.s3.ap-south-1.amazonaws.com/niti-aayog-logo.png" alt="logo" />
-                    </div>
+                    </Link>
 
                     <span className="upload-content">
-                        <a href='https://docs.google.com/forms/d/e/1FAIpQLSciK2SDLtVkMhjH_TUqjmVOJv1ZlhbGMaLg8di0dymvf4axpg/viewform?usp=sf_link' target="_blanck"><h4><span className="upload-icon"><i class="upload icon"></i> </span>Upload content</h4> </a>
+                        <a href='https://docs.google.com/forms/d/e/1FAIpQLSciK2SDLtVkMhjH_TUqjmVOJv1ZlhbGMaLg8di0dymvf4axpg/viewform?usp=sf_link' target="_blanck"><h4><span className="upload-icon"><i className="upload icon"></i> </span>Upload content</h4> </a>
                     </span>
             </Nav>
         </Container>

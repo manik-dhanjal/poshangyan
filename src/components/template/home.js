@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import {  Paper } from "@material-ui/core";
-import MuiGrid from "@material-ui/core/Grid";
 import axios from "axios";
 import NoPostFound from "../../UtilViews/nopostfound";
 import PopupPostNotFound from "../../UtilViews/postNotFound";
@@ -12,8 +10,6 @@ import ThemeOfMonth from "../organism/theme-of-month"
 import LatestBehave from "../organism/latest-behavioural"
 import Cards from "../molecules/cards-sm"
 import MostDownloadMedia from "../organism/most-download-media"
-import Footer from "../layout/footer"
-import Header from "../layout/header"
 import { Container } from 'semantic-ui-react'
 export class Feed extends Component {
   constructor() {

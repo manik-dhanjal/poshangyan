@@ -3,7 +3,13 @@ import ReactDOM from "react-dom";
 import { Container } from "semantic-ui-react";
 import { Feed } from "./components/template/feed";
 import home from "./components/template/home";
+import SingleCreative from "./components/template/single-creative"
+import Search from "./components/template/search"
 import Layout from "./components/layout/layout"
+		
+import './assets/fonts/Lato-Bold.ttf'	
+import './assets/fonts/Lato-Regular.ttf'
+import './assets/fonts/Lato-Light.ttf'
 const App = ({ children }) => (
   <div >
     {children}
@@ -27,14 +33,18 @@ axios.defaults.baseURL = "https://poshangyan-backend.herokuapp.com/"
 // axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 ReactDOM.render(
   <App>
-    <Layout>
+  
       <Router>
-      <Switch>
-          <Route exact path='/' component={home} />
-          <Route exact path='/feed2626data' component={Feed} />
-      </Switch>
+        <Layout>
+        <Switch>
+            <Route exact path='/' component={home} />
+            <Route exact path='/feed2626data' component={Feed} />
+            <Route exact path='/search' component={Search}/>
+            <Route exact path='/:theme/:title' component={SingleCreative}/>
+        </Switch>
+       </Layout>
       </Router>
-    </Layout>
+ 
   </App>,
   document.getElementById("root")
 );

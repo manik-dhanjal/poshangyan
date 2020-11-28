@@ -10,15 +10,19 @@ h3{
   text-align:center;
   margin-bottom:10px;
 }
+.child-grid{
+  display:flex;
+  justify-content:center;
+}
 `
 const LatestBehaveChild = ({title,data}) => {
     return (
 
             <Div className="child">
                   <h3><strong>{title}</strong></h3>
-                  <MuiGrid container xs={12} sm={12} lg={12} >
+                  <div className="child-grid">
                     {data}
-                  </MuiGrid>
+                  </div>
             </Div>
     )
 }
