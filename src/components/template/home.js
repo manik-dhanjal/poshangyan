@@ -1,20 +1,17 @@
 import React, { Component } from "react";
 import {  Paper } from "@material-ui/core";
 import MuiGrid from "@material-ui/core/Grid";
-import "../../App.css";
 import axios from "axios";
-import SingleComponent from "../../UtilViews/singleCmponent";
-import SingleComponent2 from "../../UtilViews/singleComp2";
 import NoPostFound from "../../UtilViews/nopostfound";
 import PopupPostNotFound from "../../UtilViews/postNotFound";
 import PopupFoundPost from "../../UtilViews/expandDefaultOpen";
-import { Button, Dropdown, Grid, Menu,Pagination,Progress } from "semantic-ui-react";
 import rext from "../../assets/Images/Rectangle1.png";
 import ContactUs from "../../UtilViews/ContactUs";
 import Banner from "../organism/banner";
 import ThemeOfMonth from "../organism/theme-of-month"
 import LatestBehave from "../organism/latest-behavioural"
 import Cards from "../molecules/cards-sm"
+import MostDownloadMedia from "../organism/most-download-media"
 import { Container } from 'semantic-ui-react'
 export class Feed extends Component {
   constructor() {
@@ -458,7 +455,7 @@ export class Feed extends Component {
                 <LatestBehave latest={latestMedia} behave={Behavioral}/>
             </>
           : null}
-          <center>
+          {/* <center>
 
             
             <h1 style={{marginTop:10}} >Most Downloaded Media</h1>
@@ -476,9 +473,10 @@ export class Feed extends Component {
                 style={{margin:10}}
                 onPageChange={this.handlePageChange}
             />
-          </center>
+          </center> */}
+          <MostDownloadMedia post={post} pageNo={this.state.pageNo} totalPage={this.state.totalPage} handlePageChange={this.handlePageChange}/>
         </div>
-        <div style={{ padding: 20, position: "relative" }}>
+        {/* <div style={{ padding: 20, position: "relative" }}>
           <h2><em><strong>Polpular Films</strong></em></h2>
           <h5
             style={{
@@ -493,7 +491,7 @@ export class Feed extends Component {
           <MuiGrid container style={{ padding: 10 }} spacing={3}>
             {popVid}
           </MuiGrid>
-        </div>
+        </div> */}
         <ContactUs />
       </div>
     );

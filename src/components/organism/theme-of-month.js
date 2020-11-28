@@ -7,7 +7,7 @@ const Div = styled.div`
 background:rgb(234,231,199);
 padding:60px 0;
 h2{
-    margin-bottom:40px;
+    margin-bottom:20px;
     text-align:center;
 }
 .grid{

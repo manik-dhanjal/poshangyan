@@ -9,7 +9,7 @@ const Div = styled.div`
 max-width:280px;
 width:100%;
 overflow:hidden;
-margin:0 10px;
+margin:20px 10px;
 display:flex;
 flex-direction:column;
 align-items:center;
@@ -33,6 +33,7 @@ align-items:center;
     .label{
         font-size:1.1em;
         margin-bottom:10px;
+        text-align:center;
     }
     .ui.animated.button {
         background: rgb(340,66,94);

@@ -8,7 +8,7 @@ margin:30px 0;
 padding:30px 0;
 h3{
   text-align:center;
-  margin-bottom:30px;
+  margin-bottom:10px;
 }
 `
 const LatestBehaveChild = ({title,data}) => {
