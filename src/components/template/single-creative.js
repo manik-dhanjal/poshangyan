@@ -12,6 +12,11 @@ min-height:100vh;
     display:flex;
     gap:50px;
 }
+@media screen and (max-width:991px){
+    .main-creative{
+      flex-direction:column;
+    }
+}
 `
 
 const SingleCreative =  ({match}) => {

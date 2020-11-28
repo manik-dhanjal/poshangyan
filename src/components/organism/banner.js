@@ -23,18 +23,16 @@ h1{
     font-weight:600;
 }
 `
-const Banner = (props) => {
+const Banner = ({children}) => {
     return (
         <Div>
             <Container>
               <h1>
-                Use this repository to educate yourself on all the nutrition
-                information. To keep yourself and your loved ones safe and
-                healthy.
+                {children}
               </h1>
 
             <div className="banner-menu">
-              <BannerMenu {...props}/>
+              <BannerMenu/>
             </div>
           </Container>
       </Div>

@@ -430,36 +430,16 @@ export class Feed extends Component {
     ]
     return (
       <div>
-        {popUp}
-
-        {/* Banner of home page */}
-        <Banner menuData={menuData} arrow={this.handleFilter}/>
-        
+        <Banner >
+            Use this repository to educate yourself on all the nutrition
+            information. To keep yourself and your loved ones safe and
+            healthy.
+        </Banner>
         <div style={{ background: "rgb(234,231,199)" }}>
-         { !this.state.here 
-          ? <>
-                <ThemeOfMonth> {them} </ThemeOfMonth>
-                <LatestBehave latest={latestMedia} behave={Behavioral}/>
-            </>
-          : null}
+          <ThemeOfMonth> {them} </ThemeOfMonth>
+          <LatestBehave latest={latestMedia} behave={Behavioral}/>
           <MostDownloadMedia post={post} pageNo={this.state.pageNo} totalPage={this.state.totalPage} handlePageChange={this.handlePageChange}/>
         </div>
-        {/* <div style={{ padding: 20, position: "relative" }}>
-          <h2><em><strong>Polpular Films</strong></em></h2>
-          <h5
-            style={{
-              position: "absolute",
-              right: "8px",
-              color: "red",
-              top: "0px"
-            }}
-          >
-            {"view all> "}
-          </h5>
-          <MuiGrid container style={{ padding: 10 }} spacing={3}>
-            {popVid}
-          </MuiGrid>
-        </div> */}
         <ContactUs />
       </div>
     );

@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from "styled-components"
 import { Player,LoadingSpinner,BigPlayButton } from 'video-react';
+
 const Div = styled.div`
 
 `

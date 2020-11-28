@@ -14,8 +14,9 @@ h4{
     background:white;
     border-radius:15px;
     padding:20px 30px;
-    display:flex;
+    display:grid;
     align-items:center;
+    grid-template-columns:70px 1fr 1fr;
     .mp4-logo{
         width:60px;
     }
@@ -60,6 +61,22 @@ h4{
         }
     }
 }    
+@media screen and (max-width:991px){
+    h1,h2,h4{
+        text-align:center;
+    }
+    .download-card{
+        grid-template-rows:1fr 1fr;
+    }
+    .heads{
+        grid-column:1/2;
+        grid-row:0/1;
+    }
+    .download-btn{
+        grid-column:1/2;
+        grid-row:1/2;
+    }
+}
 `
 const CreativeDetails = ({showFileName,themes,source,Key,_id,downloadsCount,mimetype}) => {
     const downloadImage = (filename) => {
