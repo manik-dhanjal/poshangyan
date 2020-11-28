@@ -242,8 +242,8 @@ export class Feed extends Component {
       let post=null,them=null,popVid=null,latestMedia=null,Behavioral=null;
     if(posts) post = posts.map(pos => <Cards post={pos} fromPos='true' key={pos.postId} /> )
     if(post && posts.length==0) post = <NoPostFound />
-    if(themeOfTheMonth) them = themeOfTheMonth.map(pos => <Cards post={pos} key={pos.postId} /> )
-    if(popularVideos) popVid = popularVideos.map(pos => <Cards post={pos} key={pos.postId} /> )
+    if(themeOfTheMonth) them = themeOfTheMonth.map(pos => <Cards post={pos} key={pos.postId} fromPos='true'/> )
+    if(popularVideos) popVid = popularVideos.map(pos => <Cards post={pos} key={pos.postId} fromPos='true'/> )
 
 
     var themeArray = [],
@@ -266,8 +266,8 @@ export class Feed extends Component {
       behav = posts.slice(5,5+2);
     }
 
-    if(latestPosts) latestMedia = latestPosts.map(pos => <Cards post={pos} key={pos.postId} /> )
-    if(behav) Behavioral = behav.map(pos => <Cards post={pos} key={pos.postId} /> )
+    if(latestPosts) latestMedia = latestPosts.map(pos => <Cards post={pos} key={pos.postId} fromPos='true'/> )
+    if(behav) Behavioral = behav.map(pos => <Cards post={pos} key={pos.postId} fromPos='true'/> )
     
 
     var themes = [
