@@ -1,10 +1,12 @@
 
 // downloadsCount 
 // viewsCount
+const { update } = require('../schema/postSchema');
 const Post = require('../schema/postSchema')
 exports.getFilteredInfo = (req, res) => {
+
   // var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
-  //   var removed = arr.splice(2,1); //removes one element starting from 2
+  // var removed = arr.splice(2,1); //removes one element starting from 2
   // themes: this.state.themes.toString(),
   // languages: this.state.languages.toString(),
   // label: this.state.label.toString(),
@@ -12,8 +14,9 @@ exports.getFilteredInfo = (req, res) => {
   // mediaType: this.state.mediaType.toString(),
   // dataAddedBy: this.state.name.toString(),
   // targetAudience: this.state.targetAudience.toString(),
+
   console.log(req.body)
-  let filter = {} ;
+  let filter = {};
   if(req.body.themes && !(req.body.themes.toLowerCase().includes('any')||req.body.themes.toLowerCase().includes('all')||req.body.themes=='')){
     filter.themes = req.body.themes;
   }
@@ -34,7 +37,6 @@ exports.getFilteredInfo = (req, res) => {
   Post.find()
     .sort({ downloadsCount: -1 })
     // .orderBy('viewsCount','desc')
-    .limit(100)
     .then(dat=>{
       let posts=[];
       dat.forEach((doc)=> { 
@@ -108,7 +110,6 @@ exports.getThemeoftheMonth = (req, res) => {
   Post.find()
     .sort({ downloadsCount: -1 })
     // .orderBy('viewsCount','desc')
-    .limit(100)
     .then(dat=>{
       let posts=[];
       dat.forEach(function(doc) { 
@@ -124,11 +125,26 @@ exports.getThemeoftheMonth = (req, res) => {
 exports.getPolularVideos = (req, res) => {
   Post.find()
     .sort({ downloadsCount: -1 })
-    .limit(100)
     .then(dat=>{
       let posts=[];
       dat.forEach((doc)=> { 
         if(doc.mimetype.includes('video'))  posts.push(doc); 
+      });
+      return res.json(posts);
+    })
+    .catch(err => {
+      console.error(err)
+      res.send({err:'Something Went Wrong!!'})
+    });
+}
+
+exports.getPostInfo = (req,res) =>{
+  Post.find()
+    .sort({ downloadsCount: -1 })
+    .then(dat=>{
+      let posts=[];
+      dat.forEach((doc)=> { 
+        if(doc.postId.includes(req.params.postID))  posts.push(doc); 
       });
       return res.json(posts);
     })
@@ -156,3 +172,69 @@ exports.addDownloadCount = (req, res) => {
       res.send({err:'Something Went Wrong!!'})
     })
 }
+
+exports.addDownloadCount = (req, res) => {
+  let currpost=[];
+  console.log(req.body)
+   Post.findById(req.body._id)
+    .then((pos)=>{
+      pos.downloadsCount = pos.downloadsCount + 1;
+      currpos = pos;
+      console.log(pos)
+      return pos.save();
+    })
+    .then(()=>{
+      res.status(200).send({message:'Success'})
+    })
+    .catch((err)=>{
+      console.error(err)
+      res.send({err:'Something Went Wrong!!'})
+    })
+}
+exports.addDownl = (req, res) => {
+  let currpost=[];
+  console.log(req.body)
+   Post.findById("5fbd3f1f5296ae2e50fdaaf2")
+    .then((pos)=>{
+      pos.themes = "Complementary Feeding";
+      currpos = pos;
+      console.log(pos)
+      return pos.save();
+    })
+    .then(()=>{
+      res.status(200).send({message:'Success'})
+    })
+    .catch((err)=>{
+      console.error(err)
+      res.send({err:'Something Went Wrong!!'})
+    })
+}
+// exports.update = (req, res) => {
+//   Post.find()
+//     .sort({ downloadsCount: -1 })
+//     // .orderBy('viewsCount','desc')
+//     .limit(100)
+//     .then(dat=>{
+//       let posts=[];
+//       dat.forEach(function(doc) { 
+//         // if(doc.mimetype.includes('image')) posts.push(doc); 
+//         let ID=  doc.showFileName.toLowerCase().split(' ').join("-");
+//         posts.push(ID);
+//         upda(doc,ID);
+//       });
+//       return res.send(posts);
+//     })
+//     .catch(err => {
+//       console.error(err)
+//       res.send({err:'Something Went Wrong!!'})
+//     });
+// }
+
+// function upda(doc,ID)  {
+//   Post.findById(doc._id)
+//   .then((pos)=>{
+//     pos.postId = ID;
+//     console.log(pos)
+//     pos.save();
+//   })
+// }

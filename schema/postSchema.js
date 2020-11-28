@@ -70,7 +70,8 @@ const PostSchema = new Schema({
   },
   postId: {
     type: String,
-    required: 'postId is required'
+    required: 'postId is required',
+    unique:true
   },
   thumbshowFileName: {
     type: String,

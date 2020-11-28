@@ -35,13 +35,21 @@ app.get('/', upload.single('file'), (req, res) => {
         message: "All Ok"
     })
 })
-const { getFilteredInfo,getThemeoftheMonth,getPolularVideos,addDownloadCount } = require('./postHandlers/info');
+const { 
+    getFilteredInfo,getThemeoftheMonth,getPolularVideos,addDownloadCount ,
+    //  update 
+    getPostInfo
+    } 
+     = require('./postHandlers/info');
 const {uploadFile} = require('./postHandlers/upload')
 app.post('/upload', uploadFile)
 app.post('/getFilteredInfo', getFilteredInfo)
-app.get('/getPopolarVideos',upload.single('file'), getPolularVideos)
+// app.post('/getFilteredInfo', getFilteredInfo)
+app.get('/posts/:postID', getPostInfo)
+app.get('/getPopolarVideos', getPolularVideos)
 app.get('/getThemesOfTheMonth', getThemeoftheMonth)
 app.post('/addDownload',addDownloadCount)
+// app.post('/update',update)
 
 
 
