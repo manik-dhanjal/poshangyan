@@ -37,6 +37,7 @@ align-items:center;
         font-size:1.1em;
         margin-bottom:10px;
         text-align:center;
+        color:black;
     }
     .ui.animated.button {
         background: rgb(340,66,94);
@@ -83,7 +84,7 @@ const Cards = ({post,fromPos}) => {
       }  
     return (
         <Div>
-                <Link to={`/${post.themes.trim().replace(/\s/g,"-").toLowerCase()}/${post.postId}`} className="link">
+                <Link to={`${post.themes.trim().replace(/\s/g,"-").toLowerCase()}/${post.postId}`} className="link">
                   <div className="card-thumbnail" style={{background:`center / cover no-repeat url(${thumbLocation||Location})`}}>
                     { mimetype.includes('video') ? <img src={play} className="play-btn"/> :null }
                   </div>

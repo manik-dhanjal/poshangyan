@@ -5,14 +5,15 @@ import Cards from "../molecules/cards-sm"
 import axios from "axios";
 const Div = styled.div`
 padding:60px 0px;
-h2{
-    text-align:center;
-}
+
 .grid-search{
     display:flex;
     flex-wrap:wrap;
     justify-content:start;
     gap:10px;
+    h2{
+        text-align:center;
+    }
 }
 `
 const SearchResults = ({query}) => {
@@ -44,8 +45,8 @@ const SearchResults = ({query}) => {
             <Container>
                 <div className="grid-search">
                     {data.post&&data.post.length>0? 
-                        data.post.map(post=> <Cards post={post} key={post.postId} />)
-                    :<h2>Sorry We are not able to find Data</h2>}
+                        data.post.map(post=> <Cards post={post} key={post.postId} fromPos={true}/>)
+                    :<h2>Getting Search results ...</h2>}
                 </div>
             </Container>
         </Div>
