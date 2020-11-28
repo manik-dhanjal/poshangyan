@@ -12,6 +12,8 @@ import ThemeOfMonth from "../organism/theme-of-month"
 import LatestBehave from "../organism/latest-behavioural"
 import Cards from "../molecules/cards-sm"
 import MostDownloadMedia from "../organism/most-download-media"
+import Footer from "../layout/footer"
+import Header from "../layout/header"
 import { Container } from 'semantic-ui-react'
 export class Feed extends Component {
   constructor() {
@@ -241,8 +243,6 @@ export class Feed extends Component {
     var themeOfTheMonth = this.state.themeOfTheMonth ? this.state.themeOfTheMonth.slice(0,4)  : null;
     var popularVideos = this.state.popularVid ? this.state.popularVid.slice(0,4) : null
     var posts = this.state.posts ? this.state.posts.slice((currPage-1)*12,currPage*12) : null
-    var link =
-      "https://poshangyan.s3.ap-south-1.amazonaws.com/niti-aayog-logo.png";
       let post=null,them=null,popVid=null,latestMedia=null,Behavioral=null;
     if(posts) post = posts.map(pos => <Cards post={pos} fromPos='true' key={pos.postId} /> )
     if(post && posts.length==0) post = <NoPostFound />
@@ -287,7 +287,8 @@ export class Feed extends Component {
       "Millet",
       "Food Fortication ",
       "Girls Education, Diet & Right Age of Marriage",
-      "Poshan Pakhwada"
+      "Poshan Pakhwada",
+      "Complementary Feeding"
     ];
     var langs = [
       "Assamese",
@@ -434,16 +435,7 @@ export class Feed extends Component {
     return (
       <div>
         {popUp}
-        <Paper variant="outlined" style={{ width: "100%" }} >
-          <span>
-            <img src={link} style={{ height: 50, margin: 4 }} alt="logo" />
-          </span>
-
-          <span style={{ float: "right", marginRight: 10, marginTop: 20 }}>
-            <a href='https://docs.google.com/forms/d/e/1FAIpQLSciK2SDLtVkMhjH_TUqjmVOJv1ZlhbGMaLg8di0dymvf4axpg/viewform?usp=sf_link' target="_blanck"> <h4>Upload content</h4> </a>
-          </span>
-        </Paper>
-
+        <Header/>
 
         {/* Banner of home page */}
         <Banner menuData={menuData} arrow={this.handleFilter}/>
@@ -455,25 +447,6 @@ export class Feed extends Component {
                 <LatestBehave latest={latestMedia} behave={Behavioral}/>
             </>
           : null}
-          {/* <center>
-
-            
-            <h1 style={{marginTop:10}} >Most Downloaded Media</h1>
-            <MuiGrid container style={{ padding: 10 }} spacing={3}>
-              {post}
-            </MuiGrid>
-            <Pagination
-               boundaryRange={0}
-                defaultActivePage={this.state.pageNo}
-                ellipsisItem={null}
-                firstItem={null}
-                lastItem={null}
-                siblingRange={1}
-                totalPages={this.state.totalPage}
-                style={{margin:10}}
-                onPageChange={this.handlePageChange}
-            />
-          </center> */}
           <MostDownloadMedia post={post} pageNo={this.state.pageNo} totalPage={this.state.totalPage} handlePageChange={this.handlePageChange}/>
         </div>
         {/* <div style={{ padding: 20, position: "relative" }}>
@@ -493,6 +466,7 @@ export class Feed extends Component {
           </MuiGrid>
         </div> */}
         <ContactUs />
+        <Footer/>
       </div>
     );
   }
