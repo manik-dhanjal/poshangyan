@@ -8,6 +8,12 @@ background:rgb(234,231,199);
 padding:60px 0;
 h2{
     margin-bottom:40px;
+    text-align:center;
+}
+.grid{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:space-between;
 }
 `
 const ThemeOfMonth = ({children}) => {
@@ -15,9 +21,9 @@ const ThemeOfMonth = ({children}) => {
         <Div>
             <Container>
                 <h2>Theme of the month</h2>
-                <MuiGrid container spacing={3}>
+                <div className="grid">
                  {children}
-                </MuiGrid>
+                </div>
             </Container>
         </Div>
     )

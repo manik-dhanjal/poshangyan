@@ -99,22 +99,16 @@ marginTop: 4}} >
       }}
       open={open}
       trigger={
-    //   <Button animated='vertical' className= "bottomLeft" style={{background:'#EF5287',opacity: '0.5'}}>
-    //   <Button.Content hidden style={{ color: 'white' }}>Expand</Button.Content>
-    //   <Button.Content visible>
-    //     <Icon name='external alternate' inverted  />
-    //   </Button.Content>
-    // </Button>
     <img
                     src={back}
                     alt="asd"
                     style={{
                       objectFit: "cover",
-                      minWidth: "100%",
-                      marginBottom: -5,
+                      
                       objectPosition: "center",
                       height: 200,
                     }}
+                    className="thumbnail"
                   />
     }
     >

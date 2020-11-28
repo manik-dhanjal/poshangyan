@@ -57,7 +57,7 @@ export class SingleComponent extends Component {
          let link = document.createElement("a");
          link.href = url;
          link.setAttribute('download', filename);
-          link.click();
+        link.click();
 
         // console.log(url);
   }
@@ -114,7 +114,7 @@ export class SingleComponent extends Component {
    if(mimetype.includes('video')) playBtn = <ReactPlayer post={this.props.post} src={Location} />
   //  console.log(post)
     return (
-      <Grid xs={12} item sm={6} lg={6} style={{marginTop:5}}  >
+      <Grid xs={12} item sm={6} lg={6} style={{marginTop:5,overflow:"hidden"}}>
                 <ExpandView post={this.props.post} />
         <center>
                 <Paper className="paper" style={{ overflow: "hidden" }}>

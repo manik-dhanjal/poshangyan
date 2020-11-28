@@ -13,6 +13,8 @@ import rext from "../../assets/Images/Rectangle1.png";
 import ContactUs from "../../UtilViews/ContactUs";
 import Banner from "../organism/banner";
 import ThemeOfMonth from "../organism/theme-of-month"
+import LatestBehave from "../organism/latest-behavioural"
+import Cards from "../molecules/cards-sm"
 import { Container } from 'semantic-ui-react'
 export class Feed extends Component {
   constructor() {
@@ -245,10 +247,10 @@ export class Feed extends Component {
     var link =
       "https://poshangyan.s3.ap-south-1.amazonaws.com/niti-aayog-logo.png";
       let post=null,them=null,popVid=null,latestMedia=null,Behavioral=null;
-    if(posts) post = posts.map(pos => <SingleComponent post={pos} fromPos='true' key={pos.postId} /> )
+    if(posts) post = posts.map(pos => <Cards post={pos} fromPos='true' key={pos.postId} /> )
     if(post && posts.length==0) post = <NoPostFound />
-    if(themeOfTheMonth) them = themeOfTheMonth.map(pos => <SingleComponent post={pos} key={pos.postId} /> )
-    if(popularVideos) popVid = popularVideos.map(pos => <SingleComponent post={pos} key={pos.postId} /> )
+    if(themeOfTheMonth) them = themeOfTheMonth.map(pos => <Cards post={pos} key={pos.postId} /> )
+    if(popularVideos) popVid = popularVideos.map(pos => <Cards post={pos} key={pos.postId} /> )
 
 
     var themeArray = [],
@@ -271,8 +273,8 @@ export class Feed extends Component {
       behav = posts.slice(5,5+2);
     }
 
-    if(latestPosts) latestMedia = latestPosts.map(pos => <SingleComponent2 post={pos} key={pos.postId} /> )
-    if(behav) Behavioral = behav.map(pos => <SingleComponent2 post={pos} key={pos.postId} /> )
+    if(latestPosts) latestMedia = latestPosts.map(pos => <Cards post={pos} key={pos.postId} /> )
+    if(behav) Behavioral = behav.map(pos => <Cards post={pos} key={pos.postId} /> )
     
 
     var themes = [
@@ -449,53 +451,13 @@ export class Feed extends Component {
         {/* Banner of home page */}
         <Banner menuData={menuData} arrow={this.handleFilter}/>
         
-        <div style={{ background: "#DEE3D0" }}>
-         { !this.state.here? <center>
-          <ThemeOfMonth> {them} </ThemeOfMonth>
-          
-            {/* <h1 style={{ paddingTop: 10 }}>Theme of the month</h1>
-            <MuiGrid container style={{ padding: 10 }} spacing={3}>
-              {them}
-            </MuiGrid> */}
-            <MuiGrid container spacing={3}>
-              <MuiGrid container item xs={12} sm={6} style={{marginLeft:5,marginTop:5}} lg={6} spacing={3}>
-                <div style={{ padding: 12,width:'100%', position: "relative",background:'#ffffff' }}>
-                  <h3><strong>Latest Media</strong></h3>
-                  <h5 style={{
-                      position: "absolute",
-                      right: "8px",
-                      color: "red",
-                      top: "0px"
-                    }}
-                  >
-                    {"view all > "}
-                  </h5>
-                  <MuiGrid container xs={12} sm={12} lg={12} style={{padding:5}}  spacing={3}>
-                    {latestMedia}
-                  </MuiGrid>
-                </div>
-              </MuiGrid>
-              <MuiGrid container item xs={12} sm={6} style={{marginLeft:5,marginTop:5}} lg={6} spacing={3}>
-              <div style={{ padding: 12,width:'100%', position: "relative",background:'#ffffff' }}>
-                      <h3><strong>Applying Behavioural Insights</strong></h3>
-                      <h5
-                        style={{
-                          position: "absolute",
-                          right: "8px",
-                          color: "red",
-                          top: "0px"
-                        }}
-                      >
-                        {"view all> "}
-                      </h5>
-                      <MuiGrid container xs={12} sm={12} lg={12} style={{padding:5}} spacing={3}>
-                        {Behavioral}
-                      </MuiGrid>
-                    </div>
-              </MuiGrid>
-            </MuiGrid>
-          </center>
-          :null}
+        <div style={{ background: "rgb(234,231,199)" }}>
+         { !this.state.here 
+          ? <>
+                <ThemeOfMonth> {them} </ThemeOfMonth>
+                <LatestBehave latest={latestMedia} behave={Behavioral}/>
+            </>
+          : null}
           <center>
 
             
