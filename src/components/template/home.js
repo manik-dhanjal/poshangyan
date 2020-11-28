@@ -435,7 +435,6 @@ export class Feed extends Component {
     return (
       <div>
         {popUp}
-        <Header/>
 
         {/* Banner of home page */}
         <Banner menuData={menuData} arrow={this.handleFilter}/>
@@ -466,7 +465,6 @@ export class Feed extends Component {
           </MuiGrid>
         </div> */}
         <ContactUs />
-        <Footer/>
       </div>
     );
   }

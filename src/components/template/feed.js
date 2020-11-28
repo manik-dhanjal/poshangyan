@@ -264,6 +264,7 @@ export class Feed extends Component {
       "Diarrhoea Management",
       "Diet Diversity/ Overall Nutrition",
       "Millet",
+      "Complementary Feeding",
       "Food Fortication ",
       "Girls Education, Diet & Right Age of Marriage",
       "Poshan Pakhwada"

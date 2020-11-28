@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import { Container } from "semantic-ui-react";
 import { Feed } from "./components/template/feed";
 import home from "./components/template/home";
-
+import Layout from "./components/layout/layout"
 const App = ({ children }) => (
   <div >
     {children}
@@ -26,16 +26,15 @@ axios.defaults.baseURL = "https://poshangyan-backend.herokuapp.com/"
 // axios.defaults.headers.common['Access-Control-Allow-Headers'] = 'Origin, X-Requested-With, Content-Type, Accept'
 // axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 ReactDOM.render(
-  <App 
-  style={{minWidth:600}}
-   >
-
-    <Router>
-    <Switch>
-         <Route exact path='/' component={home} />
-         <Route exact path='/feed2626data' component={Feed} />
-    </Switch>
-    </Router>
+  <App>
+    <Layout>
+      <Router>
+      <Switch>
+          <Route exact path='/' component={home} />
+          <Route exact path='/feed2626data' component={Feed} />
+      </Switch>
+      </Router>
+    </Layout>
   </App>,
   document.getElementById("root")
 );
