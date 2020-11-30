@@ -1,7 +1,6 @@
 import React from 'react'
 import styled from "styled-components"
-import MuiGrid from "@material-ui/core/Grid";
-
+import ViewAllBtn from "../atom/view-all-btn"
 const Div = styled.div`
 width:50%;
 margin:30px 0;
@@ -14,6 +13,7 @@ h3{
   display:flex;
   justify-content:center;
 }
+
 `
 const LatestBehaveChild = ({title,data}) => {
     return (
@@ -23,6 +23,7 @@ const LatestBehaveChild = ({title,data}) => {
                   <div className="child-grid">
                     {data}
                   </div>
+                  <ViewAllBtn url={"/search?Theme=any"}/>
             </Div>
     )
 }

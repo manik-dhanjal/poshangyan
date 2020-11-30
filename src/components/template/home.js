@@ -438,7 +438,7 @@ export class Feed extends Component {
         <div style={{ background: "rgb(234,231,199)" }}>
           <ThemeOfMonth> {them} </ThemeOfMonth>
           <LatestBehave latest={latestMedia} behave={Behavioral}/>
-          <MostDownloadMedia post={post} pageNo={this.state.pageNo} totalPage={this.state.totalPage} handlePageChange={this.handlePageChange}/>
+          <MostDownloadMedia post={post}/>
         </div>
         <ContactUs />
       </div>
