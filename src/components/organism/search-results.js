@@ -10,7 +10,6 @@ padding:60px 0px;
     display:flex;
     flex-wrap:wrap;
     justify-content:start;
-    gap:10px;
     h2{
         text-align:center;
     }

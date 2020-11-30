@@ -14,7 +14,7 @@ h2{
 .grid{
     display:flex;
     flex-wrap:wrap;
-    justify-content:space-between;
+    justify-content:center;
 }
 .view{
     text-align:right;

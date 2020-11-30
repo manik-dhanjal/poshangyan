@@ -13,7 +13,7 @@ margin:10px 0 20px 0;
 .grid{
     display:flex;
     flex-wrap:wrap;
-    justify-content:space-between;
+    justify-content:center;
 }
 .message{
     text-align:center;
