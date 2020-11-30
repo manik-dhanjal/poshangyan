@@ -1,13 +1,12 @@
 import axios from "axios";
-
-const downloadedMediaApi = async () =>{
+const allData = async () =>{
   try{
       const posts = await axios.post("/getFilteredInfo");
-      return  posts.data.slice(0,8)
+      return  posts.data;
   }
   catch(e){
       console.log(e)
       return []
   }
 }
-export default downloadedMediaApi;
+export default allData;

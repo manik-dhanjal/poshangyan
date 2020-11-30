@@ -133,7 +133,8 @@ const dropData=[
         options:[
             'Any',
             'Children under 5',
-            'Adolescent Girls Mothers',
+            'Adolescent Girls',
+            'Mothers',
             'Pregnant Women',
             'PRI member',
             'Civil society',

@@ -313,7 +313,7 @@ export class Feed extends Component {
         value: langs[i]
       });
     }
-    var target = ['Children under 5','Adolescent Girls Mothers','Pregnant Women','PRI member','other']
+    var target = ['Children under 5','Adolescent Girls',' Mothers','Pregnant Women','PRI member','other']
     var targetArray = [];
     for (var i = 0; i < target.length; i++) {
       targetArray.push({
