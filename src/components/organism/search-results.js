@@ -19,6 +19,7 @@ padding:60px 0px;
 const SearchResults = ({query}) => {
     const [data, setData] = useState({})
     useEffect(()=>{
+        
         var FilterData = {
             themes:         query.Themes?query.Themes.toString():null,
             languages:      query.Languages?query.Languages.toString():null,
@@ -32,9 +33,23 @@ const SearchResults = ({query}) => {
               var ans=0;
               if(l%8) ans++;
               ans+=Math.floor(l/8);
-              console.log(res)
+              var sortedRes;
+              
+              switch(query.sort?query.sort[0]:""){
+                case "download":{
+                    sortedRes = res.data.sort((a,b)=> b.downloadsCount-a.downloadsCount)
+                    break;
+                }
+                case "date":{
+                    sortedRes = res.data.sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt) )
+                    break;
+                }
+                default:{
+                    sortedRes = res.data.sort((a,b)=> b.downloadsCount-a.downloadsCount)
+                }
+            }
                 setData({
-                   post:res.data,
+                   post:sortedRes,
                    pageno:1,
                    totalpage:ans, 
                 })

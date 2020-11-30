@@ -20,7 +20,7 @@ margin:10px 0 20px 0;
 }
 `
 const MostDownloadMedia = ({post}) => {
-    const slicedData = post.data.slice(0,8)
+    const slicedData = post.data.sort((a,b)=> b.downloadsCount-a.downloadsCount).slice(0,8)
     console.log(post,"media")
     return (
         <Div>
@@ -37,7 +37,7 @@ const MostDownloadMedia = ({post}) => {
                             :<h3 className="message">Unable to find Your Data ...</h3>
                        ) 
                 }
-                 <ViewAllBtn url="/search"/>
+                 <ViewAllBtn url="/search?sort=download"/>
             </Container>
         </Div>
     )

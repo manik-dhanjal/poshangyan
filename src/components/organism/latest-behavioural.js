@@ -18,8 +18,8 @@ const LatestBehave = ({post}) => {
         <Div>
             <Container>
                 <MuiGrid container spacing={3} >
-                    <LatestBehaveChild title={"Latest Media"} data={latestData} status={post.status} className="cont"/>
-                    <LatestBehaveChild title={"Applying Behavioural Insights"} data={behaveData}  status={post.status} className="cont"/>
+                    <LatestBehaveChild title={"Latest Media"} data={latestData} status={post.status} className="cont" url={"/search?Themes=Any&sort=date"}/>
+                    <LatestBehaveChild title={"Applying Behavioural Insights"} data={behaveData}  status={post.status} className="cont" url={"/search?Themes=Behavioural Insights"}/>
                 </MuiGrid>
             </Container>
         </Div>

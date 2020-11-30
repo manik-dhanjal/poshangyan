@@ -16,7 +16,7 @@ h3{
 }
 
 `
-const LatestBehaveChild = ({title,data,status}) => {
+const LatestBehaveChild = ({title,data,status,url}) => {
     return (
 
             <Div className="child">
@@ -32,7 +32,7 @@ const LatestBehaveChild = ({title,data,status}) => {
                             :<h3 className="message">Unable to find Your Data ...</h3>
                        ) 
                 }
-                  <ViewAllBtn url={"/search?Theme=any"}/>
+                  <ViewAllBtn url={url}/>
             </Div>
     )
 }
