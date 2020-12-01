@@ -2,6 +2,7 @@ import React from 'react'
 import styled from "styled-components"
 import ViewAllBtn from "../atom/view-all-btn"
 import Cards from "../molecules/cards-sm"
+import { Grid, Image } from 'semantic-ui-react'
 const Div = styled.div`
 width:50%;
 margin:30px 0;
@@ -23,7 +24,18 @@ const LatestBehaveChild = ({title,data,status,url}) => {
                   <h3><strong>{title}</strong></h3>
                   {
                     status==="pending"?
-                        <h3 className="message">We Are Getting Your data ...</h3>
+                    <Grid columns='two' divided style={{padding:"30px 40px"}}>
+                      <Grid.Row>
+                        <Grid.Column>
+                          <Image src='https://react.semantic-ui.com/images/wireframe/media-paragraph.png' />
+                        </Grid.Column>
+                        <Grid.Column>
+                          <Image src='https://react.semantic-ui.com/images/wireframe/media-paragraph.png' />
+                        </Grid.Column>
+                      </Grid.Row>
+                    </Grid>
+                   
+
                        :(
                            status==="success"?
                             <div className="child-grid">

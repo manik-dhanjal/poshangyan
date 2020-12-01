@@ -3,6 +3,7 @@ import styled from "styled-components";
 import {Container} from "@material-ui/core"
 import Cards from "../molecules/cards-sm"
 import axios from "axios";
+import PreSearchPost from "../molecules/searching-post"
 const Div = styled.div`
 padding:60px 0px;
 
@@ -79,7 +80,7 @@ const SearchResults = ({query}) => {
                         //     data.post.map(post=> <Cards post={post} key={post.postId} fromPos={true}/>)
                         // :<h2>Getting Search results ...</h2>
                         data.status==="pending"?
-                        <h3>Getting Search results ...</h3>
+                        <PreSearchPost row={3}/>
                         :(
                           data.status==="success"?
                             data.post.map(post=> <Cards post={post} key={post.postId} fromPos={true}/>)

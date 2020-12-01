@@ -4,6 +4,7 @@ import { Container } from '@material-ui/core';
 import ViewAllBtn from "../atom/view-all-btn"
 import axios from "axios"
 import Cards from "../molecules/cards-sm"
+import PreSearchPost from "../molecules/searching-post"
 const Div = styled.div`
 background:rgb(234,231,199);
 padding:60px 0;
@@ -50,7 +51,7 @@ const ThemeOfMonth = () => {
                 <h2>Theme of the month</h2>
                 {
                     post.status==="pending"?
-                        <h3 className="message">We Are Getting Your data ...</h3>
+                    <PreSearchPost/>
                        :(
                            post.status==="success"?
                             <div className="grid">

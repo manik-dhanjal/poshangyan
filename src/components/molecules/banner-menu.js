@@ -28,7 +28,7 @@ padding:10px 20px;
 .submit-btn{
     width:50px;
 }
-.css-11unzgr {
+.select-cont>div>div:nth-of-type(1)>div>div:nth-of-type(2)>div {
     overflow-x: hidden;
    }
    

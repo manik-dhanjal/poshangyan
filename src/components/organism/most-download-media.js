@@ -7,7 +7,7 @@ import ViewAllBtn from "../atom/view-all-btn"
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
-
+import PreSearchPost from "../molecules/searching-post"
 
 const Div = styled.div`
 padding:60px 0;
@@ -71,11 +71,8 @@ const MostDownloadMedia = ({post}) => {
             <Container>
                 <h2>Most Downloaded Media</h2>
                 {
-
-                }
-                {
                     post.status==="pending"?
-                        <h3 className="message">We Are Getting Your data ...</h3>
+                        <PreSearchPost row={2}/>
                        :(
                            post.status==="success"?
                             <Slider {...settings}>
