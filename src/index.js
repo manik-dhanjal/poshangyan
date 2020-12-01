@@ -1,7 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Container } from "semantic-ui-react";
-import { Feed } from "./components/template/feed";
 import Home from "./components/template/home";
 import SingleCreative from "./components/template/single-creative"
 import Search from "./components/template/search"
@@ -38,7 +37,6 @@ ReactDOM.render(
         <Layout>
         <Switch>
             <Route exact path='/' component={Home} />
-            <Route exact path='/feed2626data' component={Feed} />
             <Route exact path='/search' component={Search}/>
             <Route exact path='/:theme/:title' component={SingleCreative}/>
         </Switch>

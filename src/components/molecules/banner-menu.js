@@ -28,10 +28,14 @@ padding:10px 20px;
 .submit-btn{
     width:50px;
 }
+.css-11unzgr {
+    overflow-x: hidden;
+   }
+   
 `
 
 
-const BannerMenu = () => {
+const BannerMenu = ({query}) => {
    const [params,setParams] =  useState({})
    const [url,setUrl] = useState("")
    const UrlCreater = (e,name) =>{
@@ -55,7 +59,7 @@ const BannerMenu = () => {
     return (
         <Div>
             <div className="menu">
-                {dropData.map( ( menu ,i) =>{
+                {dropData.sort((a,b)=> ('' + a.label).localeCompare(b.label) ).map( ( menu ,i) =>{
                 return  (
                     <div className="select-cont" key={i}>
                          <ReactMultiSelectCheckboxes placeholderButtonLabel={menu.label}  options={menu.options.map(e=>{return {label:e,value:e} })}  onChange={e=>UrlCreater(e,menu.label)}/>

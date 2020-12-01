@@ -6,7 +6,7 @@ import { Container } from '@material-ui/core';
 const Div = styled.div`
 position: relative;
 overflow: visible;
-background: linear-gradient(rgba(0,0,0,0.45),rgba(0,0,0,0.45)),url(${bannerBg});
+background: linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)),url(${bannerBg});
 min-height:400px;
 display:flex;
 flex-direction:column;
@@ -23,7 +23,7 @@ h1{
     font-weight:600;
 }
 `
-const Banner = ({children}) => {
+const Banner = ({children,query}) => {
     return (
         <Div>
             <Container>
@@ -32,7 +32,7 @@ const Banner = ({children}) => {
               </h1>
 
             <div className="banner-menu">
-              <BannerMenu/>
+              <BannerMenu query={query}/>
             </div>
           </Container>
       </Div>

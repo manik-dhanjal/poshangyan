@@ -38,6 +38,7 @@ align-items:center;
         margin-bottom:10px;
         text-align:center;
         color:black;
+        min-height:2.5em;
     }
     .ui.animated.button {
         background: rgb(340,66,94);
