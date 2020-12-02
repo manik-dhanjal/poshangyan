@@ -61,6 +61,21 @@ h4{
         }
     }
 }    
+.details-table{
+    margin:30px 0 50px 0;
+    border:1px solid black;
+    border-collapse: collapse;
+    td{
+        border:1px solid black;
+        padding:8px 15px;
+        min-width:150px;
+        max-width:300px;
+    }
+    .label{
+        font-weight:600;
+        font-weight:1.1em;
+    }
+}
 @media screen and (max-width:991px){
     h1,h2,h4{
         text-align:center;
@@ -78,7 +93,8 @@ h4{
     }
 }
 `
-const CreativeDetails = ({showFileName,themes,source,Key,_id,downloadsCount,mimetype}) => {
+const CreativeDetails = ({showFileName,themes,source,Key,_id,downloadsCount,mimetype,targetAudience,mediaType,languages}) => {
+    
     const downloadImage = (filename) => {
         const s3 = new AWS.S3({
          accessKeyId: process.env.REACT_APP_ACCESS_ID,
@@ -117,7 +133,20 @@ const CreativeDetails = ({showFileName,themes,source,Key,_id,downloadsCount,mime
     return (
         <Div>
             <h1>{showFileName}</h1>
-            <h4>Theme: {themes}</h4>
+            {/* <div className="details-table">
+                    <div className="label">Themes</div><div className="value">{themes}</div>
+                    <div className="label">Media Type</div><div className="value">{mediaType}</div>
+                    <div className="label">Source</div><div className="value">{source}</div>
+                    <div className="label">Languages</div><div className="value">{languages}</div>
+                    <div className="label">Target Audience</div><div className="value">{targetAudience}</div>
+            </div> */}
+            <table className="details-table">
+                <tr><td className="label">Themes </td>  <td className="value">{themes} </td></tr>
+                <tr><td className="label">Media Type </td>  <td className="value">{mediaType} </td></tr>
+                <tr><td className="label">Source </td>  <td className="value">{source} </td></tr>
+                <tr><td className="label">Languages </td>  <td className="value">{languages} </td></tr>
+                <tr><td className="label">Target Audience </td>  <td className="value">{targetAudience} </td></tr>
+            </table>
             <div className="download-card">
                 <div className="mp4-logo">
                     {
@@ -141,9 +170,9 @@ const CreativeDetails = ({showFileName,themes,source,Key,_id,downloadsCount,mime
             </div>
             <h2>Share With Others</h2>
             <div className="social-share">
-                <a className="facebook" href={'https://www.facebook.com/share.php?u='+encodeURIComponent(window.location.href)} target='_blank'><i class="facebook f icon"></i></a>
-                <a className="twitter" href={'https://twitter.com/intent/tweet?text='+encodeURIComponent(window.location.href)} target='_blank'><i class="twitter icon"></i></a>
-                <a className="whatsapp"  href={'https://api.whatsapp.com/send/?phone&text='+encodeURIComponent(window.location.href)} target='_blank'><i class="whatsapp icon"></i></a>
+                <a className="facebook" href={'https://www.facebook.com/share.php?u='+encodeURIComponent(window.location.href)} target='_blank'><i className="facebook f icon"></i></a>
+                <a className="twitter" href={'https://twitter.com/intent/tweet?text='+encodeURIComponent(window.location.href)} target='_blank'><i className="twitter icon"></i></a>
+                <a className="whatsapp"  href={'https://api.whatsapp.com/send/?phone&text='+encodeURIComponent(window.location.href)} target='_blank'><i className="whatsapp icon"></i></a>
             </div>
         </Div>
     )

@@ -23,6 +23,7 @@ const SingleCreative =  ({match}) => {
     const [data,setData] = useState({});
    useEffect(() => {
     axios.get('/posts/'+match.params.title).then((response)=>{
+        console.log(response.data[0])
         setData(response.data[0])
     })
    }, [])
@@ -31,6 +32,7 @@ const SingleCreative =  ({match}) => {
             <Container>
                 <div className="main-creative">
                     <CreativeImage location={data.Location} thumbnail={data.thumbLocation} mime={data.mimetype}/>
+                    
                     <CreativeDetails {...data}/>
                 </div>
             </Container>
