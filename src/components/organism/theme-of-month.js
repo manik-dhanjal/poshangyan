@@ -13,13 +13,30 @@ h2{
     text-align:center;
 }
 .grid{
-    display:flex;
-    flex-wrap:wrap;
-    justify-content:center;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    &>div{
+        justify-self:center;
+    }
 }
 .view{
     text-align:right;
     color:black;
+}
+@media screen and (max-width:1024px){
+    .grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+}
+@media screen and (max-width:720px){
+    .grid{
+        grid-template-columns:repeat(1,1fr);
+        &>div{
+            &:nth-of-type(4),:nth-of-type(3){
+                display:none;
+            }
+        }
+    }
 }
 `
 const ThemeOfMonth = () => {

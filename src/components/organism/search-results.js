@@ -19,6 +19,11 @@ padding:60px 0px;
 .message{
     text-align:center;
 }
+.pagination-custom>div{
+    margin:30px auto !important;
+    display: flex !important;
+    width: min-content;
+}
 `
 const SearchResults = ({query}) => {
     const [data, setData] = useState({
@@ -27,8 +32,8 @@ const SearchResults = ({query}) => {
         totalpage:1, 
         status:"pending"
     })
-    const handlePageChange = (e) =>{
-        console.log(e)
+    const handlePageChange = (e,i) =>{
+      setData({...data,pageno:i.activePage}) 
     }
     useEffect(()=>{
         (async ()=>{
@@ -44,8 +49,8 @@ const SearchResults = ({query}) => {
                   
                 var l = res.data.length;
                 var ans=0;
-                if(l%8) ans++;
-                ans+=Math.floor(l/8);
+                if(l%12) ans++;
+                ans+=Math.floor(l/12);
                 var sortedRes;
                 
                 switch(query.sort?query.sort[0]:""){
@@ -94,18 +99,22 @@ const SearchResults = ({query}) => {
                           (data.status==="success"&&data.post.length)?
                           <>
                             <div className="grid-search">
-                            { data.post.map(post=> <Cards post={post} key={post.postId} fromPos={true}/>)}
+                            { data.post.slice((data.pageno-1)*12,data.pageno*12).map(post=> <Cards post={post} key={post.postId} fromPos={true}/>)}
                             </div>  
-                            <Pagination
-                                boundaryRange={0}
-                                defaultActivePage={data.pageNo}
-                                ellipsisItem={null}
-                                firstItem={null}
-                                lastItem={null}
-                                siblingRange={1}
-                                totalPages={data.totalPage}
-                                onPageChange={handlePageChange}
-                            />
+                            <div className="pagination-custom">
+                                <Pagination
+                                    boundaryRange={1}
+                                    defaultActivePage={1}
+                                    defaultActivePage={data.pageno}
+                                    firstItem={null}
+                                    lastItem={null}
+                                    pointing
+                                    secondary
+                                    siblingRange={1}
+                                    totalPages={data.totalpage}
+                                    onPageChange={handlePageChange}
+                                />
+                            </div>
                          </>
                           : <h3 className="message"> No files found for selected filters ...</h3>
                         )

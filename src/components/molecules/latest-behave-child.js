@@ -15,7 +15,13 @@ h3{
   display:flex;
   justify-content:center;
 }
-
+@media screen and (max-width: 1024px){
+  width:100%;
+  .child-grid{
+    display:flex;
+    justify-content:center;
+  }
+}
 `
 const LatestBehaveChild = ({title,data,status,url}) => {
     return (
