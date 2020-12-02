@@ -36,7 +36,6 @@ padding:10px 20px;
 
 
 const BannerMenu = ({query={}}) => {
-    console.log(query)
    const [params,setParams] =  useState(query)
    const [url,setUrl] = useState("")
    const UrlCreater = (e,name) =>{
