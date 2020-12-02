@@ -41,7 +41,7 @@ const LatestBehaveChild = ({title,data,status,url}) => {
                             <div className="child-grid">
                                 { data.map((a,i)=> <Cards post={a} key={i}/>) }
                             </div>
-                            :<h3 className="message">Unable to find Your Data ...</h3>
+                            :<h3 className="message">No files found for selected filters ...</h3>
                        ) 
                 }
                   <ViewAllBtn url={url}/>

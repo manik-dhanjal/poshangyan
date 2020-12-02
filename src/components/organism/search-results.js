@@ -97,7 +97,7 @@ const SearchResults = ({query}) => {
                             { data.post.map(post=> <Cards post={post} key={post.postId} fromPos={true}/>)}
                             </div>  
                             <Pagination
-                            boundaryRange={0}
+                                boundaryRange={0}
                                 defaultActivePage={data.pageNo}
                                 ellipsisItem={null}
                                 firstItem={null}
@@ -107,7 +107,7 @@ const SearchResults = ({query}) => {
                                 onPageChange={handlePageChange}
                             />
                          </>
-                          : <h3 className="message"> Unable to Find your post ...</h3>
+                          : <h3 className="message"> No files found for selected filters ...</h3>
                         )
                     }
             </Container>
