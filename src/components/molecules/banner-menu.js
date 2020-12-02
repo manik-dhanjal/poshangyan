@@ -56,13 +56,29 @@ const BannerMenu = ({query}) => {
         setUrl(temp+query)
      }
    }, [params])
+   const sortMenuTab = (options) =>{
+       var any = false;
+       var other = false;
+       var temp = [];  
+        options.forEach(e=>{
+           if(e === "Any") any=true
+           if(e === "others") other=true;
+           if(e !== "Any" && e !== "others")
+            temp.push( {label:e,value:e} )
+        })
+        temp = temp.sort((a,b)=> ( '' + a.label).localeCompare(b.label) )
+
+        if(any) temp.unshift({label:"Any",value:"Any"})
+        if(other) temp.push({label:"others",value:"others"})
+        return temp;
+   }
     return (
         <Div>
             <div className="menu">
-                {dropData.sort((a,b)=> ('' + a.label).localeCompare(b.label) ).map( ( menu ,i) =>{
+                {dropData.map( ( menu ,i) =>{
                 return  (
                     <div className="select-cont" key={i}>
-                         <ReactMultiSelectCheckboxes placeholderButtonLabel={menu.label}  options={menu.options.map(e=>{return {label:e,value:e} })}  onChange={e=>UrlCreater(e,menu.label)}/>
+                         <ReactMultiSelectCheckboxes placeholderButtonLabel={menu.label}  options={ sortMenuTab(menu.options) }  onChange={e=>UrlCreater(e,menu.label)}/>
                     </div>
                 )
                 })}
@@ -80,7 +96,7 @@ const dropData=[
     {
         label:"Themes",
         options: [
-            'Any',
+            "Any",
             "Ante Natal Care (ANC)",
             "Breastfeeding",
             "Anaemia Prevention",
@@ -142,7 +158,7 @@ const dropData=[
             'Pregnant Women',
             'PRI member',
             'Civil society',
-            'other'
+            'others'
           ]
     },{
         label:"Source",
