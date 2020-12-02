@@ -4,6 +4,7 @@ import {Container} from "@material-ui/core"
 import Cards from "../molecules/cards-sm"
 import axios from "axios";
 import PreSearchPost from "../molecules/searching-post"
+import {Pagination} from "semantic-ui-react"
 const Div = styled.div`
 padding:60px 0px;
 
@@ -26,6 +27,9 @@ const SearchResults = ({query}) => {
         totalpage:1, 
         status:"pending"
     })
+    const handlePageChange = (e) =>{
+        console.log(e)
+    }
     useEffect(()=>{
         (async ()=>{
             var FilterData = {
@@ -88,9 +92,21 @@ const SearchResults = ({query}) => {
                         <PreSearchPost row={3}/>
                         :(
                           (data.status==="success"&&data.post.length)?
-                          <div className="grid-search">
-                           { data.post.map(post=> <Cards post={post} key={post.postId} fromPos={true}/>)}
-                          </div>  
+                          <>
+                            <div className="grid-search">
+                            { data.post.map(post=> <Cards post={post} key={post.postId} fromPos={true}/>)}
+                            </div>  
+                            <Pagination
+                            boundaryRange={0}
+                                defaultActivePage={data.pageNo}
+                                ellipsisItem={null}
+                                firstItem={null}
+                                lastItem={null}
+                                siblingRange={1}
+                                totalPages={data.totalPage}
+                                onPageChange={handlePageChange}
+                            />
+                         </>
                           : <h3 className="message"> Unable to Find your post ...</h3>
                         )
                     }
