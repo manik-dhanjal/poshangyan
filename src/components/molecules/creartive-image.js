@@ -15,7 +15,7 @@ const CreativeImage = ({location,thumbnail,mime}) => {
     return (
         <Div>
             <div className="show-image">
-                   { mime&& mime.includes("video") ? <Video location={location} thumbnail={thumbnail}/> : <img src={thumbnail||location} /> }
+                   { mime&& (mime.includes("video")||mime.includes("audio")) ? <Video location={location} thumbnail={thumbnail}/> : <img src={thumbnail||location} /> }
             </div>
         </Div>
     )

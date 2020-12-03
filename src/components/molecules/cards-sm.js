@@ -62,12 +62,13 @@ const slugCreater = (str) =>{
 }
 const Cards = ({post}) => {
     const {label,Location,thumbLocation,mimetype,Key,_id} = post;
+    console.log(Location,thumbLocation)
     return (
         <Div>
                 <Link to={`${slugCreater(post.themes)}/${post.postId}`} className="link">
 
                   <div className="card-thumbnail" style={{background:`center / cover no-repeat url(${thumbLocation||Location})`}}>
-                    { mimetype.includes('video') ? <img src={play} className="play-btn"/> :null }
+                    { (mimetype.includes("video")||mimetype.includes("audio")) ? <img src={play} className="play-btn"/> :null }
                   </div>
 
                    <div className="label"> {label} </div> 

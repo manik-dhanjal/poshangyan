@@ -150,7 +150,7 @@ const CreativeDetails = ({showFileName,themes,source,Key,_id,downloadsCount,mime
             <div className="download-card">
                 <div className="mp4-logo">
                     {
-                        mimetype && mimetype.includes("video")?
+                        mimetype && (mimetype.includes("video")||mimetype.includes("audio"))?
                         <img src="https://indiafightscovid.com/wp-content/plugins/download-manager/assets/file-type-icons/mp4.svg"/>
                         :<img src="https://indiafightscovid.com/wp-content/plugins/download-manager/assets/file-type-icons/jpg.svg"/>
                     }
