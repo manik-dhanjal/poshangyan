@@ -46,11 +46,25 @@ align-items:center;
     }
        
 `
+const slugCreater = (str) =>{
+        const a = 'àáâäæãåāăąçćčđďèéêëēėęěğǵḧîïíīįìłḿñńǹňôöòóœøōõőṕŕřßśšşșťțûüùúūǘůűųẃẍÿýžźż·/_,:;'
+        const b = 'aaaaaaaaaacccddeeeeeeeegghiiiiiilmnnnnoooooooooprrsssssttuuuuuuuuuwxyyzzz------'
+        const p = new RegExp(a.split('').join('|'), 'g')
+      
+        return str.toString().toLowerCase()
+          .replace(/\s+/g, '-') // Replace spaces with -
+          .replace(p, c => b.charAt(a.indexOf(c))) // Replace special characters
+          .replace(/&/g, '-and-') // Replace & with 'and'
+          .replace(/[^\w\-]+/g, '') // Remove all non-word characters
+          .replace(/\-\-+/g, '-') // Replace multiple - with single -
+          .replace(/^-+/, '') // Trim - from start of text
+          .replace(/-+$/, '') // Trim - from end of text
+}
 const Cards = ({post}) => {
     const {label,Location,thumbLocation,mimetype,Key,_id} = post;
     return (
         <Div>
-                <Link to={`${post.themes.trim().replace(/\s/g,"-").toLowerCase()}/${post.postId}`} className="link">
+                <Link to={`${slugCreater(post.themes)}/${post.postId}`} className="link">
 
                   <div className="card-thumbnail" style={{background:`center / cover no-repeat url(${thumbLocation||Location})`}}>
                     { mimetype.includes('video') ? <img src={play} className="play-btn"/> :null }
