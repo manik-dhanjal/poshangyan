@@ -14,7 +14,8 @@ flex-direction:column;
 align-items:center;
     .card-thumbnail{
       box-shadow:         5px 5px 18px 0px rgba(50, 50, 50, 0.1);
-      border-radius:15px;
+      position:relative;
+      border-radius:8px;
       overflow:hidden;
       object-fit:cover;
       object-position:center;
@@ -25,6 +26,21 @@ align-items:center;
       justify-content:center;
       align-items:center;
       margin-bottom:15px;
+      .theme-tag{
+        background:${({tagColor}) => tagColor};
+        padding:2px 12px;
+        font-size:0.9em;
+        color:black;
+        position:absolute;
+        top:10px;
+        right:10px;
+        max-width:150px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        border-radius:3px;
+        color:white;
+      }
         play-btn{
             width:30px;
             width:30px;
@@ -60,14 +76,30 @@ const slugCreater = (str) =>{
           .replace(/^-+/, '') // Trim - from start of text
           .replace(/-+$/, '') // Trim - from end of text
 }
+const tagColor = (themes) =>{
+    const char = themes.toLowerCase().charCodeAt(0) - 97;
+    var color ;
+// if(char < 7) color =  "rgb(97,199,201)" ;
+// else if (char < 14)  color = "rgb(79,149,208)";
+// else if (char <21)   color = "rgb(235,98,97)";
+// else color = "rgb(239,82,135)";
+
+if(themes.includes("Overall Nutrition")||themes.includes("Anaemia")||themes.includes("ANC")) color =  "rgb(97,199,201)" ;
+else if (themes.includes("Immunization")||themes.includes("Girls Education")||themes.includes("Food Fortication"))  color = "rgb(79,149,208)";
+else if (themes.includes("Diarrhoea Management")||themes.includes("Sanitation/ WASH")||themes.includes("Breastfeeding"))   color = "rgb(235,98,97)";
+else color = "rgb(239,82,135)";
+
+ return color;
+}
 const Cards = ({post}) => {
-    const {label,Location,thumbLocation,mimetype,Key,_id} = post;
-    console.log(Location,thumbLocation)
+
+    const {label,Location,thumbLocation,mimetype,Key,_id,themes} = post;
     return (
-        <Div>
+        <Div tagColor={tagColor(themes)}>
                 <Link to={`${slugCreater(post.themes)}/${post.postId}`} className="link">
 
                   <div className="card-thumbnail" style={{background:`center / cover no-repeat url(${thumbLocation||Location})`}}>
+                      <div className="theme-tag">{themes}</div>
                     { (mimetype.includes("video")||mimetype.includes("audio")) ? <img src={play} className="play-btn"/> :null }
                   </div>
 
