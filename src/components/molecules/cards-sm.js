@@ -4,6 +4,7 @@ import { Button, Icon } from 'semantic-ui-react'
 import play from '../../assets/Images/play.png' 
 import{ Link }from "react-router-dom"
 import handleDownload from "../../api/aws-handle-download"
+import audioThumb from "../../assets/Images/audio-thumbnail.png"
 
 const Div = styled.div`
 max-width:280px;
@@ -98,9 +99,9 @@ const Cards = ({post}) => {
         <Div tagColor={tagColor(themes)}>
                 <Link to={`${slugCreater(post.themes)}/${post.postId}`} className="link">
 
-                  <div className="card-thumbnail" style={{background:`center / cover no-repeat url(${thumbLocation||Location})`}}>
+                  <div className="card-thumbnail" style={{background:`center / cover no-repeat url(${mimetype.includes("audio")?audioThumb:(thumbLocation||Location)})`}}>
                       <div className="theme-tag">{themes}</div>
-                    { (mimetype.includes("video")||mimetype.includes("audio")) ? <img src={play} className="play-btn"/> :null }
+                    { mimetype.includes("video")? <img src={play} className="play-btn"/> :null }
                   </div>
 
                    <div className="label"> {label} </div> 
