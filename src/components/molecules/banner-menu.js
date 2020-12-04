@@ -1,13 +1,12 @@
 import React , {useState,useEffect} from 'react'
 import styled from "styled-components"
 import ReactMultiSelectCheckboxes from "react-multiselect-checkboxes";
-import go from "../../assets/Images/go.png";
-import {Link} from "react-router-dom"
+
 const Div = styled.div`
 background : white;
 border-radius : 100px;
 display:flex;
-padding:10px 20px;
+padding:10px 10px;
 .menu{
     display:flex;
     align-items:center;
@@ -26,12 +25,42 @@ padding:10px 20px;
     }
 }
 .submit-btn{
-    width:50px;
+    height: 40px;
+    width: 40px;
+    color: white;
+    background: rgb(340,66,94);
+    border-radius: 50%;
+    margin: 0;
+    font-size: 1.2em;
+    display: flex;
+    padding-left: 2px;
+    margin-left:15px;
 }
+div.submit-btn > i {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   }
+   
 .select-cont>div>div:nth-of-type(1)>div>div:nth-of-type(2)>div {
     overflow-x: hidden;
    }
-   
+   @media screen and (max-width:768px){
+    width: 220px;
+    margin: 0 auto;
+    .submit-btn {
+        margin-left: 0;
+    }
+    .select-cont{
+        border:none!important;
+    }
+    .select-cont:not(:nth-of-type(1)){
+        display:none!important;
+    }
+   }
 `
 
 
@@ -91,9 +120,11 @@ const BannerMenu = ({query={}}) => {
                 )
                 })}
             </div>
-            <div className="submit-btn">
-              <a href={url}><input type="image"  src={go} style={{ height: 40 }} alt="go"  /></a>
-            </div>
+            <a href={url}>
+                <div className="submit-btn">
+                   <i className="chevron right icon"></i>
+                </div>
+            </a>
         </Div>
     )
 }

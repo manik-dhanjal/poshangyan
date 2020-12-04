@@ -22,6 +22,11 @@ h3{
     justify-content:center;
   }
 }
+@media screen and (max-width:700px){
+  .child-grid>div:nth-child(2){
+    display:none
+  }
+}
 `
 const LatestBehaveChild = ({title,data,status,url}) => {
     return (

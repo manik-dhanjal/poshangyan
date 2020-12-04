@@ -63,11 +63,14 @@ h4{
 }    
 .details-table{
     margin:30px 0 50px 0;
-    border:1px solid black;
+    border:0.5px solid #d2cbcb;
     border-collapse: collapse;
+    
+    tr:nth-of-type(2n+1){
+        background:white;
+    }
     td{
-        border:1px solid black;
-        padding:8px 15px;
+        padding:10px 20px;
         min-width:150px;
         max-width:300px;
     }

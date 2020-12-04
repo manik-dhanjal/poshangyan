@@ -25,10 +25,11 @@ h2{
 }
 @media screen and (max-width:1024px){
     .grid-custom{
-        grid-template-columns:repeat(2,1fr);
+        grid-template-columns:repeat(2,300px);
+        justify-content:center;
     }
 }
-@media screen and (max-width:720px){
+@media screen and (max-width:700px){
     .grid-custom{
         grid-template-columns:repeat(1,1fr);
         &>div{
@@ -72,7 +73,7 @@ const ThemeOfMonth = () => {
                        :(
                            post.status==="success"?
                             <div className="grid-custom">
-                                { post.data.map((a,i)=> <Cards post={a} key={i}/>) }
+                                { post.data.map( ( a,i ) => <Cards post={a} key={i} /> ) }
                             </div>
                             :<h3 className="message">Unable to find Your Data ...</h3>
                        ) 
