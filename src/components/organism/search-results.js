@@ -4,14 +4,14 @@ import {Container} from "@material-ui/core"
 import Cards from "../molecules/cards-sm"
 import axios from "axios";
 import PreSearchPost from "../molecules/searching-post"
-import {Pagination} from "semantic-ui-react"
+import { Icon,Pagination} from "semantic-ui-react"
 const Div = styled.div`
 padding:60px 0px;
 
 .grid-search{
-    display:flex;
-    flex-wrap:wrap;
-    justify-content:start;
+    display:grid;
+    justify-content:center;
+    grid-template-columns:repeat(4,300px);
     h2{
         text-align:center;
     }
@@ -21,8 +21,45 @@ padding:60px 0px;
 }
 .pagination-custom>div{
     margin:30px auto !important;
-    display: flex !important;
+    display: -webkit-box!important;
     width: min-content;
+    &>a[type="prevItem"],&>a[type="nextItem"]{
+        background: #ff425e !important;
+        width: 20px;
+        padding: 0px;
+        color: white;
+        &:hover{
+            color:white!important;
+        }
+    }
+    &>a{
+        border-radius: 50%!important;
+        justify-content:center;
+        cursor:pointer;
+        &.active{
+            background:none!important;
+            color: #ff425e!important;
+        }
+        &:hover{
+            background:none !important;
+        }
+    }
+
+}
+@media screen and (max-width:1024px){
+    .grid-search{
+        grid-template-columns:repeat(3,300px);
+    }
+}
+@media screen and (max-width:991px){
+    .grid-search{
+        grid-template-columns:repeat(2,300px);
+    }
+}
+@media screen and (max-width:630px){
+    .grid-search{
+        grid-template-columns:repeat(1,300px);
+    }
 }
 `
 const SearchResults = ({query}) => {
@@ -87,11 +124,7 @@ const SearchResults = ({query}) => {
         <Div>
             <Container>
 
-                {console.log(data)}
                     {
-                        // data.post&&data.post.length>0? 
-                        //     data.post.map(post=> <Cards post={post} key={post.postId} fromPos={true}/>)
-                        // :<h2>Getting Search results ...</h2>
                         
                         data.status==="pending"?
                         <PreSearchPost row={3}/>
@@ -103,16 +136,17 @@ const SearchResults = ({query}) => {
                             </div>  
                             <div className="pagination-custom">
                                 <Pagination
-                                    boundaryRange={1}
-                                    defaultActivePage={1}
+                                    boundaryRange={0}
                                     defaultActivePage={data.pageno}
                                     firstItem={null}
                                     lastItem={null}
-                                    pointing
+                                    ellipsisItem={null}
                                     secondary
                                     siblingRange={1}
                                     totalPages={data.totalpage}
                                     onPageChange={handlePageChange}
+                                    prevItem={{ content: <Icon name='angle left' />, icon: true }}
+                                    nextItem={{ content: <Icon name='angle right' />, icon: true }}
                                 />
                             </div>
                          </>
