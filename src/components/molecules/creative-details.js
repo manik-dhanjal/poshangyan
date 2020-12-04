@@ -26,6 +26,7 @@ h4{
 }
 .downloaded{
     font-size:1.2em;
+    white-space:nowrap;
     .count{
         color:rgb(340,66,94);
         font-weight:600;
@@ -65,7 +66,7 @@ h4{
     margin:30px 0 50px 0;
     border:0.5px solid #d2cbcb;
     border-collapse: collapse;
-    
+
     tr:nth-of-type(2n+1){
         background:white;
     }
@@ -84,15 +85,36 @@ h4{
         text-align:center;
     }
     .download-card{
-        grid-template-rows:1fr 1fr;
+        margin-bottom:50px;
+        grid-template-rows: 100px 60px;
+        grid-template-columns: 1fr 1fr;
     }
     .heads{
-        grid-column:1/2;
-        grid-row:0/1;
+        grid-column:1/3;
+        grid-row:1/2;
+        text-align:center;
     }
     .download-btn{
-        grid-column:1/2;
-        grid-row:1/2;
+        grid-column:1/3;
+        grid-row:2/3;
+        justify-self:center;
+    }
+    .mp4-logo{
+        display:none;
+    }
+    .details-table{
+        margin:30px auto;
+        margin-bottom:60px;
+        tr>td{
+            padding:10px 20px;
+            &:nth-of-type(2){
+                min-width:100%;
+                max-width:200px;
+            }
+        }
+    }
+    .social-share{
+        justify-content:center;
     }
 }
 `
@@ -160,7 +182,7 @@ const CreativeDetails = ({showFileName,themes,source,Key,_id,downloadsCount,mime
                 </div>
                 <div className="heads">
                     <h3>{showFileName}</h3>
-                    <p className="downloaded"> <span className="count"> {downloadsCount}</span> People already Downloaded   </p>
+                    <p className="downloaded"> <span className="count"> {downloadsCount}</span> Downloads   </p>
                 </div>
                 <div className="download-btn">
                     <Button onClick={handleDownload} animated >
