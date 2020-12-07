@@ -5,6 +5,7 @@ import Cards from "../molecules/cards-sm"
 import axios from "axios";
 import PreSearchPost from "../molecules/searching-post"
 import { Icon,Pagination} from "semantic-ui-react"
+import ShowSearchResult from "../molecules/show-search-result"
 const Div = styled.div`
 padding:60px 0px;
 
@@ -123,7 +124,7 @@ const SearchResults = ({query}) => {
     return (
         <Div>
             <Container>
-
+                <ShowSearchResult query={query} postNo={data.post.length}/>
                     {
                         
                         data.status==="pending"?
