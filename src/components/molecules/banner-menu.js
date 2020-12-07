@@ -68,22 +68,25 @@ const BannerMenu = ({query={}}) => {
    const [params,setParams] =  useState(query)
    const [url,setUrl] = useState("")
    const UrlCreater = (e,name) =>{
-     setParams({...params,[name]:[...e.map(a=>a.value)]})
+    const temp = {...params};
+    const key = name.replace(/\s/g,'')
+       if(!e.length){
+           delete temp[key]
+       }
+       else
+       {
+            temp[key]=[...e.map(a=>a.value)]
+       }
+         setParams(temp)
     }
    useEffect(() => {
-     const temp = "/search"
-     if(    Object.keys(params).length === 0 ){
-
-         setUrl(temp)
-     }else{
-        var query="?";
-        for(var key in params){
-            if(query!=="?") query+="&";
-            var array = params[key].map((elem,i) =>  elem  )
-            query+=`${key}=${array}`
-        }
-        setUrl(temp+query)
+     var temp = "/search"
+     if(  Object.keys(params).length ){
+        temp += "?" + Object.keys(params).map((key) => {
+            return encodeURIComponent(key) + '=' + encodeURIComponent(params[key])
+        }).join('&');
      }
+     setUrl(temp)
    }, [params])
    const sortMenuTab = (options) =>{
        var any = false;
