@@ -205,6 +205,8 @@ const dropData=[
             'Any',
             'MoHFW',
             'MoWCD',
+            'MDWS',
+            'FSSAI',
             'others',
           ]
     }
