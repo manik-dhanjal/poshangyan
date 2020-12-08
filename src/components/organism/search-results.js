@@ -120,7 +120,7 @@ const SearchResults = ({query}) => {
                   })
               }
         })()
-    },[])  
+    },[query])  
     return (
         <Div>
             <Container>

@@ -1,4 +1,5 @@
 import React , {useState,useEffect} from 'react'
+import {Link} from "react-router-dom"
 import styled from "styled-components"
 import ReactMultiSelectCheckboxes from "react-multiselect-checkboxes";
 
@@ -123,11 +124,11 @@ const BannerMenu = ({query={}}) => {
                 )
                 })}
             </div>
-            <a href={url}>
+            <Link to={url}>
                 <div className="submit-btn">
                    <i className="chevron right icon"></i>
                 </div>
-            </a>
+            </Link>
         </Div>
     )
 }

@@ -23,7 +23,7 @@ const SingleCreative =  ({match}) => {
     const [data,setData] = useState({});
    useEffect(() => {
     axios.get('/posts/'+match.params.title).then((response)=>{
-        console.log(response.data[0])
+        // console.log(response.data[0])
         setData(response.data[0])
     })
    }, [])
