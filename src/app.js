@@ -6,7 +6,7 @@ import SingleCreative from "./components/template/single-creative"
 import Search from "./components/template/search"
 import Layout from "./components/layout/layout"
 import store from "./redux/store"
-import './app.css'
+import './App.css'
 
 const App = () => {
     return (
