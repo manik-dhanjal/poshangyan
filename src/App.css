@@ -1,15 +1,19 @@
-.centered {
-  position: absolute;
-  bottom: 8px;
-  /* transform: translate(-50%, -50%); */
+
+@font-face {
+  font-family: 'Lato';
+  src: local('Lato'), url(./assets/fonts/Lato-Regular.ttf) format('truetype');
+  font-weight:400;
 }
-/* body {  min-width: 800px;
- } */
-/* .text {
-  font-size: 1.5vw;
-  padding-left: 1.5vw;
-  width: 100%;
-} */
+@font-face {
+  font-family: 'Lato';
+  src: local('Lato'), url(./assets/fonts/Lato-Light.ttf) format('truetype');
+  font-weight:300;
+}
+@font-face {
+  font-family: 'Lato';
+  src: local('Lato'), url(./assets/fonts/Lato-Bold.ttf) format('truetype');
+  font-weight:600;
+}
 .centeredPlayBtn {
   position: absolute;
   top: 50%;
@@ -27,21 +31,6 @@
   /* flex-direction: column; */
 }
 
-
- 
-/* .leftDown{
-  position: absolute;
-  bottom: 1px;
-  left: 1px;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-} */
-/* .bottom-left {
-  position: absolute;
-  bottom: 8px;
-  left: 16px;
-} */
 #thisDiv{
   position:absolute;
   left:50%;

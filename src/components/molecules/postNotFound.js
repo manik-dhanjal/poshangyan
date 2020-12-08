@@ -28,9 +28,6 @@ function ModalExampleBasic() {
         <Button basic color='red' inverted onClick={() => setOpen(false)}>
           <Icon name='remove' /> Close
         </Button>
-        {/* <Button color='green' inverted onClick={() => setOpen(false)}>
-          <Icon name='checkmark' /> Yes
-        </Button> */}
       </Modal.Actions>
     </Modal>
   )
