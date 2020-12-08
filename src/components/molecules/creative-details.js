@@ -118,7 +118,7 @@ h4{
     }
 }
 `
-const CreativeDetails = ({showFileName,themes,source,Key,_id,downloadsCount,mimetype,targetAudience,mediaType,languages}) => {
+const CreativeDetails = ({label,showFileName,themes,source,Key,_id,downloadsCount,mimetype,targetAudience,mediaType,languages}) => {
     
     const downloadImage = (filename) => {
         const s3 = new AWS.S3({
@@ -157,7 +157,7 @@ const CreativeDetails = ({showFileName,themes,source,Key,_id,downloadsCount,mime
       }  
     return (
         <Div>
-            <h1>{showFileName}</h1>
+            <h1>{label}</h1>
             {/* <div className="details-table">
                     <div className="label">Themes</div><div className="value">{themes}</div>
                     <div className="label">Media Type</div><div className="value">{mediaType}</div>

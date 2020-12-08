@@ -35,7 +35,7 @@ const Search = (props) => {
     const query = searchTreat(props.location.search);
     return (
         <Div>
-            <Banner query={query}>{query.Themes && query.Themes.length==1?query.Themes[0].replace(/\s/g,"-").toUpperCase():"SEARCH RESULTS"}</Banner>
+            <Banner query={query}>{query.Themes && query.Themes.length==1?query.Themes:"SEARCH RESULTS"}</Banner>
             <SearchResult query={query}/>
         </Div>
     )
