@@ -142,7 +142,7 @@ const CreativeDetails = ({label,showFileName,themes,source,Key,_id,downloadsCoun
             "_id":_id
           })
           .then((res) => {
-            console.log(res.data);
+            // console.log(res.data);
           })
           
       } 

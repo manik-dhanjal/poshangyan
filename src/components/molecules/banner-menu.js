@@ -119,7 +119,12 @@ const BannerMenu = ({query={}}) => {
                 {dropData.map( ( menu ,i) =>{
                 return  (
                     <div className="select-cont" key={i}>
-                         <ReactMultiSelectCheckboxes placeholderButtonLabel={menu.label}  options={ sortMenuTab(menu.options) } defaultValue={ setDefaultValue(menu.label)} onChange={e=>UrlCreater(e,menu.label)}/>
+                         <ReactMultiSelectCheckboxes 
+                            placeholderButtonLabel={menu.label}  
+                            options={ sortMenuTab(menu.options) } 
+                            defaultValue={ setDefaultValue(menu.label)} 
+                            onChange={e=>UrlCreater(e,menu.label)}
+                         />
                     </div>
                 )
                 })}

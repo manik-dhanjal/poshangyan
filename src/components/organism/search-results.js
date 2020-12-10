@@ -6,6 +6,7 @@ import axios from "axios";
 import PreSearchPost from "../molecules/searching-post"
 import { Icon,Pagination} from "semantic-ui-react"
 import ShowSearchResult from "../molecules/show-search-result"
+import SortFilterBtn from "../molecules/sort-filter-btn"
 const Div = styled.div`
 padding:60px 0px;
 
@@ -155,6 +156,7 @@ const SearchResults = ({query}) => {
                         )
                     }
             </Container>
+            <SortFilterBtn query={query}/>
         </Div>
     )
 }
