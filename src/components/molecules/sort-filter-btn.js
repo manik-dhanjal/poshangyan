@@ -47,11 +47,24 @@ display:block!important;
     &.sort{
         bottom:${props=> props.sort };
         .popup-body{
-            height:150px;
+            height:120px;
         }   
         .sort-btn{
             padding:15px;
+            display: flex;
+            align-items: center;
+            label{
+                padding-left:10px;
+            }
         } 
+        .apply-btn{
+            background:#2680eb;
+            color:white;
+            padding:15px 0;
+            text-align:Center;
+            width:100%;
+            display:block;
+        }
     }
     &.filter{
         bottom:${props=> props.filter };
@@ -180,7 +193,7 @@ const SortFilterBtn = ({query}) => {
     }
     const handleSortChange = (label) =>{
         const temp = {...params};
-                temp[sort]=[label]
+                temp.sort=[label]
              setParams(temp)
     }
 
@@ -230,8 +243,11 @@ const SortFilterBtn = ({query}) => {
                      <i className="close icon" onClick={()=> setIsSortOpen(false)}></i>
                  </div>
                  <div className="popup-body">
-                       <div className="sort-btn"><input type="radio" name='sort' value = 'most-downloaded' onChange={()=>  handleSortChange('download')}/><label>Most Downloaded</label></div>
-                       <div className="sort-btn"><input type='radio' name='sort' value = 'latest' onChange={()=>  handleSortChange('date')}/><label>Latest</label></div>
+                       <div className="sort-btn"><input type="radio" name='sort' value = 'most-downloaded'  onChange={()=>  handleSortChange('download')}/><label htmlFor='most-downloaded'>Most Downloaded</label></div>
+                       <div className="sort-btn"><input type='radio' name='sort' value = 'latest' onChange={()=>  handleSortChange('date')}/><label htmlFor='latest'>Latest</label></div>
+                 </div>
+                 <div className="popup-btns">
+                    <Link to={url}  className="apply-btn" onClick={()=>{setIsFilterOpen(false)}}>Apply</Link>
                  </div>
              </div>
              <div className="btn-grps">
