@@ -35,6 +35,7 @@ exports.uploadFile = (req, res) => {
       res.status(200).send({received:pos})
     })
     .catch(err => {
+      console.log(err)
       res.status(503).send({error:'Something went wrong!!'})
   })
 
