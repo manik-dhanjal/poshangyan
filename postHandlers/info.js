@@ -18,19 +18,84 @@ exports.getFilteredInfo = (req, res) => {
   console.log(req.body)
   let filter = {};
   if(req.body.themes && !(req.body.themes.toLowerCase().includes('any')||req.body.themes.toLowerCase().includes('all')||req.body.themes=='')){
-    filter.themes = req.body.themes;
+    let temp = req.body.themes.split(',');
+    let final = [];
+
+    for(var i=0;i<temp.length;i++)
+    {
+      var flag=1;
+      for(var j=0;j<final.length;j++)
+      {
+        if(final[j]==temp[i]) flag=0;
+      }
+      if(flag) final.push(temp[i]);
+    }
+
+    filter.themes = final.toString();
+    console.log(final)
   }
   if(req.body.languages && !(req.body.languages.toLowerCase().includes('any')||req.body.languages.toLowerCase().includes('all')||req.body.languages=='')){
-    filter.languages = req.body.languages;
+    let temp = req.body.languages.split(',');
+    let final = [];
+
+    for(var i=0;i<temp.length;i++)
+    {
+      var flag=1;
+      for(var j=0;j<final.length;j++)
+      {
+        if(final[j]==temp[i]) flag=0;
+      }
+      if(flag) final.push(temp[i]);
+    }
+    filter.languages = final.toString();
   }
   if(req.body.targetAudience && !(req.body.targetAudience.toLowerCase().includes('any')||req.body.targetAudience.toLowerCase().includes('all')||req.body.targetAudience=='')){
-    filter.targetAudience = req.body.targetAudience;
+    let temp = req.body.targetAudience.split(',');
+    let final = [];
+
+    for(var i=0;i<temp.length;i++)
+    {
+      var flag=1;
+      for(var j=0;j<final.length;j++)
+      {
+        if(final[j]==temp[i]) flag=0;
+      }
+      if(flag) final.push(temp[i]);
+    }
+
+    filter.targetAudience = final.toString();
   }
   if(req.body.source && !(req.body.source.toLowerCase().includes('any')||req.body.source.toLowerCase().includes('all')||req.body.source=='')){
-    filter.source = req.body.source;
+    let temp = req.body.source.split(',');
+    let final = [];
+
+    for(var i=0;i<temp.length;i++)
+    {
+      var flag=1;
+      for(var j=0;j<final.length;j++)
+      {
+        if(final[j]==temp[i]) flag=0;
+      }
+      if(flag) final.push(temp[i]);
+    }
+
+    filter.source = final.toString();
   }
   if(req.body.mediaType && !(req.body.mediaType.toLowerCase().includes('any')||req.body.mediaType.toLowerCase().includes('all')||req.body.mediaType=='')){
-    filter.mediaType = req.body.mediaType;
+    let temp = req.body.mediaType.split(',');
+    let final = [];
+
+    for(var i=0;i<temp.length;i++)
+    {
+      var flag=1;
+      for(var j=0;j<final.length;j++)
+      {
+        if(final[j]==temp[i]) flag=0;
+      }
+      if(flag) final.push(temp[i]);
+    }
+
+    filter.mediaType = final.toString();
   }
   // console.log(req.body)
   // res.send({Yup:'Yup'})
