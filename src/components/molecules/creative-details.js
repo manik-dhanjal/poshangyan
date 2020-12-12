@@ -166,11 +166,28 @@ const CreativeDetails = ({label,showFileName,themes,source,Key,_id,downloadsCoun
                     <div className="label">Target Audience</div><div className="value">{targetAudience}</div>
             </div> */}
             <table className="details-table">
-                <tr><td className="label">Themes </td>  <td className="value">{themes} </td></tr>
-                <tr><td className="label">Media Type </td>  <td className="value">{mediaType} </td></tr>
-                <tr><td className="label">Source </td>  <td className="value">{source} </td></tr>
-                <tr><td className="label">Languages </td>  <td className="value">{languages} </td></tr>
-                <tr><td className="label">Target Audience </td>  <td className="value">{targetAudience} </td></tr>
+                <tbody>
+                    <tr>
+                        <td className="label">Themes </td>
+                        <td className="value">{themes} </td>
+                    </tr>
+                    <tr>
+                        <td className="label">Media Type </td>
+                        <td className="value">{mediaType} </td>
+                    </tr>
+                    <tr>
+                        <td className="label">Source </td>
+                        <td className="value">{source} </td>
+                    </tr>
+                    <tr>
+                        <td className="label">Languages </td>
+                        <td className="value">{languages} </td>
+                    </tr>
+                    <tr>
+                        <td className="label">Target Audience </td>
+                        <td className="value">{targetAudience} </td>
+                    </tr>
+                </tbody>
             </table>
             <div className="download-card">
                 <div className="mp4-logo">
