@@ -51,50 +51,9 @@ app.get('/getThemesOfTheMonth', getThemeoftheMonth)
 app.post('/addDownload',addDownloadCount)
 // app.post('/update',update)
 
-var a = require('./opt2.json')
+var a = require('./opt.json')
 const Post = require('./schema/postSchema')
 console.log(a[1].label)
-
-// for(var i=0;i<a.length;i++)
-// {
-//     var no = 0;
-    // Post.findById("5fc555b4c8a84c0004c85c07")
-    // .then((pos)=>{
-    //   currpos = pos;
-    // //   console.log(pos)
-    // // if(pos&&a[i]){
-    //     // pos.label = a[i].label;
-    // //   pos.targetAudience = a[i].targetAudience;
-    // //   pos.mediaType = a[i].mediaType;
-    // //   pos.themes = a[i].themes;
-    // //   console.log(a[i])
-    //   console.log(pos)
-    // //   return pos.save();
-    // // }
-      
-    // })
-    // // .then(()=>{
-    // // //   res.status(200).send({message:'Success'})
-    // //     no++;
-    // //     console.log({successful:no})
-    // // })
-    // .catch((err)=>{
-    //   console.error(err)
-    // //   res.send({err:'Something Went Wrong!!'})
-    // })
-// }
-
-//  Post.find()
-//     .then(dat=>{
-//         dat.forEach((doc)=>{
-//             if(doc.label.includes("Creatrive")){
-//                 console.log(doc.label)
-//                 doc.label = "Poshan Maah Social Media Creative: Poster"
-//                 doc.save();
-//             }
-//         })
-//     })
-
 
 // var i = -1;
 //  for(var j=0;j<a.length;j++) {
