@@ -17,7 +17,7 @@ exports.getFilteredInfo = (req, res) => {
 
   console.log(req.body)
   let filter = {};
-  if(req.body.themes && !(req.body.themes.toLowerCase().includes('any')||req.body.themes.toLowerCase().includes('all')||req.body.themes=='')){
+  if(req.body.themes && !(req.body.themes.toLowerCase().includes('any')||(req.body.themes.toLowerCase().includes('all')&&!req.body.themes.toLowerCase().includes('overall'))||req.body.themes=='')){
     filter.themes = req.body.themes;
   }
   if(req.body.languages && !(req.body.languages.toLowerCase().includes('any')||req.body.languages.toLowerCase().includes('all')||req.body.languages=='')){
