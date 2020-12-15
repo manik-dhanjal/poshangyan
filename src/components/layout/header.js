@@ -32,6 +32,11 @@ align-items:center;
 .upload-content>a{
     color:black;
 }
+@media screen and (max-width:786px){
+    .niti-ayaog{
+        display:none;
+    }
+}
 `
 const Header = () => {
     return (
