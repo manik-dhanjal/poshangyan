@@ -1,12 +1,15 @@
 import React from 'react'
 import styled from "styled-components"
-import bannerBg from "../../assets/Images/banner-bg.png"
+import bannerBg from "../../assets/Images/Banner1.jpg"
 import BannerMenu from "../molecules/banner-menu"
 import { Container } from '@material-ui/core';
 const Div = styled.div`
 position: relative;
 overflow: visible;
-background: linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)),url(${bannerBg});
+background:url(${bannerBg});
+background-size:cover;
+background-postion:top;
+background-repeat:no-repeat;
 min-height:400px;
 display:flex;
 flex-direction:column;

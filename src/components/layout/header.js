@@ -2,17 +2,26 @@ import { Container } from '@material-ui/core'
 import React from 'react'
 import styled from "styled-components"
 import {Link} from "react-router-dom"
+import logo from '../../assets/Images/logo.png'
 const Nav = styled.nav`
-padding:15px 0;
+padding:0px 0;
 display:flex;
 justify-content:space-between;
 align-items:center;
 .logo{
-    width:10p%;
+    width:100%;
     max-width:100px;
     margin-left: -20px;
     img{
         width:100%;
+    }
+}
+.niti-ayaog{
+    .govt{
+        font-size:11px;
+        text-align:center;
+        line-height:8px;
+        color:black;
     }
 }
 .upload-icon{
@@ -28,10 +37,12 @@ const Header = () => {
     return (
         <Container>
             <Nav>
-                 
-                    <Link to="/" className="logo">
-                   
+                    <Link to="/" className="logo niti-ayaog">
                         <img src="https://poshangyan.s3.ap-south-1.amazonaws.com/niti-aayog-logo.png" alt="logo" />
+                        <div className='govt'>Government of India</div>
+                    </Link>
+                    <Link to="/" className="logo ">
+                        <img src={logo} alt="logo" />
                     </Link>
 
                     <span className="upload-content">
