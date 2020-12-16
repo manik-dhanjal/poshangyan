@@ -5,18 +5,20 @@ import {Link} from "react-router-dom"
 import logo from '../../assets/Images/logo.png'
 const Nav = styled.nav`
 padding:0px 0;
-display:flex;
-justify-content:space-between;
+display: grid;
+grid-template-columns: repeat(3,1fr);
 align-items:center;
 .logo{
     width:100%;
     max-width:100px;
-    margin-left: -20px;
+    justify-self:center;
     img{
         width:100%;
     }
 }
 .niti-ayaog{
+    margin-left:0;
+    justify-self:start;
     .govt{
         font-size:11px;
         text-align:center;
@@ -32,9 +34,20 @@ align-items:center;
 .upload-content>a{
     color:black;
 }
+.upload-content{
+    justify-self:end;
+}
 @media screen and (max-width:786px){
+    grid-template-columns: repeat(2,1fr)!important;
     .niti-ayaog{
         display:none;
+    }
+    .upload-content{
+        justify-self:end;
+    }
+    .logo{
+        margin-left:-20px;
+        justify-self:start;
     }
 }
 `

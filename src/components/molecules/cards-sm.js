@@ -93,7 +93,6 @@ else color = "rgb(239,82,135)";
  return color;
 }
 const Cards = ({post}) => {
-
     const {label,Location,thumbLocation,mimetype,Key,_id,themes} = post;
     return (
         <Div tagColor={tagColor(themes)}>

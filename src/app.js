@@ -5,6 +5,7 @@ import Home from "./components/template/home";
 import SingleCreative from "./components/template/single-creative"
 import Search from "./components/template/search"
 import Layout from "./components/layout/layout"
+import About from "./components/template/about"
 import store from "./redux/store"
 import  logo from './assets/Images/logo.png'
 import favicon from './assets/Images/favicon.png'
@@ -43,6 +44,7 @@ const App = () => {
                     <Route exact path='/' component={Home} />
                     <Route exact path='/search' component={Search}/>
                     <Route exact path='/:theme/:title' component={SingleCreative}/>
+                    <Route exact path='/about' component={About}/>
                 </Switch>
         </Layout>
         </Router>
