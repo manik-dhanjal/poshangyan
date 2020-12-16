@@ -153,11 +153,13 @@ const dropData=[
             "Sanitation/ WASH",
             "Diarrhoea Management",
             "Diet Diversity/ Overall Nutrition",
-            "Millet",
+            "Nutri Cereal",
             "Food Fortication ",
             "Girls Education, Diet & Right Age of Marriage",
             "Poshan Pakhwada",
-            "Complementary Feeding"
+            "Complementary Feeding",
+            "Supplementation - Vit A",
+            "Supplementation - Deworming"
           ]
     },{
         label:"Language",
