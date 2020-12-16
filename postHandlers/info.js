@@ -138,21 +138,6 @@ exports.getPolularVideos = (req, res) => {
     });
 }
 
-exports.getPostInfo = (req,res) =>{
-  Post.find()
-    .sort({ downloadsCount: -1 })
-    .then(dat=>{
-      let posts=[];
-      dat.forEach((doc)=> { 
-        if(doc.postId.includes(req.params.postID))  posts.push(doc); 
-      });
-      return res.json(posts);
-    })
-    .catch(err => {
-      console.error(err)
-      res.send({err:'Something Went Wrong!!'})
-    });
-}
 
 exports.addDownloadCount = (req, res) => {
   let currpost=[];
@@ -173,42 +158,6 @@ exports.addDownloadCount = (req, res) => {
     })
 }
 
-exports.addDownloadCount = (req, res) => {
-  let currpost=[];
-  console.log(req.body)
-   Post.findById(req.body._id)
-    .then((pos)=>{
-      pos.downloadsCount = pos.downloadsCount + 1;
-      currpos = pos;
-      console.log(pos)
-      return pos.save();
-    })
-    .then(()=>{
-      res.status(200).send({message:'Success'})
-    })
-    .catch((err)=>{
-      console.error(err)
-      res.send({err:'Something Went Wrong!!'})
-    })
-}
-exports.addDownl = (req, res) => {
-  let currpost=[];
-  console.log(req.body)
-   Post.findById("5fbd3f1f5296ae2e50fdaaf2")
-    .then((pos)=>{
-      pos.themes = "Complementary Feeding";
-      currpos = pos;
-      console.log(pos)
-      return pos.save();
-    })
-    .then(()=>{
-      res.status(200).send({message:'Success'})
-    })
-    .catch((err)=>{
-      console.error(err)
-      res.send({err:'Something Went Wrong!!'})
-    })
-}
 // exports.update = (req, res) => {
 //   Post.find()
 //     .sort({ downloadsCount: -1 })

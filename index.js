@@ -38,22 +38,26 @@ app.get('/', upload.single('file'), (req, res) => {
 const { 
     getFilteredInfo,getThemeoftheMonth,getPolularVideos,addDownloadCount ,
     //  update 
-    getPostInfo
+    
     } 
      = require('./postHandlers/info');
+const {getPostInfo,deletePost,updatePostInfo} = require('./postHandlers/Posts')
 const {uploadFile} = require('./postHandlers/upload')
 app.post('/upload', uploadFile)
 app.post('/getFilteredInfo', getFilteredInfo)
-// app.post('/getFilteredInfo', getFilteredInfo)
-app.get('/posts/:postID', getPostInfo)
 app.get('/getPopolarVideos', getPolularVideos)
 app.get('/getThemesOfTheMonth', getThemeoftheMonth)
 app.post('/addDownload',addDownloadCount)
 // app.post('/update',update)
 
-var a = require('./opt.json')
-const Post = require('./schema/postSchema')
-console.log(a[1].label)
+
+app.get('/posts/:postID', getPostInfo)
+app.delete('/posts/:postID', deletePost)
+app.put('/posts/:postID', updatePostInfo)
+
+// var a = require('./opt.json')
+// const Post = require('./schema/postSchema')
+// console.log(a[1].label)
 
 // var i = -1;
 //  for(var j=0;j<a.length;j++) {
