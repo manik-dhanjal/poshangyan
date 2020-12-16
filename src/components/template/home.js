@@ -41,9 +41,7 @@ useEffect(() => {
     return (
       <div>
         <Banner >
-            Use this repository to educate yourself on all the nutrition
-            information. To keep yourself and your loved ones safe and
-            healthy.
+          The most trusted and comprehensive resources to improve India's nutritional status, at your fingertips
         </Banner>
         <div style={{ background: "rgb(234,231,199)" }}>
           <ThemeOfMonth/>

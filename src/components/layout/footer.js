@@ -14,7 +14,7 @@ const Footer = () => {
     return (
         <SFooter>
             <Container>
-                <div className="copyright">NitiAaayog <span>© 2020.All rights reserved.</span></div>
+                <div className="copyright">NitiAayog <span>© 2020.All rights reserved.</span></div>
             </Container>
         </SFooter>
     )
