@@ -3,6 +3,7 @@ import styled from "styled-components"
 import CreativeImage from "../molecules/creartive-image"
 import CreativeDetails from "../molecules/creative-details"
 import { Container } from "@material-ui/core"
+import Helmet from 'react-helmet'
 import axios from "axios"
 const  Div = styled.div`
 background:rgb(234,231,199);
@@ -28,6 +29,10 @@ const SingleCreative =  ({match}) => {
     })
    }, [])
     return (
+        <>
+        <Helmet>
+             <meta property="og:image"              content={data.thumbLocation||(data.Location||"https://www.poshangyan.com/logo-bg.png")} />
+        </Helmet>
         <Div>
             <Container>
                 <div className="main-creative">
@@ -37,6 +42,7 @@ const SingleCreative =  ({match}) => {
                 </div>
             </Container>
         </Div>
+        </>
     )
 }
 
