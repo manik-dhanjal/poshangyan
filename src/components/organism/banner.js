@@ -14,7 +14,7 @@ min-height:400px;
 display:flex;
 flex-direction:column;
 justify-content:center;
-h1{
+.text{
     color: white;
     width: 100%;
     text-align: center;
@@ -24,15 +24,21 @@ h1{
     margin-bottom:5%;
     line-height:1.5em;
     font-weight:600;
+    h1{
+      margin-bottom:15px;
+    }
+    h2,h1{
+      line-height:1.5em;
+    }
 }
 `
 const Banner = ({children,query}) => {
     return (
         <Div>
             <Container>
-              <h1>
+              <div className='text'>
                 {children}
-              </h1>
+              </div>
 
             <div className="banner-menu">
               <BannerMenu query={query}/>

@@ -6,7 +6,7 @@ import axios from "axios"
 import Cards from "../molecules/cards-sm"
 import PreSearchPost from "../molecules/searching-post"
 const Div = styled.div`
-background:rgb(234,231,199);
+background:#f4d6cc;
 padding:60px 0;
 h2{
     margin-bottom:20px;

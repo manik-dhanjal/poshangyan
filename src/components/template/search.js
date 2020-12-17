@@ -3,7 +3,7 @@ import styled from "styled-components"
 import Banner from "../organism/banner"
 import SearchResult from "../organism/search-results"
 const Div = styled.div`
-background:rgb(234,231,199);
+background:#f4d6cc;
 `
 const searchTreat = (queryString) =>{
     const stage = {}
@@ -29,7 +29,7 @@ const Search = (props) => {
     },[props.location.search])
     return (
         <Div>
-            <Banner query={query}>{query.Themes && query.Themes.length==1?query.Themes:"SEARCH RESULTS"}</Banner>
+            <Banner query={query}><h1>{query.Themes && query.Themes.length==1?query.Themes:"SEARCH RESULTS"}</h1></Banner>
             <SearchResult query={query}/>
         </Div>
     )

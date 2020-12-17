@@ -41,9 +41,10 @@ useEffect(() => {
     return (
       <div>
         <Banner >
-          The most trusted and comprehensive resources to improve India's nutritional status, at your fingertips
+          <h1>Poshan Gyan</h1>
+          <h2>The most trusted and comprehensive resources to improve India's nutritional status, at your fingertips</h2>
         </Banner>
-        <div style={{ background: "rgb(234,231,199)" }}>
+        <div style={{ background: "#f4d6cc" }}>
           <ThemeOfMonth/>
           <LatestBehave post={post}/>
           <MostDownloadMedia post={post}/>
