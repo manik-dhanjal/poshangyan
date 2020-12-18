@@ -31,7 +31,7 @@ const SingleCreative =  ({match}) => {
     return (
         <>
         <Helmet>
-             <meta property="og:image" content={data.thumbLocation||(data.Location||"https://www.poshangyan.com/logo-bg.png")} />
+             <meta property="og:image" content={data.thumbLocation||data.Location} />
         </Helmet>
         <Div>
             <Container>
