@@ -8,10 +8,20 @@ import PreSearchPost from "../molecules/searching-post"
 const Div = styled.div`
 background:#f4d6cc;
 padding:60px 0;
-h2{
+&>div>.head{
     margin-bottom:20px;
     text-align:center;
+    p{
+        margin-top:10px;
+        margin-bottom:0;
+        font-size:1.3em;
+        font-weight:600;
+    }
+    h2{
+        margin-top:10px;
+    }
 }
+
 .grid-custom{
     display:grid;
     grid-template-columns:repeat(4,1fr);
@@ -66,7 +76,11 @@ const ThemeOfMonth = () => {
     return (
         <Div>
             <Container>
-                <h2>Theme of the month</h2>
+                <div className='head'>
+                    <p> Theme of The Month </p>
+                    <p> Ante Natal Care (ANC)</p>
+                    <h2>January is the month for Ante Natal Care </h2>
+                </div>
                 {
                     post.status==="pending"?
                     <PreSearchPost/>
