@@ -6,7 +6,7 @@ import { Container } from "@material-ui/core"
 import Helmet from 'react-helmet'
 import axios from "axios"
 const  Div = styled.div`
-background:rgb(234,231,199);
+background:#f4d6cc;
 padding:60px 0; 
 min-height:100vh;
 .main-creative{
