@@ -44,7 +44,7 @@ useEffect(() => {
           <h1>Poshan Gyan</h1>
           <h2>The most trusted and comprehensive resources to improve India's nutritional status, at your fingertips</h2>
         </Banner>
-        <div style={{ background: "#f4d6cc" }}>
+        <div style={{ background: "white" }}>
           <ThemeOfMonth/>
           <LatestBehave post={post}/>
           <MostDownloadMedia post={post}/>

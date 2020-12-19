@@ -10,6 +10,8 @@ import Slider from "react-slick";
 import PreSearchPost from "../molecules/searching-post"
 
 const Div = styled.div`
+
+background:white;
 padding:60px 0;
 h2{
 text-align:center;

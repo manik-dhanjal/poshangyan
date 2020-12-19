@@ -6,7 +6,7 @@ import axios from "axios"
 import Cards from "../molecules/cards-sm"
 import PreSearchPost from "../molecules/searching-post"
 const Div = styled.div`
-background:#f4d6cc;
+background:white;
 padding:60px 0;
 &>div>.head{
     margin-bottom:20px;
@@ -73,13 +73,20 @@ const ThemeOfMonth = () => {
             }
         })()
       },[])
+      const getMonth = () =>{
+        const monthNames = ["January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+        ];
+        
+        const d = new Date();
+        return monthNames[d.getMonth()];
+      }
     return (
         <Div>
             <Container>
                 <div className='head'>
-                    <p> Theme of The Month </p>
-                    <p> Ante Natal Care (ANC)</p>
-                    <h2>January is the month for Ante Natal Care </h2>
+                    <p>{getMonth()} is the month for Ante Natal Care (ANC) </p>
+                    <h2> Theme of The Month: Ante Natal Care (ANC) </h2>
                 </div>
                 {
                     post.status==="pending"?

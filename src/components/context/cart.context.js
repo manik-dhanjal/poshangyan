@@ -36,7 +36,6 @@ export const   CartProvider = ({children}) => {
                 setCart([...cart,post])
     }
     const deleteFromCart = (id) =>{
-
         const temp = cart.reduce((finalArr,item)=> item._id!==id ? [...finalArr,item] : [...finalArr],[])
         setCart(temp)
     }
