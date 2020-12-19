@@ -1,12 +1,16 @@
 import { Container } from '@material-ui/core'
-import React from 'react'
+import React ,{useEffect,useState}from 'react'
 import styled from "styled-components"
 import {Link} from "react-router-dom"
+import {useCart,useDeleteCart} from '../context/cart.context'
+import handleDownload from "../../api/aws-handle-download"
 import logo from '../../assets/Images/logo.png'
+import { Button, Icon } from 'semantic-ui-react'
 const Nav = styled.nav`
 padding:${({location})=>(
                 location==='/'?'15px 0':'0px 0')};
 display: grid;
+position:relative;
 grid-template-columns: repeat(3,1fr);
 align-items:center;
 .logo{
@@ -68,7 +72,7 @@ ${({location})=>(
     list-style-type:none;
     font-size:1.2em;
     li{
-        margin-right:15px;
+        margin-right:20px;
         a{
             color:black;
             transition:0.2s ease;
@@ -86,7 +90,7 @@ ${({location})=>(
     border-left:1px solid black;
     font-size:1.3em;
     li{
-        margin-left:15px;
+        margin-left:20px;
         a,span{
             color:black;
             cursor:pointer;
@@ -111,10 +115,62 @@ ${({location})=>(
     }
 }
 `
+const Drop = styled.div`
+padding: 15px;
+position:absolute;
+width:300px;
+right:0;
+top:100%;
+z-index:801;
+background:white;
+.card-container{
+    max-height:170px;
+    overflow-y:auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+.card{
+    display:grid;
+    grid-template-columns:25% 75%;
+    margin-bottom:20px;
+    &:last-of-type{
+        margin-bottom:0;
+    }
+    .img-cont{
+        width:100%;
+        height:50px;
+        img{
+            width:100%;
+            height:100%;
+            object-fit:cover;
+        }
+    }
+    .content{
+        display:flex;
+        margin-left:15px;
+        align-items:center;
+        p{
+            margin:0;
+        }
+        .close-btn{
+            margin-left:5px;
+            transition:0.2s ease;
+            cursor:pointer;
+            &:hover{
+                color:rgb(340,66,94);
+            }
+        }
+    }
+}
+`
 const Header = () => {
+    const [path,setPath] = useState('');
+    useEffect(()=>{
+        setPath(window.location.pathname)
+    },[window.location.pathname])
     return (
         <Container>
-            <Nav location = {window.location.pathname}>
+            <Nav location = {path}>
                     <Link to="/" className="logo niti-ayaog">
                         <img src="https://poshangyan.s3.ap-south-1.amazonaws.com/niti-aayog-logo.png" alt="logo" />
                         <div className='govt'>Government of India</div>
@@ -127,19 +183,19 @@ const Header = () => {
                     <div className='menus'>
                         <ul className='menu-pages'>
                             <li>
-                                <Link to='/' target="_blanck">
+                                <Link to='/'>
                                     Home
                                 </Link>
                             </li>
                             <li>
-                                <Link to='/about-us' target="_blanck">
+                                <Link to="/about-us" >
                                     About Us
                                 </Link>
                             </li>
                         </ul>
                         <ul className='menu-icons'>
                             <li>
-                                <a href='https://docs.google.com/forms/d/e/1FAIpQLSciK2SDLtVkMhjH_TUqjmVOJv1ZlhbGMaLg8di0dymvf4axpg/viewform?usp=sf_link' target="_blanck">
+                                <a href='https://docs.google.com/forms/d/e/1FAIpQLSciK2SDLtVkMhjH_TUqjmVOJv1ZlhbGMaLg8di0dymvf4axpg/viewform?usp=sf_link' target="_blank">
                                     <i className="upload icon"></i>
                                 </a>
                             </li>
@@ -148,16 +204,52 @@ const Header = () => {
                                     <i class="linkify icon"></i>
                                 </Link>
                             </li>
-                            <li>
+                            <li className='cart'>
                                 <span>
                                     <i class="shopping cart icon"></i>
                                 </span>
+                                
                             </li>
                         </ul>
                     </div>
+                    <CartDrop/>
             </Nav>
+            
         </Container>
     )
 }
-
+ const CartDrop = () =>{
+    const cart = useCart();
+    const deleteFromCart = useDeleteCart()
+     return(
+        <Drop>
+            <h4>Cart</h4>
+            <hr/>
+                <div className='card-container'>
+                    {
+                        cart.map((item,i) => (
+                            <div className = 'card' key={i+'cart'}>
+                                <div className='img-cont'>
+                                    <img src = {item.thumbLocation||item.Location}/>
+                                </div>
+                                <div className = 'content'>
+                                    <p>{item.label}</p>
+                                        <span onClick={() => deleteFromCart(item._id)} class='close-btn'>
+                                            <i className="close icon"></i>
+                                        </span>
+                                </div>
+                            </div>
+                        ))
+                    }
+                </div>
+                <hr/>
+                <Button animated >
+                    <Button.Content visible >Download</Button.Content>
+                        <Button.Content hidden>
+                            <Icon name='download' inverted />
+                    </Button.Content>
+                </Button>                
+        </Drop>
+     )
+ }
 export default Header
