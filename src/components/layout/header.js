@@ -91,7 +91,25 @@ ${({location})=>(
     font-size:1.3em;
     li{
         margin-left:20px;
-        a,span{
+        &>div{
+            position:relative;
+            .cart-count {
+                position: absolute;
+                color: white;
+                background: #ff425e;
+                width: 15px;
+                height: 15px;
+                font-size: 13px;
+                padding: ;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border-radius: 50%;
+                top: -7px;
+                left: 15px;
+               }               
+        }
+        a,div{
             color:black;
             cursor:pointer;
             transition:0.2s ease;
@@ -117,13 +135,17 @@ ${({location})=>(
 `
 const Drop = styled.div`
 padding: 15px;
+padding: ${({state}) => state?'15px':'0 15px'};
 position:absolute;
 width:300px;
 right:0;
 top:100%;
 z-index:801;
 background:white;
-.card-container{
+height:${({state}) => state?'292px':'0'};
+overflow:hidden;
+transition:0.4s ease;
+    .card-container{
     max-height:170px;
     overflow-y:auto;
     scrollbar-width: none;
@@ -162,9 +184,20 @@ background:white;
         }
     }
 }
+.ui.animated.button {
+    background: rgb(340,66,94);
+    color: white;
+    float:right;
+}
+hr{
+    color:rgb(340,66,94);
+}
 `
 const Header = () => {
+    const cart = useCart();
+    const deleteFromCart = useDeleteCart()
     const [path,setPath] = useState('');
+    const [IsCartDropOpen,setCartDropOpen] = useState(false)
     useEffect(()=>{
         setPath(window.location.pathname)
     },[window.location.pathname])
@@ -204,25 +237,26 @@ const Header = () => {
                                     <i class="linkify icon"></i>
                                 </Link>
                             </li>
-                            <li className='cart'>
-                                <span>
+                           
+                            <li className='cart' >
+                                <div onClick={() => setCartDropOpen(!IsCartDropOpen)}>
+                                    <span className='cart-count'>{cart.length}</span>
                                     <i class="shopping cart icon"></i>
-                                </span>
+                                </div>
                                 
                             </li>
                         </ul>
                     </div>
-                    <CartDrop/>
+                    <CartDrop state={IsCartDropOpen} cart={cart} deleteFromCart={deleteFromCart}/>
             </Nav>
             
         </Container>
     )
 }
- const CartDrop = () =>{
-    const cart = useCart();
-    const deleteFromCart = useDeleteCart()
+ const CartDrop = ({state,cart,deleteFromCart}) =>{
+    console.log(state)
      return(
-        <Drop>
+        <Drop state = {state}>
             <h4>Cart</h4>
             <hr/>
                 <div className='card-container'>
