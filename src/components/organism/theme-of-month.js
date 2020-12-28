@@ -9,7 +9,7 @@ const Div = styled.div`
 background:white;
 padding:60px 0;
 &>div>.head{
-    margin-bottom:20px;
+    margin-bottom:30px;
     text-align:center;
     p{
         margin-top:10px;
@@ -85,8 +85,8 @@ const ThemeOfMonth = () => {
         <Div>
             <Container>
                 <div className='head'>
-                    <p>{getMonth()} is the month for Ante Natal Care (ANC) </p>
                     <h2> Theme of The Month: Ante Natal Care (ANC) </h2>
+                    <p>{getMonth()} is the month for Ante Natal Care (ANC) </p>
                 </div>
                 {
                     post.status==="pending"?
