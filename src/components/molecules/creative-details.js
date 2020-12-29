@@ -198,7 +198,7 @@ const CreativeDetails = ({label,showFileName,themes,source,Key,_id,downloadsCoun
                     }
                 </div>
                 <div className="heads">
-                    <h3>{showFileName}</h3>
+                    <h3>{label}</h3>
                     <p className="downloaded"> <span className="count"> {downloadsCount}</span> Downloads   </p>
                 </div>
                 <div className="download-btn">
