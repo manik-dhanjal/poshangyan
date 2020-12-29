@@ -293,10 +293,11 @@ const dropData=[
         label:"Media Type",
         options:[
             'Any',
-            'IPC',
-            'Mass Media',
-            'Outdoor',
-            'Social Media'
+            'PDF',
+            'Video',
+            'Audio',
+            'Image',
+            'GIF'
           ]
     },{
         label:"Target Audience",

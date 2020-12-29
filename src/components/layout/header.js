@@ -204,10 +204,10 @@ const Header = () => {
     return (
         <Container>
             <Nav location = {path}>
-                    <Link to="/" className="logo niti-ayaog">
+                    <a href="https://niti.gov.in/" className="logo niti-ayaog" target="_blank">
                         <img src="https://poshangyan.s3.ap-south-1.amazonaws.com/niti-aayog-logo.png" alt="logo" />
                         <div className='govt'>Government of India</div>
-                    </Link>
+                    </a>
                     <div className='main-logo'>
                         <Link to="/" className="logo">
                             <img src={logo} alt="logo" />
