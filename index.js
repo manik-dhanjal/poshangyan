@@ -38,22 +38,41 @@ app.get('/', upload.single('file'), (req, res) => {
 const { 
     getFilteredInfo,getThemeoftheMonth,getPolularVideos,addDownloadCount ,
     //  update 
-    getPostInfo
+    
     } 
-     = require('./postHandlers/info');
-const {uploadFile} = require('./postHandlers/upload')
+     = require('./handlers/info');
+const Auth = require('./Private/Auth')
+
+const {uploadFile} = require('./handlers/upload')
 app.post('/upload', uploadFile)
 app.post('/getFilteredInfo', getFilteredInfo)
-// app.post('/getFilteredInfo', getFilteredInfo)
-app.get('/posts/:postID', getPostInfo)
 app.get('/getPopolarVideos', getPolularVideos)
 app.get('/getThemesOfTheMonth', getThemeoftheMonth)
 app.post('/addDownload',addDownloadCount)
 // app.post('/update',update)
 
-var a = require('./opt.json')
-const Post = require('./schema/postSchema')
-console.log(a[1].label)
+const {getPostInfo,deletePost,updatePostInfo} = require('./handlers/Posts')
+app.get('/posts/:postID', getPostInfo)
+app.delete('/posts/:postID',Auth, deletePost)
+app.put('/posts/:postID',Auth, updatePostInfo)
+
+const {addSortingData,getSortingData,modifySortingData} = require('./handlers/sortingDataRoutes')
+// app.post('/addSortingData',Auth,addSortingData)
+app.get('/getSortingData',getSortingData)
+app.post('/modifySortingData',Auth,modifySortingData)
+
+const {addAdmin,login} = require('./handlers/admin')
+
+app.post('/login',login)
+
+// app.get('/posts/:postID', getPostInfo)
+// app.delete('/posts/:postID', deletePost)
+// app.put('/posts/:postID', updatePostInfo)
+
+// var a = require('./ASD.json')
+// const Post = require('./schema/postSchema')
+// console.log(a[1].label)
+// let mp = {};
 
 // var i = -1;
 //  for(var j=0;j<a.length;j++) {
@@ -61,36 +80,99 @@ console.log(a[1].label)
 //         update()
 //     },(j+j+1)*1000);
 // }
-
 // function update()
 // {
-//   //alert(topicId);
 //   i++;
-//   Post.findById(a[i]._id)
+//   Post.findById(a[i]._id.$oid)
 //   .then((pos)=>{
 //     currpos = pos;
-//     console.log(pos)
 //   if(pos&&a[i]){
 //     pos.label = a[i].label;
-//     pos.targetAudience = a[i].targetAudience;
-//     pos.mediaType = a[i].mediaType;
-//     pos.themes = a[i].themes;
-//     console.log(a[i])
+//     let k=1;
+//     let posid =  a[i].label.toLowerCase().split(' ').join("-")
+//     while(mp[posid]!=null){
+//       posid = posid + `-${k}`;
+//       k++;
+//     }
+//     mp[posid] = 'hii'
+//     pos.postId = posid;
 //     console.log(pos)
 //     return pos.save();
 //   }
-    
 //   })
 //   .then(()=>{
-//   // //   res.status(200).send({message:'Success'})
-//       // no++;
 //       console.log({successful:i})
 //   })
 //   .catch((err)=>{
 //     console.error(err)
-//   //   res.send({err:'Something Went Wrong!!'})
 //   })
 // }
+// const accountSid = process.env.TWILIO_ACCOUNT_SID;
+// const authToken = process.env.TWILIO_AUTH_TOKEN;
+
+// let a = {};
+// let db = require('./ASD.json');
+// const Post = require('./schema/postSchema')
+
+// console.log(db[0]._id.$oid);
+// for(var i=0;i<db.length;i++)
+// {
+
+//   var j=0;
+//   let label = db[i].label
+
+//   while(a[label]!=null){
+//     label = label + `-${j}`;
+//     j++;
+//   }
+//   a[label] = 'hii'
+
+//   upda(db[i]._id.$oid,label)
+  
+// }
+
+// function upda(ID,newlabel)  {
+//   Post.findById(ID)
+//   .then((pos)=>{
+//     pos.lebel = newlabel;
+//     console.log(pos)
+//     pos.save();
+//   })
+// }
+
+
+// const accountSid = "AC5a24e2518c95be55417fabc6934ca0a7";
+// const authToken = "4bbba64ca48c860ec1412b6a3be0cd68";
+// const client = require('twilio')(accountSid, authToken);
+// app.post('/xx', async (req,res)=>{
+//   let abc=null ;
+//    try{
+//     abc =  await client.messages
+//   .create({
+//      body: 'New items has been added on poshangyan. HAve a look at https://www.poshangyan.com/search?Themes=Any&sort=date',
+//      from: '+12059531826',
+//      to: '+919540820596'
+//    })
+//   }catch(e){
+//     console.log(e);
+//   }
+//   console.log(abc)
+//   res.send(abc)
+// })
+
+// async  function  asd(){
+//   try{
+//     return await client.messages
+//   .create({
+//      body: 'This is the ship that made the Kessel Run in fourteen parsecs?',
+//      from: '+15017122661',
+//      to: '+15558675310'
+//    })
+//   }catch(e){
+//     console.log(e);
+//   }
+  
+// } 
 
 
 app.use((error, req, res, next) => {
