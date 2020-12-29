@@ -29,6 +29,7 @@ align-items:center;
         text-align:center;
         line-height:8px;
         color:black;
+        white-space:nowrap;
     }
 }
 ${({location})=>(
@@ -91,23 +92,7 @@ ${({location})=>(
     font-size:1.3em;
     li{
         margin-left:20px;
-        &>div{
-            position:relative;
-            .cart-count {
-                position: absolute;
-                color: white;
-                background: #ff425e;
-                width: 15px;
-                height: 15px;
-                font-size: 13px;
-                padding: ;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                border-radius: 50%;
-                top: -7px;
-                left: 15px;
-               }               
+                    
         }
         a,div{
             color:black;
@@ -117,13 +102,46 @@ ${({location})=>(
                 color:rgb(340,66,94);
             }
         }
+        a>span{
+            display:none;
+        }
     }
 }
+.cart-main{
+        position:relative;
+        color:black;
+        font-size:1.3em;
+        cursor:pointer;
+        transition:0.2s ease;
+        margin-left:10px;
+        &:hover{
+            color:rgb(340,66,94);
+        }
+        .cart-count {
+            position: absolute;
+            color: white;
+            background: #ff425e;
+            width: 15px;
+            height: 15px;
+            font-size: 13px;
+            padding: ;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            top: -7px;
+            left: 15px;
+            z-index:2;
+}
+}
+.drop-menu {
+    display: flex;
+}
+   .burger-menu{
+       display:none;
+   }
 @media screen and (max-width:786px){
-    grid-template-columns: repeat(2,1fr)!important;
-    .niti-ayaog{
-        display:none;
-    }
+    grid-template-columns: 25% 50% 25%;
     .upload-content{
         justify-self:end;
     }
@@ -131,6 +149,57 @@ ${({location})=>(
         margin-left:-20px;
         justify-self:start;
     }
+    .burger-menu{
+        display:flex;
+        margin-left:20px;
+        cursor:pointer;
+        font-size:1.6em;
+    }
+
+    .drop-menu {
+        flex-direction:column;
+        position:absolute;
+        top: 85px;
+        right: -15px;
+        z-index: 1;
+        width: 100vw;
+        padding: 20px;
+        background:white;
+        clip-path: ${({menu}) => menu?'inset(0px 0px 0px 0px)':'inset(0px 0px 100% 0px)' };
+        transition:0.5s ease;
+       }       
+       .main-logo a {
+        left: calc( 50% - 50px);
+        width: 100px;
+        height: 100px;
+        align-self: center;
+        }
+        .menu-pages {
+            flex-direction: column;
+            margin: 0;
+            li {
+                margin-bottom: 10px;
+            }
+        }
+        .logo{
+            margin:0;
+        }
+        .menu-icons{
+            border: none;
+            border-top: 1px solid black;
+            flex-direction:column;
+            margin:0;
+         li {
+            
+            margin: 0;
+            margin-top: 10px;
+            }
+            a>span{
+                display:inline;
+                font-size:0.85em;
+            }
+        }
+           
 }
 `
 const Drop = styled.div`
@@ -198,6 +267,7 @@ transition:0.4s ease;
         }
     }
 }
+
 .ui.animated.button {
     background: rgb(340,66,94);
     color: white;
@@ -211,13 +281,14 @@ const Header = () => {
     const cart = useCart();
     const ChangeCart = useDeleteCart()
     const [path,setPath] = useState('');
+    const [isMenuOpen,setMenuOpen] = useState(false);
     const [IsCartDropOpen,setCartDropOpen] = useState(false)
     useEffect(()=>{
         setPath(window.location.pathname)
     },[window.location.pathname])
     return (
         <Container>
-            <Nav location = {path}>
+            <Nav location = {path} menu = {isMenuOpen}>
                     <a href="https://niti.gov.in/" className="logo niti-ayaog" target="_blank">
                         <img src="https://poshangyan.s3.ap-south-1.amazonaws.com/niti-aayog-logo.png" alt="logo" />
                         <div className='govt'>Government of India</div>
@@ -228,39 +299,44 @@ const Header = () => {
                         </Link>
                     </div>
                     <div className='menus'>
-                        <ul className='menu-pages'>
-                            <li>
-                                <Link to='/'>
-                                    Home
-                                </Link>
-                            </li>
-                            <li>
-                                <Link to="/about-us" >
-                                    About Us
-                                </Link>
-                            </li>
-                        </ul>
-                        <ul className='menu-icons'>
-                            <li>
-                                <a href='https://docs.google.com/forms/d/e/1FAIpQLSciK2SDLtVkMhjH_TUqjmVOJv1ZlhbGMaLg8di0dymvf4axpg/viewform?usp=sf_link' target="_blank">
-                                    <i className="upload icon"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <Link to='/important-links'>
-                                    <i class="linkify icon"></i>
-                                </Link>
-                            </li>
-                           
-                            <li className='cart' >
+                        <div className='drop-menu'>
+                            <ul className='menu-pages'>
+                                <li>
+                                    <Link to='/'>
+                                        Home
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to="/about-us" >
+                                        About Us
+                                    </Link>
+                                </li>
+                            </ul>
+                            <ul className='menu-icons'>
+                                <li>
+                                    <a href='https://docs.google.com/forms/d/e/1FAIpQLSciK2SDLtVkMhjH_TUqjmVOJv1ZlhbGMaLg8di0dymvf4axpg/viewform?usp=sf_link' target="_blank">
+                                        <i className="upload icon"></i> <span>Add Content</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <Link to='/important-links'>
+                                        <i class="linkify icon"></i><span>Important Links</span>
+                                    </Link>
+                                </li>
+                            
+                            </ul>
+                        </div>
+                        <div className='cart-main' >
                                 <div onClick={() => setCartDropOpen(!IsCartDropOpen)}>
                                     <span className='cart-count'>{cart.length}</span>
                                     <i class="shopping cart icon"></i>
-                                </div>
-                                
-                            </li>
-                        </ul>
+                                </div>      
+                        </div>
+                        <div className='burger-menu' onClick={() => setMenuOpen(!isMenuOpen)}>
+                            <i class="fas fa-bars"></i>
+                        </div>
                     </div>
+                    
                     <CartDrop state={IsCartDropOpen} cart={cart} deleteFromCart={ChangeCart}/>
             </Nav>
             
