@@ -20,20 +20,57 @@ background:#f4d6cc;
         text-align:center;
     }
     .thumb-collection{
-        display:flex;
-        flex-wrap:wrap;
-        justify-content:space-between;
+        display:grid;
+        grid-template-columns:repeat(4,1fr);
+        justify-content:stretch;
+        margin-top:50px;
+        gap:60px;
     }
     .thumb-cont{
-        width: calc( 25% - 50px );
-        padding:3%;
+        &:hover{
+            transform:scale(1.03);
+        }
+        transition:0.5s ease;
+        width: 100%;
+        border:1px solid grey;
+        border-radius:12px;
+        background:#ffffff30;
+        padding:15%;
+        height:calc( ( 100vw - 300px ) / 4 );
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        object-fit:contain;
         .img-cont{
+            width:100%;
+            height:100%;
             img{
                 width:100%;
                 height:100%;
                 object-fit:contain;
             }
         }
+    }
+}
+@media screen and (max-width:768px){
+   .main .thumb-collection{
+        display:grid;
+        grid-template-columns:repeat(2,1fr);
+        justify-content:stretch;
+        margin-top:50px;
+        gap:20px;
+    }
+    .main .thumb-cont{
+        &:hover{
+            transform:scale(1.03);
+        }
+        transition:0.5s ease;
+        width: 100%;
+        border:1px solid grey;
+        border-radius:12px;
+        background:#ffffff30;
+        padding:15%;
+        height:calc( ( 100vw - 100px ) / 2 );
     }
 }
 `
@@ -47,7 +84,6 @@ const ImportantLinks = () => {
                         {
                             links.map((link)=>(
                             <a href={link.link} className='thumb-cont'>
-                                {console.log(link)}
                                 <div className='img-cont'>
                                         <img src={link.img}/>
                                 </div>
@@ -66,34 +102,34 @@ export default ImportantLinks
 const links = [
     {
         img:abhiyan,
-        link:''
+        link:'http://poshanabhiyaan.gov.in/'
     },
     {
         img:amb,
-        link:''
+        link:'https://anemiamuktbharat.info/'
     },
     {
         img:eri,
-        link:''
+        link:'https://eatrightindia.gov.in/'
     },
     {
         img:MoHFW,
-        link:''
+        link:'https://www.mohfw.gov.in/'
     },
     {
         img:niti,
-        link:''
+        link:'https://niti.gov.in/'
     },
     {
         img:swach,
-        link:''
+        link:'https://swachhbharat.mygov.in/'
     },
     {
         img:MoWC,
-        link:''
+        link:'https://wcd.nic.in/'
     },
     {
         img:nutri,
-        link:''
+        link:'https://www.nutritionindia.info/'
     },
 ]
