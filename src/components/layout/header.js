@@ -147,9 +147,22 @@ overflow:hidden;
 transition:0.4s ease;
     .card-container{
     max-height:170px;
+    height:100%;
     overflow-y:auto;
     scrollbar-width: none;
     -ms-overflow-style: none;
+}
+.head{
+    display:flex;
+    justify-content:space-between;
+    h4{
+        margin:0;
+    }
+    span{
+        font-size:0.85em;
+        color:rgb(340,66,94);
+        cursor:pointer;
+    }
 }
 .card{
     display:grid;
@@ -171,6 +184,7 @@ transition:0.4s ease;
         display:flex;
         margin-left:15px;
         align-items:center;
+        justify-content:space-between;
         p{
             margin:0;
         }
@@ -195,7 +209,7 @@ hr{
 `
 const Header = () => {
     const cart = useCart();
-    const deleteFromCart = useDeleteCart()
+    const ChangeCart = useDeleteCart()
     const [path,setPath] = useState('');
     const [IsCartDropOpen,setCartDropOpen] = useState(false)
     useEffect(()=>{
@@ -247,7 +261,7 @@ const Header = () => {
                             </li>
                         </ul>
                     </div>
-                    <CartDrop state={IsCartDropOpen} cart={cart} deleteFromCart={deleteFromCart}/>
+                    <CartDrop state={IsCartDropOpen} cart={cart} deleteFromCart={ChangeCart}/>
             </Nav>
             
         </Container>
@@ -257,7 +271,10 @@ const Header = () => {
     console.log(state)
      return(
         <Drop state = {state}>
-            <h4>Cart</h4>
+            <div className='head'>
+                <h4>Cart</h4>
+                <span className='clear' onClick={() => deleteFromCart('','DeleteAll')}>Clear All</span>
+            </div>
             <hr/>
                 <div className='card-container'>
                     {
@@ -268,7 +285,7 @@ const Header = () => {
                                 </div>
                                 <div className = 'content'>
                                     <p>{item.label}</p>
-                                        <span onClick={() => deleteFromCart(item._id)} class='close-btn'>
+                                        <span onClick={() => deleteFromCart(item._id,'DeleteOne')} class='close-btn'>
                                             <i className="close icon"></i>
                                         </span>
                                 </div>

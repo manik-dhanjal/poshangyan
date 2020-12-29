@@ -35,9 +35,17 @@ export const   CartProvider = ({children}) => {
             if(cart.reduce( (( result,item )=> item._id===post._id?false:result),true))
                 setCart([...cart,post])
     }
-    const deleteFromCart = (id) =>{
-        const temp = cart.reduce((finalArr,item)=> item._id!==id ? [...finalArr,item] : [...finalArr],[])
-        setCart(temp)
+    const ChangeCart = (id,action) =>{
+        switch(action){
+            case 'DeleteOne':{
+                const temp = cart.reduce((finalArr,item)=> item._id!==id ? [...finalArr,item] : [...finalArr],[])
+                setCart(temp)
+                break;
+            }
+            case 'DeleteAll':{
+                setCart([])
+            }
+        }
     }
     const checkItemInCart = (id) =>{
         return cart.reduce( (( result,item )=> item._id===id?true:result),false)
@@ -46,7 +54,7 @@ export const   CartProvider = ({children}) => {
     return (
         <GetCartContext.Provider value = {cart}>
                 <AddCartContext.Provider value = {addToCart}>
-                    <DeleteCartContext.Provider value = {deleteFromCart}>
+                    <DeleteCartContext.Provider value = {ChangeCart}>
                         <CheckItemInCart.Provider value = {checkItemInCart}>
                             {children}
                         </CheckItemInCart.Provider>
