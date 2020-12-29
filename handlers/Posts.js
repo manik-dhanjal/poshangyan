@@ -37,6 +37,8 @@ exports.getPostInfo = (req,res) =>{
             if(req.body.source) dat.source = req.body.source;
             if(req.body.mediaType) dat.mediaType = req.body.mediaType;
             if(req.body.targetAudience) dat.targetAudience = req.body.targetAudience;
+            if(req.body.label) dat.label = req.body.label;
+            if(req.body.mimetype) dat.mimetype = req.body.mimetype;
             post = dat;
         }
          return dat.save()
