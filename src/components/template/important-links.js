@@ -25,6 +25,9 @@ background:#f4d6cc;
         justify-content:stretch;
         margin-top:50px;
         gap:60px;
+        max-width: 900px;
+        margin-right: auto;
+        margin-left:auto;
     }
     .thumb-cont{
         &:hover{
@@ -36,7 +39,7 @@ background:#f4d6cc;
         border-radius:12px;
         background:#ffffff30;
         padding:15%;
-        height:calc( ( 100vw - 300px ) / 4 );
+        height:calc( ( 900px - 250px ) / 4 );
         display:flex;
         justify-content:center;
         align-items:center;
@@ -50,6 +53,11 @@ background:#f4d6cc;
                 object-fit:contain;
             }
         }
+    }
+}
+@media screen and (max-width:950px){
+    .thumb-cont{
+        height:calc( ( 100vw - 300px ) / 4 )!important;
     }
 }
 @media screen and (max-width:768px){
@@ -70,7 +78,7 @@ background:#f4d6cc;
         border-radius:12px;
         background:#ffffff30;
         padding:15%;
-        height:calc( ( 100vw - 100px ) / 2 );
+        height:calc( ( 100vw - 100px ) / 2 )!important;
     }
 }
 `
