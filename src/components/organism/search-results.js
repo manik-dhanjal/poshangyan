@@ -80,7 +80,7 @@ const SearchResults = ({query}) => {
                 themes:         query.Themes?query.Themes.toString():null,
                 languages:      query.Language?query.Language.toString():null,
                 targetAudience: query.TargetAudience?query.TargetAudience.toString():null,
-                mediaType:      query.MediaType? query.MediaType.toString():null,
+                mimetype:      query.MediaType? query.MediaType.toString():null,
                 source:         query.Source?query.Source.toString():null,
               }
               try{

@@ -70,7 +70,9 @@ const BannerMenu = ({query={}}) => {
    const [url,setUrl] = useState("")
    const UrlCreater = (e,name) =>{
     const temp = {...params};
+    // name==='Mime Type' ? name='mimetype' : null;
     const key = name.replace(/\s/g,'')
+    
        if(!e.length){
            delete temp[key]
        }
