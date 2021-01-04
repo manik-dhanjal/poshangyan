@@ -215,7 +215,7 @@ const CreativeDetails = ({label,showFileName,themes,source,Key,_id,downloadsCoun
                 <a className="facebook" href={'https://www.facebook.com/share.php?u='+encodeURIComponent(window.location.href)} target='_blank'><i className="facebook f icon"></i></a>
                 <a className="twitter" href={'https://twitter.com/intent/tweet?text='+encodeURIComponent(window.location.href)} target='_blank'><i className="twitter icon"></i></a>
                 <a className="whatsapp"  href={'https://api.whatsapp.com/send/?phone   &text='+encodeURIComponent(window.location.href)} target='_blank'><i className="whatsapp icon"></i></a>
-                <a className="email" href={"mailto:?subject=I wanted you to see this site &body=Check out this site "+ window.location.href+"."} title="Poshan Gyan">
+                <a className="email" href={"mailto:?subject=Check out this resource I found on Poshangyan.com &body=I am sharing media from the Poshan Gyan website - a collection of trusted resources to improve India's nutritional status. Please use this link to access the file: "+ window.location.href+"."} title="Poshan Gyan">
                     <i className="far fa-envelope"></i>
                 </a>
 

@@ -12,10 +12,12 @@ padding:60px 0;
     margin-bottom:30px;
     text-align:center;
     p{
+        margin:0 auto;
         margin-top:10px;
         margin-bottom:0;
         font-size:1.3em;
         font-weight:600;
+        max-width:450px;
     }
     h2{
         margin-top:10px;
@@ -85,8 +87,8 @@ const ThemeOfMonth = () => {
         <Div>
             <Container>
                 <div className='head'>
-                    <h2> Theme of The Month: Ante Natal Care (ANC) </h2>
-                    <p>{getMonth()} is the month for Ante Natal Care (ANC) </p>
+                    <h2> Theme of The Month: Antenatal Care </h2>
+                    <p>{getMonth()} is the month for promoting ANC among pregnant women and their families </p>
                 </div>
                 {
                     post.status==="pending"?
