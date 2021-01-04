@@ -156,9 +156,9 @@ const dropData=[
             "Diarrhoea Management",
             "Diet Diversity/ Overall Nutrition",
             "Nutri Cereal",
-            "Food Fortication ",
+            "Food Fortification",
             "Girls Education, Diet & Right Age of Marriage",
-            "Poshan Pakhwada",
+            // "Poshan Pakhwada",
             "Complementary Feeding",
             "Supplementation - Vit A",
             "Supplementation - Deworming"
