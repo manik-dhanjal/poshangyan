@@ -1,0 +1,8 @@
+.edit__admin__root{
+    position: relative;
+}
+.dropdown__edit_list{
+    position: absolute;
+    right: 5px;
+    top: 5px;
+}
