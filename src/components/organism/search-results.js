@@ -74,14 +74,34 @@ const SearchResults = ({query}) => {
     const handlePageChange = (e,i) =>{
       setData({...data,pageno:i.activePage}) 
     }
+    const AllToAnyHandler = (query) =>{
+        const newQuery = {};
+        // console.log(query);
+        for(const key in query){
+            for(const arrItem of query[key]){
+                if( arrItem.includes("All") ){
+                    newQuery[key] = 'Any'
+                }else if(arrItem.includes("Other")){
+                    console.log(arrItem)
+                    newQuery[key] = 'others'
+                }
+                else{
+                    newQuery[key] = arrItem;
+                }
+            }
+        }
+        return newQuery;
+    }
     useEffect(()=>{
         (async ()=>{
+            const newQuery = AllToAnyHandler(query);
+            console.log(newQuery)
             var FilterData = {
-                themes:         query.Themes?query.Themes.toString():null,
-                languages:      query.Language?query.Language.toString():null,
-                targetAudience: query.TargetAudience?query.TargetAudience.toString():null,
-                mimetype:      query.MediaType? query.MediaType.toString():null,
-                source:         query.Source?query.Source.toString():null,
+                themes:         newQuery.Themes?newQuery.Themes.toString():null,
+                languages:      newQuery.Languages?newQuery.Languages.toString():null,
+                targetAudience: newQuery.TargetAudiences?newQuery.TargetAudiences.toString():null,
+                mimetype:       newQuery.MediaTypes? newQuery.MediaTypes.toString():null,
+                source:         newQuery.Sources?newQuery.Sources.toString():null,
               }
               try{
                 const res = await axios.post("/getFilteredInfo", FilterData)

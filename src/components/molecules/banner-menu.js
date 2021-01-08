@@ -103,8 +103,8 @@ const BannerMenu = ({query={}}) => {
         })
         temp = temp.sort((a,b)=> ( '' + a.label).localeCompare(b.label) )
 
-        if(any) temp.unshift({label:"Any",value:"Any"})
-        if(other) temp.push({label:"others",value:"others"})
+        if(any) temp.unshift({label:options[0],value:options[0]})
+        if(other) temp.push({label:options[options.length-1],value:options[options.length-1]})
         return temp;
    }
 
@@ -146,7 +146,7 @@ const dropData=[
     {
         label:"Themes",
         options: [
-            "Any",
+            "All themes",
             "Ante Natal Care (ANC)",
             "Breastfeeding",
             "Anaemia Prevention",
@@ -164,9 +164,9 @@ const dropData=[
             "Supplementation - Deworming"
           ]
     },{
-        label:"Language",
+        label:"Languages",
         options:[
-            "Any",
+            "All languages",
             "Assamese",
             "Bengali",
             "Gujarati",
@@ -192,9 +192,9 @@ const dropData=[
             "English"
           ]
     },{
-        label:"Media Type",
+        label:"Media Types",
         options:[
-            'Any',
+            'All media types',
             'PDF',
             'Video',
             'Audio',
@@ -202,26 +202,26 @@ const dropData=[
             'GIF'
           ]
     },{
-        label:"Target Audience",
+        label:"Target Audiences",
         options:[
-            'Any',
+            'All audiences',
             'Children under 5',
             'Adolescent Girls',
             'Mothers',
             'Pregnant Women',
             'PRI member',
             'Civil society',
-            'others'
+            'Others'
           ]
     },{
-        label:"Source",
+        label:"Sources",
         options:[
-            'Any',
+            'All sources',
             'MoHFW',
             'MoWCD',
             'MDWS',
             'FSSAI',
-            'others',
+            'Other organizations',
           ]
     }
 ]

@@ -264,7 +264,7 @@ const dropData=[
   {
         label:"Language",
         options:[
-            "Any",
+            "All languages",
             "Assamese",
             "Bengali",
             "Gujarati",
@@ -292,7 +292,7 @@ const dropData=[
     },{
         label:"Media Type",
         options:[
-            'Any',
+            'All media types',
             'PDF',
             'Video',
             'Audio',
@@ -302,24 +302,24 @@ const dropData=[
     },{
         label:"Target Audience",
         options:[
-            'Any',
+            'All audiences',
             'Children under 5',
             'Adolescent Girls',
             'Mothers',
             'Pregnant Women',
             'PRI member',
             'Civil society',
-            'others'
+            'Others'
           ]
     },{
         label:"Source",
         options:[
-            'Any',
+            'All sources',
             'MoHFW',
             'MoWCD',
             'MDWS',
             'FSSAI',
-            'others',
+            'Other organizations',
           ]
     }
 ]
