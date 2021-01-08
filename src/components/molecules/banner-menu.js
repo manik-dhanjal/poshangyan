@@ -160,8 +160,8 @@ const dropData=[
             "Girls Education, Diet & Right Age of Marriage",
             // "Poshan Pakhwada",
             "Complementary Feeding",
-            "Supplementation - Vit A",
-            "Supplementation - Deworming"
+            "Vit A supplements",
+            "Deworming"
           ]
     },{
         label:"Languages",
@@ -221,7 +221,7 @@ const dropData=[
             'MoWCD',
             'MDWS',
             'FSSAI',
-            'Other organizations',
+            'Others',
           ]
     }
 ]
