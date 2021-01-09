@@ -1,0 +1,44 @@
+.single__chip{
+    display: flex;
+    flex-direction: row;
+    background: bisque;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    height: 35px;
+    border-radius: 12px;
+}
+.val__para{
+    margin: 0 !important;
+}
+.action__container{
+    display: none;
+}
+.single__chip:hover .action__container{
+    display: inherit;
+}
+.new__val__inp{
+    width: 90%;
+    border: 0px;
+    border-radius: 10px;
+    padding: 4px;
+    outline: none;
+    padding-left: 10px;
+    padding-right: 45px;
+}
+input:focus, textarea:focus, select:focus{
+    outline: none;
+}
+.__cross_btn{
+    position: absolute;
+    cursor: pointer;
+    right: 35px;
+}
+.__tick_btn{
+    position: absolute;
+    cursor: pointer;
+    right: 12px;
+}
+.val_container{
+    color: lightcoral !important;
+}

@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Dropdown } from 'semantic-ui-react'
 import './editMain.css'
+import Others from './Views/others'
+import Posts from './Views/Posts'
 
 export class EditMain extends Component {
   state={
@@ -31,12 +33,16 @@ export class EditMain extends Component {
       <Dropdown.Item icon='chart pie' text='Others' onClick={()=>this.setActiveFilter("Others")} />
     </Dropdown.Menu>
   </Dropdown>
+
+    let mainView = this.state.activeFilter === 'Posts' ? <Posts /> : <Others type={this.state.activeFilter} />
+
+
     return (
       <div className="edit__admin__root">
         <div className="dropdown__edit_list" >
           {dropDown}
         </div>
-      
+        {mainView}
       </div>
     )
   }

@@ -8,6 +8,11 @@ export default class MenuExampleTabularOnLeft extends Component {
 
   handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 
+  componentDidMount(){
+    let key = localStorage.getItem('passkey');
+    if(!key) this.props.history.push('/admin');
+  }
+
   render() {
     const { activeItem } = this.state
 
@@ -21,6 +26,7 @@ export default class MenuExampleTabularOnLeft extends Component {
             activeView = <EditMain />
             break;
     }
+
 
     return (
       <Container style={{marginTop:50}}>

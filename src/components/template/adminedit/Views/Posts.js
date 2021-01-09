@@ -1,15 +1,15 @@
 import React, { Component } from "react";
 import axios from "axios";
 
-export class Dummy extends Component {
+export class Others extends Component {
   render(){
     return (
-      <div className="root">
+      <div >
 
-   
+        
       </div>
     )
   }
 }
 
-export default Dummy;
+export default Others;
