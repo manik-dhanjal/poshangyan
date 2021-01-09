@@ -20,33 +20,28 @@ background:#f4d6cc;
         text-align:center;
     }
     .thumb-collection{
-        display:grid;
-        grid-template-columns:repeat(4,1fr);
-        justify-content:stretch;
+        display:flex;
+        flex-wrap:wrap;
         margin-top:50px;
-        gap:60px;
-        max-width: 900px;
+        gap:30px;
+        gap-row:50px;
         margin-right: auto;
         margin-left:auto;
+        width:1130px;
     }
     .thumb-cont{
-        &:hover{
-            transform:scale(1.03);
-        }
-        transition:0.5s ease;
-        width: 100%;
+        width: 260px;
         border:1px solid grey;
-        border-radius:12px;
-        background:#ffffff30;
-        padding:15%;
-        height:calc( ( 900px - 250px ) / 4 );
+        border-radius:8px;
+        background:#ffffff;
         display:flex;
-        justify-content:center;
-        align-items:center;
-        object-fit:contain;
+        flex-direction:column;
+        padding:20px;
+        color:black;
         .img-cont{
             width:100%;
-            height:100%;
+            height:150px;
+            margin-bottom:30px;
             img{
                 width:100%;
                 height:100%;
@@ -55,32 +50,22 @@ background:#f4d6cc;
         }
     }
 }
-@media screen and (max-width:950px){
-    .thumb-cont{
-        height:calc( ( 100vw - 300px ) / 4 )!important;
-    }
-}
-@media screen and (max-width:768px){
+
+@media screen and (max-width:1190px){
    .main .thumb-collection{
-        display:grid;
-        grid-template-columns:repeat(2,1fr);
-        justify-content:stretch;
-        margin-top:50px;
-        gap:20px;
-    }
-    .main .thumb-cont{
-        &:hover{
-            transform:scale(1.03);
-        }
-        transition:0.5s ease;
-        width: 100%;
-        border:1px solid grey;
-        border-radius:12px;
-        background:#ffffff30;
-        padding:15%;
-        height:calc( ( 100vw - 100px ) / 2 )!important;
+        width:840px;
     }
 }
+@media screen and (max-width:900px){
+    .main .thumb-collection{
+         width:550px;
+     }
+ }
+ @media screen and (max-width:640px){
+    .main .thumb-collection{
+         width:260px;
+     }
+ }
 `
 const ImportantLinks = () => {
     return (
@@ -94,6 +79,10 @@ const ImportantLinks = () => {
                             <a href={link.link} className='thumb-cont'>
                                 <div className='img-cont'>
                                         <img src={link.img}/>
+                                </div>
+                                <div className='content'>
+                                    <h3>{link.title}</h3>
+                                    <p>{link.desc}</p>
                                 </div>
                             </a>
                             ))
@@ -110,34 +99,50 @@ export default ImportantLinks
 const links = [
     {
         img:abhiyan,
-        link:'http://poshanabhiyaan.gov.in/'
+        link:'http://poshanabhiyaan.gov.in/',
+        desc:"POSHAN Abhiyaan is India's flagship program to improve nutritional outcomes for children, adolescents, pregnant women and lactating mothers.",
+        title:"POSHAN Abhiyaan"
     },
     {
         img:amb,
-        link:'https://anemiamuktbharat.info/'
+        link:'https://anemiamuktbharat.info/',
+        desc:" The Anemia Mukt Bharat Initiative aims to strengthen the existing mechanisms and foster newer strategies for tackling anemia.",
+        title:"Anemia Mukt Bharat"
     },
     {
         img:eri,
-        link:'https://eatrightindia.gov.in/'
+        link:'https://eatrightindia.gov.in/',
+        desc:"The ‘Eat Right India’ movement a large-scale effort to transform the country’s food system in order to ensure safe, healthy and sustainable food for all Indians.",
+        title:"Eat Right India"
     },
     {
         img:MoHFW,
-        link:'https://www.mohfw.gov.in/'
+        link:'https://www.mohfw.gov.in/',
+        desc:"The official website of Ministry of Health and Family Welfare, Government of India.",
+        title:"Ministry of Health and Family"
     },
     {
         img:niti,
-        link:'https://niti.gov.in/'
+        link:'https://niti.gov.in/',
+        desc:"The National Institute for Transforming India, also called NITI Aayog, is the premier policy think tank of the Government of India.",
+        title:"Niti Ayaog"
     },
     {
         img:swach,
-        link:'https://swachhbharat.mygov.in/'
+        link:'https://swachhbharat.mygov.in/',
+        desc: "Swachh Bharat Abhiyan is a country-wide campaign initiated by the Government of India to eliminate open defecation and improve solid waste management.",
+        title:"Swachh Bharat Abhiyan"
     },
     {
         img:MoWC,
-        link:'https://wcd.nic.in/'
+        link:'https://wcd.nic.in/',
+        desc:"The official website of Ministry of Women and Child Development, Government of India.",
+        title:"Ministry of Women and Child Development"
     },
     {
         img:nutri,
-        link:'https://www.nutritionindia.info/'
+        link:'https://www.nutritionindia.info/',
+        desc:"Nutrition India program aims to improve the nutritional status of children during the first 1,000 days of birth.",
+        title:"Nutrition India Program"
     },
 ]
