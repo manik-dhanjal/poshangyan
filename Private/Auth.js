@@ -13,10 +13,10 @@ module.exports = (req,res,next) => {
                 req.body.verified = true;
                 return next();
             }else{
-                res.send({message:'not authorised!!'});
+                res.status(401).send({message:'not authorised!!'});
             }
         })
     }else{
-        return res.send({message:'not authorised!!'});
+        return res.status(401).send({message:'not authorised!!'});
     }
 }

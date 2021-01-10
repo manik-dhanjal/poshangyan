@@ -126,6 +126,7 @@ exports.getThemeoftheMonth = (req, res) => {
     .then(dat=>{
       let posts=[];
       dat.forEach(function(doc) { 
+        // if(doc.themes.includes('themeName')) posts.push(doc); 
         if(doc.mimetype.includes('image')) posts.push(doc); 
       });
       return res.json(posts);

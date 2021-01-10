@@ -52,13 +52,13 @@ exports.login = (req,res) =>{
                         return dat.save();
                     }else{
                         sent=true;
-                        res.send({messge:'wrong password'})
+                        res.status(401).send({message:'Wrong password!!'})
                         return '';
                     }
                 }
             })
             if(!sent)
-            res.send({messge:'plz check username and password'})
+            res.status(401).send({message:'Please check username and password!!'})
             return '';
         }).then(()=>{
             return '';
