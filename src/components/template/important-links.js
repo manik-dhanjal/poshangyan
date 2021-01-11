@@ -9,6 +9,9 @@ import MoWC from '../../assets/Images/important links/MoWC.png'
 import niti from '../../assets/Images/important links/niti ayaog.png'
 import swach from '../../assets/Images/important links/swach.png'
 import nutri from '../../assets/Images/important links/nutrition.png'
+import wecan from '../../assets/Images/important links/wecan_logo.jpg'
+
+
 const Div = styled.div`
 background:#f4d6cc;
 .main{
@@ -23,11 +26,9 @@ background:#f4d6cc;
         display:flex;
         flex-wrap:wrap;
         margin-top:50px;
-        gap:30px;
-        gap-row:50px;
         margin-right: auto;
         margin-left:auto;
-        width:1130px;
+        width:870px;
     }
     .thumb-cont{
         width: 260px;
@@ -38,6 +39,9 @@ background:#f4d6cc;
         flex-direction:column;
         padding:20px;
         color:black;
+        margin-bottom:30px;
+        margin-left:15px;
+        margin-right:15px;
         .img-cont{
             width:100%;
             height:150px;
@@ -51,19 +55,14 @@ background:#f4d6cc;
     }
 }
 
-@media screen and (max-width:1190px){
-   .main .thumb-collection{
-        width:840px;
-    }
-}
 @media screen and (max-width:900px){
     .main .thumb-collection{
-         width:550px;
+         width:580px;
      }
  }
  @media screen and (max-width:640px){
     .main .thumb-collection{
-         width:260px;
+         width:290px;
      }
  }
 `
@@ -76,7 +75,7 @@ const ImportantLinks = () => {
                     <div className='thumb-collection'>
                         {
                             links.map((link)=>(
-                            <a href={link.link} className='thumb-cont'>
+                            <a href={link.link} className='thumb-cont' target='__blank'>
                                 <div className='img-cont'>
                                         <img src={link.img}/>
                                 </div>
@@ -97,6 +96,12 @@ const ImportantLinks = () => {
 export default ImportantLinks
 
 const links = [
+    {
+        img:wecan,
+        link:'https://www.wecollaborate4nutrition.org',
+        desc:"WeCan Mothers' support page contains resource materials from the Government and development partners and links to support groups, helplines, lactation experts and associations.",
+        title:"WeCan"
+    },
     {
         img:abhiyan,
         link:'http://poshanabhiyaan.gov.in/',
