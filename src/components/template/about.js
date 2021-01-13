@@ -14,9 +14,6 @@ background:#f4d6cc;
     padding-top:50px;
     padding-bottom:50px;
     margin:0px auto;
-    h1{
-        margin-top:50px;
-    }
 }
 .content{
     font-size:1.4em;
@@ -29,6 +26,9 @@ background:#f4d6cc;
 .credits{
     padding:20px 30px;
     text-align:center;
+    background:black;
+    color:white;
+    font-size:1.2em;
 }
 .container.top{
     text-align:center;
