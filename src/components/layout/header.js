@@ -320,7 +320,7 @@ const Header = () => {
                                 </li>
                                 <li>
                                     <Link to='/important-links'>
-                                        <i class="linkify icon"></i><span>Important Links</span>
+                                        <i className="linkify icon"></i><span>Important Links</span>
                                     </Link>
                                 </li>
                             
@@ -329,11 +329,11 @@ const Header = () => {
                         <div className='cart-main' >
                                 <div onClick={() => setCartDropOpen(!IsCartDropOpen)}>
                                     <span className='cart-count'>{cart.length}</span>
-                                    <i class="shopping cart icon"></i>
+                                    <i className="shopping cart icon"></i>
                                 </div>      
                         </div>
                         <div className='burger-menu' onClick={() => setMenuOpen(!isMenuOpen)}>
-                            <i class="fas fa-bars"></i>
+                            <i className="fas fa-bars"></i>
                         </div>
                     </div>
                     

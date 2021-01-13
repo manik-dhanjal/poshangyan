@@ -10,7 +10,7 @@ export default class MenuExampleTabularOnLeft extends Component {
 
   componentDidMount(){
     let key = localStorage.getItem('passkey');
-    if(!key) this.props.history.push('/admin');
+    // if(!key) this.props.history.push('/admin');
   }
 
   render() {
