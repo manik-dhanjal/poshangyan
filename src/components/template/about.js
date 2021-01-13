@@ -1,6 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
 import BannerMenu from "../molecules/banner-menu"
+import img1 from "../../assets/Images/about-us/1.png"
+import img2 from "../../assets/Images/about-us/2.png"
+import img3 from "../../assets/Images/about-us/3.png"
+import img4 from "../../assets/Images/about-us/4.png"
+
 const Div = styled.div`
 background:#f4d6cc;
 .custom-cont{
@@ -25,20 +30,101 @@ background:#f4d6cc;
     padding:20px 30px;
     text-align:center;
 }
+.container.top{
+    text-align:center;
+    h1{
+        margin-top:50px;
+    }
+}
+.howtouse-content{
+    display:flex;
+    width:100%;
+    margin-top:40px;
+    padding:0px;
+    li{
+        margin-right:50px;
+        width:25%;
+        list-style-type:none;
+        img{
+            width:100%;
+            height:100%;
+            object-fit:contain;
+        }
+        .content{
+            padding-top:30px;
+            font-size:1.2em;
+            line-height:1.5em;
+            padding-bottom:30px;
+        }
+    }
+    li:nth-child(4){
+        margin-right:0px;
+    }
+}
+@media screen and (max-width:1024px){
+    .content{
+        padding-top:30px;
+        font-size:1em!important;
+    }
+}
+@media screen and (max-width:991px){
+    .howtouse-content{
+        flex-wrap:wrap;
+        li{
+            margin:20px;
+            width:calc( 50% - 40px );
+        }
+}
+@media screen and (max-width:991px){
+    .howtouse-content{
+        flex-wrap:wrap;
+        li{
+            margin:20px;
+            width:calc( 100% - 20px );
+        }
+}
 `
 const About = () => {
     return (
         <Div>
-        <div className='container custom-cont'>
+        <div className='container top' style={{paddingTop:50}}>
             <BannerMenu />
                 <h1>
                     How to use this website
                 </h1>
-                <ul className='content'>
-                   <li>Search for the right materials for your use by selecting the theme, language, type of media etc.</li>
-                   <li>Download the materials for your use or share on social media</li>
-                   <li>Sign up to receive Email notifications when new materials are uploaded</li>
-                   <li>Upload materials developed by your organisation or team to be shared and used by others</li>
+                <ul className='howtouse-content'>
+                    <li>
+                       <div className='img-cont'>
+                           <img  src={img1}/>
+                           <div className='content'>
+                                Search for the right materials for your use by selecting the theme, language, type of media etc.
+                           </div>
+                       </div>
+                    </li>
+                    <li>
+                       <div className='img-cont'>
+                           <img  src={img2}/>
+                           <div className='content'>
+                              Download the materials for your use or share on social media.
+                           </div>
+                       </div>
+                    </li>
+                    <li>
+                       <div className='img-cont'>
+                           <img  src={img3}/>
+                           <div className='content'>
+                             Sign up to receive Email notifications when new materials are uploaded.
+                           </div>
+                       </div>
+                    </li>
+                    <li>
+                       <div className='img-cont'>
+                           <img  src={img4}/>
+                           <div className='content'>
+                             Upload materials developed by your organisation or team to be shared and used by others
+                           </div>
+                       </div>
+                    </li>
                 </ul>
         </div>
         <div className='back-white'>

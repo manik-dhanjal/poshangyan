@@ -15,9 +15,37 @@ import wecan from '../../assets/Images/important links/wecan_logo.jpg'
 const Div = styled.div`
 background:#f4d6cc;
 .main{
-    padding-top:50px;
-    padding-bottom:50px;
     margin:0px auto;
+}
+.container.head{
+    padding-top:50px;
+}
+.wecan-cont{
+    background:white;
+    padding:20px 30px;
+    margin-top:30px;
+
+    .wecan-card{
+        max-width:500px;
+        display:flex;
+        margin:0 auto;
+        align-items:center;
+        color:black;
+        justify-content:center;
+        .img-cont{
+            margin-right:30px;
+           
+            img{
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+            }
+        }
+        &>div{
+            width:50%;
+        }
+    }
+}
     h1{
         margin-top:50px;
         text-align:center;
@@ -28,7 +56,7 @@ background:#f4d6cc;
         margin-top:50px;
         margin-right: auto;
         margin-left:auto;
-        width:870px;
+        width:1160px;
     }
     .thumb-cont{
         width: 260px;
@@ -53,8 +81,11 @@ background:#f4d6cc;
             }
         }
     }
-}
-
+@media screen and (max-width:1190px){
+    .main .thumb-collection{
+         width:870px;
+     }
+ }
 @media screen and (max-width:900px){
     .main .thumb-collection{
          width:580px;
@@ -64,31 +95,54 @@ background:#f4d6cc;
     .main .thumb-collection{
          width:290px;
      }
+     .wecan-card{
+         flex-direction:column;
+         max-width:300px;
+         padding:0 30px;\
+         .img-cont{
+             margin-right:0!important;
+            margin-bottom:30px;
+        }
+     }
+    
  }
 `
 const ImportantLinks = () => {
     return (
         <Div>
-            <div className='container main'>
+            <div className='container main head'>
                 <BannerMenu />
                 <h1>Important Links</h1>
-                    <div className='thumb-collection'>
-                        {
-                            links.map((link)=>(
+            </div>
+               
+            <div className='wecan-cont'>
+                <a className='wecan-card' href='https://www.wecollaborate4nutrition.org' target="__blank">
+                    <div className='img-cont'>
+                        <img src={wecan}/>
+                    </div>
+                    <div className='content'>
+                        <h3>WeCan</h3>
+                        <p>WeCan Mothers' support page contains resource materials from the Government and development partners and links to support groups, helplines, lactation experts and associations.</p>
+                    </div>
+                </a>
+            </div>
+            <div className='container main'>
+                <div className='thumb-collection'>
+                    {
+                        links.map((link)=>(
                             <a href={link.link} className='thumb-cont' target='__blank'>
                                 <div className='img-cont'>
-                                        <img src={link.img}/>
+                                    <img src={link.img}/>
                                 </div>
                                 <div className='content'>
                                     <h3>{link.title}</h3>
                                     <p>{link.desc}</p>
                                 </div>
                             </a>
-                            ))
-                            
-                        }
-                    </div>
-            </div>
+                        ))      
+                    }
+                </div>
+            </div>    
         </Div>
     )
 }
@@ -96,12 +150,6 @@ const ImportantLinks = () => {
 export default ImportantLinks
 
 const links = [
-    {
-        img:wecan,
-        link:'https://www.wecollaborate4nutrition.org',
-        desc:"WeCan Mothers' support page contains resource materials from the Government and development partners and links to support groups, helplines, lactation experts and associations.",
-        title:"WeCan"
-    },
     {
         img:abhiyan,
         link:'http://poshanabhiyaan.gov.in/',
