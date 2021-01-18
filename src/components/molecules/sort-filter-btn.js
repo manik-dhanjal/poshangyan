@@ -162,15 +162,15 @@ const SortFilterBtn = ({query}) => {
         var other = false;
         var temp = [];  
          options.forEach(e=>{
-            if(e === "Any") any=true
-            if(e === "others") other=true;
-            if(e !== "Any" && e !== "others")
+            if(e.includes('All')) any=true
+            if(e === "Others") other=true;
+            if(!e.includes('All') && e !== "Others")
              temp.push( {label:e,value:e} )
          })
          temp = temp.sort((a,b)=> ( '' + a.label).localeCompare(b.label) )
  
-         if(any) temp.unshift({label:"Any",value:"Any"})
-         if(other) temp.push({label:"others",value:"others"})
+         if(any) temp.unshift({label:options[0],value:options[0]})
+         if(other) temp.push({label:options[options.length-1],value:options[options.length-1]})
          return temp;
     }
  
@@ -319,7 +319,20 @@ const dropData=[
             'MoWCD',
             'MDWS',
             'FSSAI',
-            'Other organizations',
+            'Arogya World',
+            'BBC Media Action ',
+            'Global Health Media ',
+            'JEEViKA',
+            'PATH',
+            'Save The Children',
+            'Sneha',
+            'Tata Trust',
+            'UNICEF India',
+            'USAID',
+            'WeCan',
+            'Vitamin Angels',
+            'Alive & Thrive',
+            'Others',
           ]
     }
 ]

@@ -96,9 +96,9 @@ const BannerMenu = ({query={}}) => {
        var other = false;
        var temp = [];  
         options.forEach(e=>{
-           if(e === "Any") any=true
-           if(e === "others") other=true;
-           if(e !== "Any" && e !== "others")
+           if(e.includes("All")) any=true
+           if(e.includes("Others")) other=true;
+           if(!e.includes("All") && !e.includes("Others"))
             temp.push( {label:e,value:e} )
         })
         temp = temp.sort((a,b)=> ( '' + a.label).localeCompare(b.label) )
@@ -211,7 +211,7 @@ const dropData=[
             'Pregnant Women',
             'PRI member',
             'Civil society',
-            'Others'
+            'Health workers and Others'
           ]
     },{
         label:"Sources",
@@ -221,6 +221,19 @@ const dropData=[
             'MoWCD',
             'MDWS',
             'FSSAI',
+            'Arogya World',
+            'BBC Media Action ',
+            'Global Health Media ',
+            'JEEViKA',
+            'PATH',
+            'Save The Children',
+            'Sneha',
+            'Tata Trust',
+            'UNICEF India',
+            'USAID',
+            'WeCan',
+            'Vitamin Angels',
+            'Alive & Thrive',
             'Others',
           ]
     }
