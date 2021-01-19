@@ -2,10 +2,29 @@ import React ,{useState,useEffect}from 'react'
 import styled from 'styled-components'
 import PostCards from '../atom/admin.PostCards'
 import { Icon,Pagination} from "semantic-ui-react"
+import { formatMs } from '@material-ui/core'
 
 const Div = styled.div`
 .show-post{
-  padding:30px 0px;
+  padding:20px 0px;
+}
+.search-cont{
+  border:1px solid #bbb;
+  display:inline-flex;
+  border-radius:5px;
+  overflow:hidden;
+  margin-top:10px;
+  input{
+    border:none;
+    padding: 8px 10px;
+    font-size:1.05em;
+  }
+  button{
+    border:none;
+    cursor:pointer;
+    font-size:18px;
+  }
+
 }
   .single-post{
     display:flex;
@@ -31,22 +50,42 @@ const Div = styled.div`
 `
 
 const PostsList = ({allPost,handleEditClick}) => {
+    const [searchVal,setSearchVal] = useState('');
     const [filteredPost,setFilteredPost] = useState( {
         post:[],
         pageno:1,
         totalpage:1, 
-        status:"pending"});
+        status:"pending"
+      });
       const handlePageChange = (e,i) =>{
-        console.log(i)
         setFilteredPost({...filteredPost,pageno:i.activePage}) 
+      }
+      const handleSearch = (e) =>{
+        setSearchVal(e.target.value.toLowerCase())
+      }
+      const handleSearchBtn = (e) =>{
+        e.preventDefault();
+        console.log(e)
+        const SearchResult = allPost.status==='success'?allPost.posts.filter((post)=>{
+          if(post.label.toLowerCase().includes(searchVal)||searchVal===''){
+            return post;
+          }
+        }):[];
+        var l = SearchResult.length;
+        var ans=0;
+        if(l%10) ans++;
+          ans+=Math.floor(l/10);
+        setFilteredPost({
+          post:SearchResult,
+          pageno:1,
+          totalpage:ans, 
+          status:allPost.status})
       }
       useEffect(()=>{
         var l = allPost.posts.length;
         var ans=0;
         if(l%10) ans++;
           ans+=Math.floor(l/10);
-    
-          console.log(ans)
         setFilteredPost({
           post:allPost.posts,
           pageno:1,
@@ -55,10 +94,10 @@ const PostsList = ({allPost,handleEditClick}) => {
       },[allPost])
     return (
         <Div>
-             <div className='Search-cont'>
-                    <input type='text' placeholder='Search'/>
-                    <button>search</button>
-                </div>
+                <form className='search-cont' onSubmit={handleSearchBtn}>
+                    <input type='text' name='search' placeholder='Search' onChange={handleSearch} value={searchVal}/>
+                    <button type='submit'><i class="search icon"></i></button>
+                </form>
                 <div className='show-post'>
                 {
                                 

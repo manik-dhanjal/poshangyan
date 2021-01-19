@@ -1,7 +1,6 @@
 import React from 'react'
 
 const PostCards = ({post,handleEditClick}) =>{
-    console.log(post)
     return(
       <div className='single-post'>
         <div className='title'>{post.label}</div >
