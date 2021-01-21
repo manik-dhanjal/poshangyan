@@ -96,7 +96,7 @@ const PostsList = ({allPost,handleEditClick}) => {
         <Div>
                 <form className='search-cont' onSubmit={handleSearchBtn}>
                     <input type='text' name='search' placeholder='Search' onChange={handleSearch} value={searchVal}/>
-                    <button type='submit'><i class="search icon"></i></button>
+                    <button type='submit'><i className="search icon"></i></button>
                 </form>
                 <div className='show-post'>
                 {
