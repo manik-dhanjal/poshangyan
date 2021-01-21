@@ -1,11 +1,11 @@
-import React from 'react'
+import React,{useState,useEffect} from 'react'
 import styled from 'styled-components'
 import { Button, Icon } from 'semantic-ui-react'
 import play from '../../assets/Images/play.png' 
 import{ Link }from "react-router-dom"
 import handleDownload from "../../api/aws-handle-download"
 import audioThumb from "../../assets/Images/audio-thumbnail.png"
-
+import {useAddCart,useCheckItemInCart} from '../context/cart.context'
 const Div = styled.div`
 max-width:280px;
 width:100%;
@@ -61,6 +61,13 @@ align-items:center;
         background: rgb(340,66,94);
         color: white;
     }
+    .add-to-cart-btn{
+        margin:0 5px;
+    }
+    
+    .button{
+      display:flex;
+    }
        
 `
 const slugCreater = (str) =>{
@@ -80,11 +87,6 @@ const slugCreater = (str) =>{
 const tagColor = (themes) =>{
     const char = themes.toLowerCase().charCodeAt(0) - 97;
     var color ;
-// if(char < 7) color =  "rgb(97,199,201)" ;
-// else if (char < 14)  color = "rgb(79,149,208)";
-// else if (char <21)   color = "rgb(235,98,97)";
-// else color = "rgb(239,82,135)";
-
 if(themes.includes("Overall Nutrition")||themes.includes("Anaemia")||themes.includes("ANC")) color =  "rgb(97,199,201)" ;
 else if (themes.includes("Immunization")||themes.includes("Girls Education")||themes.includes("Food Fortication"))  color = "rgb(79,149,208)";
 else if (themes.includes("Diarrhoea Management")||themes.includes("Sanitation/ WASH")||themes.includes("Breastfeeding"))   color = "rgb(235,98,97)";
@@ -92,9 +94,14 @@ else color = "rgb(239,82,135)";
 
  return color;
 }
-const Cards = ({post}) => {
 
+
+
+const Cards = ({post}) => {
     const {label,Location,thumbLocation,mimetype,Key,_id,themes} = post;
+    const addToCart = useAddCart()
+    const isItemInCart = useCheckItemInCart()(post._id);
+
     return (
         <Div tagColor={tagColor(themes)}>
                 <Link to={`${slugCreater(post.themes)}/${post.postId}`} className="link">
@@ -106,14 +113,24 @@ const Cards = ({post}) => {
 
                    <div className="label"> {label} </div> 
                 </Link>
-
-                <Button onClick={() => handleDownload(Location,Key,_id)} animated >
-                    <Button.Content visible >Download</Button.Content>
-                    <Button.Content hidden>
-                        <Icon name='download' inverted />
-                    </Button.Content>
-                </Button>
-                
+                <div className='button'>
+                  <Button onClick={() => handleDownload(Location,Key,_id)} animated >
+                      <Button.Content visible >Download</Button.Content>
+                      <Button.Content hidden>
+                          <Icon name='download' inverted />
+                      </Button.Content>
+                  </Button>
+                  <Button onClick={() => addToCart(post)} animated disabled = {isItemInCart} className='add-to-cart-btn'>
+                      <Button.Content visible > {!isItemInCart?'Add To Cart':'Added'}</Button.Content>
+                    { 
+                      !isItemInCart? 
+                        <Button.Content hidden>
+                            <i className="shopping cart icon"></i>
+                        </Button.Content>
+                        :null
+                    }
+                  </Button>
+                </div>
         </Div>
     )
 }

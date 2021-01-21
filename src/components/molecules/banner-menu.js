@@ -1,4 +1,5 @@
 import React , {useState,useEffect} from 'react'
+import {Link} from "react-router-dom"
 import styled from "styled-components"
 import ReactMultiSelectCheckboxes from "react-multiselect-checkboxes";
 
@@ -69,7 +70,9 @@ const BannerMenu = ({query={}}) => {
    const [url,setUrl] = useState("")
    const UrlCreater = (e,name) =>{
     const temp = {...params};
+    // name==='Mime Type' ? name='mimetype' : null;
     const key = name.replace(/\s/g,'')
+    
        if(!e.length){
            delete temp[key]
        }
@@ -93,15 +96,15 @@ const BannerMenu = ({query={}}) => {
        var other = false;
        var temp = [];  
         options.forEach(e=>{
-           if(e === "Any") any=true
-           if(e === "others") other=true;
-           if(e !== "Any" && e !== "others")
+           if(e.includes("All")) any=true
+           if(e.includes("Others")) other=true;
+           if(!e.includes("All") && !e.includes("Others"))
             temp.push( {label:e,value:e} )
         })
         temp = temp.sort((a,b)=> ( '' + a.label).localeCompare(b.label) )
 
-        if(any) temp.unshift({label:"Any",value:"Any"})
-        if(other) temp.push({label:"others",value:"others"})
+        if(any) temp.unshift({label:options[0],value:options[0]})
+        if(other) temp.push({label:options[options.length-1],value:options[options.length-1]})
         return temp;
    }
 
@@ -118,16 +121,21 @@ const BannerMenu = ({query={}}) => {
                 {dropData.map( ( menu ,i) =>{
                 return  (
                     <div className="select-cont" key={i}>
-                         <ReactMultiSelectCheckboxes placeholderButtonLabel={menu.label}  options={ sortMenuTab(menu.options) } defaultValue={ setDefaultValue(menu.label)} onChange={e=>UrlCreater(e,menu.label)}/>
+                         <ReactMultiSelectCheckboxes 
+                            placeholderButtonLabel={menu.label}  
+                            options={ sortMenuTab(menu.options) } 
+                            defaultValue={ setDefaultValue(menu.label)} 
+                            onChange={e=>UrlCreater(e,menu.label)}
+                         />
                     </div>
                 )
                 })}
             </div>
-            <a href={url}>
+            <Link to={url}>
                 <div className="submit-btn">
                    <i className="chevron right icon"></i>
                 </div>
-            </a>
+            </Link>
         </Div>
     )
 }
@@ -138,7 +146,7 @@ const dropData=[
     {
         label:"Themes",
         options: [
-            "Any",
+            "All themes",
             "Ante Natal Care (ANC)",
             "Breastfeeding",
             "Anaemia Prevention",
@@ -147,16 +155,18 @@ const dropData=[
             "Sanitation/ WASH",
             "Diarrhoea Management",
             "Diet Diversity/ Overall Nutrition",
-            "Millet",
-            "Food Fortication ",
+            "Nutri Cereal",
+            "Food Fortification",
             "Girls Education, Diet & Right Age of Marriage",
-            "Poshan Pakhwada",
-            "Complementary Feeding"
+            // "Poshan Pakhwada",
+            "Complementary Feeding",
+            "Vit A supplements",
+            "Deworming"
           ]
     },{
-        label:"Language",
+        label:"Languages",
         options:[
-            "Any",
+            "All languages",
             "Assamese",
             "Bengali",
             "Gujarati",
@@ -182,36 +192,51 @@ const dropData=[
             "English"
           ]
     },{
-        label:"Media Type",
+        label:"Media Types",
         options:[
-            'Any',
-            'IPC',
-            'Mass Media',
-            'Outdoor',
-            'Social Media'
+            'All media types',
+            'PDF',
+            'Video',
+            'Audio',
+            'Image',
+            'GIF'
           ]
     },{
-        label:"Target Audience",
+        label:"Target Audiences",
         options:[
-            'Any',
+            'All audiences',
             'Children under 5',
             'Adolescent Girls',
             'Mothers',
             'Pregnant Women',
             'PRI member',
             'Civil society',
-            'others'
+            'Health workers and Others'
           ]
     },{
-        label:"Source",
+        label:"Sources",
         options:[
-            'Any',
+            'All sources',
             'MoHFW',
             'MoWCD',
             'MDWS',
             'FSSAI',
-            'others',
+            'Arogya World',
+            'BBC Media Action ',
+            'Global Health Media ',
+            'JEEViKA',
+            'PATH',
+            'Save The Children',
+            'Sneha',
+            'Tata Trust',
+            'UNICEF India',
+            'USAID',
+            'WeCan',
+            'Vitamin Angels',
+            'Alive & Thrive',
+            'Others',
           ]
     }
 ]
+
 

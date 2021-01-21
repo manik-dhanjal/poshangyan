@@ -6,6 +6,7 @@ import axios from "axios";
 import PreSearchPost from "../molecules/searching-post"
 import { Icon,Pagination} from "semantic-ui-react"
 import ShowSearchResult from "../molecules/show-search-result"
+import SortFilterBtn from "../molecules/sort-filter-btn"
 const Div = styled.div`
 padding:60px 0px;
 
@@ -73,14 +74,36 @@ const SearchResults = ({query}) => {
     const handlePageChange = (e,i) =>{
       setData({...data,pageno:i.activePage}) 
     }
+    const AllToAnyHandler = (query) =>{
+        const newQuery = {};
+        // console.log(query);
+        for(const key in query){
+             newQuery[key] = [];
+            for(const arrItem of query[key]){
+
+                if( arrItem.includes("All") ){
+                    newQuery[key].push('Any')
+                }else if(arrItem.includes("Other")){
+                    console.log(arrItem)
+                    newQuery[key].push('others')
+                }
+                else{
+                    newQuery[key].push(arrItem)
+                }
+            }
+        }
+        return newQuery;
+    }
     useEffect(()=>{
         (async ()=>{
+            const newQuery = AllToAnyHandler(query);
+            console.log(newQuery)
             var FilterData = {
-                themes:         query.Themes?query.Themes.toString():null,
-                languages:      query.Language?query.Language.toString():null,
-                targetAudience: query.TargetAudience?query.TargetAudience.toString():null,
-                mediaType:      query.MediaType? query.MediaType.toString():null,
-                source:         query.Source?query.Source.toString():null,
+                themes:         newQuery.Themes?newQuery.Themes.toString():null,
+                languages:      newQuery.Languages?newQuery.Languages.toString():null,
+                targetAudience: newQuery.TargetAudiences?newQuery.TargetAudiences.toString():null,
+                mimetype:       newQuery.MediaTypes? newQuery.MediaTypes.toString():null,
+                source:         newQuery.Sources?newQuery.Sources.toString():null,
               }
               try{
                 const res = await axios.post("/getFilteredInfo", FilterData)
@@ -120,7 +143,7 @@ const SearchResults = ({query}) => {
                   })
               }
         })()
-    },[])  
+    },[query])  
     return (
         <Div>
             <Container>
@@ -155,6 +178,7 @@ const SearchResults = ({query}) => {
                         )
                     }
             </Container>
+            <SortFilterBtn query={query}/>
         </Div>
     )
 }

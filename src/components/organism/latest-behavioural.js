@@ -5,9 +5,9 @@ import MuiGrid from "@material-ui/core/Grid";
 import { Container } from '@material-ui/core';
 
 const Div = styled.div`
-background:white;
+background:#f4d6cc;
 .child:last-of-type{
-border-left:2px solid rgb(234,231,199);
+border-left:2px solid white;
 }
 .latest-behave-grid{
     display:flex;
@@ -18,7 +18,7 @@ border-left:2px solid rgb(234,231,199);
     } 
     .child:last-of-type{
         border-left:none;
-        border-top:2px solid rgb(234,231,199);
+        border-top:2px solid white;
         margin-top:0px;
         padding-top:60px;
     }

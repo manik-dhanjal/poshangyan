@@ -1,17 +1,20 @@
 import React from 'react'
 import styled from "styled-components"
-import bannerBg from "../../assets/Images/banner-bg.png"
+import bannerBg from "../../assets/Images/Banner1.jpg"
 import BannerMenu from "../molecules/banner-menu"
 import { Container } from '@material-ui/core';
 const Div = styled.div`
 position: relative;
 overflow: visible;
-background: linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)),url(${bannerBg});
+background:url(${bannerBg});
+background-size:cover;
+background-postion:top;
+background-repeat:no-repeat;
 min-height:400px;
 display:flex;
 flex-direction:column;
 justify-content:center;
-h1{
+.text{
     color: white;
     width: 100%;
     text-align: center;
@@ -21,15 +24,21 @@ h1{
     margin-bottom:5%;
     line-height:1.5em;
     font-weight:600;
+    h1{
+      margin-bottom:15px;
+    }
+    h2,h1{
+      line-height:1.5em;
+    }
 }
 `
 const Banner = ({children,query}) => {
     return (
         <Div>
             <Container>
-              <h1>
+              <div className='text'>
                 {children}
-              </h1>
+              </div>
 
             <div className="banner-menu">
               <BannerMenu query={query}/>

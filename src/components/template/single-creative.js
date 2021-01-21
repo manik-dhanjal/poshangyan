@@ -3,9 +3,10 @@ import styled from "styled-components"
 import CreativeImage from "../molecules/creartive-image"
 import CreativeDetails from "../molecules/creative-details"
 import { Container } from "@material-ui/core"
+import Helmet from 'react-helmet'
 import axios from "axios"
 const  Div = styled.div`
-background:rgb(234,231,199);
+background:#f4d6cc;
 padding:60px 0; 
 min-height:100vh;
 .main-creative{
@@ -23,11 +24,15 @@ const SingleCreative =  ({match}) => {
     const [data,setData] = useState({});
    useEffect(() => {
     axios.get('/posts/'+match.params.title).then((response)=>{
-        console.log(response.data[0])
+        // console.log(response.data[0])
         setData(response.data[0])
     })
    }, [])
     return (
+        <>
+        <Helmet>
+             <meta property="og:image" content={data.thumbLocation||data.Location} />
+        </Helmet>
         <Div>
             <Container>
                 <div className="main-creative">
@@ -37,6 +42,7 @@ const SingleCreative =  ({match}) => {
                 </div>
             </Container>
         </Div>
+        </>
     )
 }
 

@@ -118,7 +118,7 @@ h4{
     }
 }
 `
-const CreativeDetails = ({label,showFileName,themes,source,Key,_id,downloadsCount,mimetype,targetAudience,mediaType,languages}) => {
+const CreativeDetails = ({label,showFileName,themes,source,Key,_id,downloadsCount,mimetype,targetAudience,languages}) => {
     
     const downloadImage = (filename) => {
         const s3 = new AWS.S3({
@@ -142,7 +142,7 @@ const CreativeDetails = ({label,showFileName,themes,source,Key,_id,downloadsCoun
             "_id":_id
           })
           .then((res) => {
-            console.log(res.data);
+            // console.log(res.data);
           })
           
       } 
@@ -154,7 +154,7 @@ const CreativeDetails = ({label,showFileName,themes,source,Key,_id,downloadsCoun
         link.href = url;
         link.setAttribute('download', filename);
         downloadImage(filename)
-      }  
+      }
     return (
         <Div>
             <h1>{label}</h1>
@@ -166,11 +166,28 @@ const CreativeDetails = ({label,showFileName,themes,source,Key,_id,downloadsCoun
                     <div className="label">Target Audience</div><div className="value">{targetAudience}</div>
             </div> */}
             <table className="details-table">
-                <tr><td className="label">Themes </td>  <td className="value">{themes} </td></tr>
-                <tr><td className="label">Media Type </td>  <td className="value">{mediaType} </td></tr>
-                <tr><td className="label">Source </td>  <td className="value">{source} </td></tr>
-                <tr><td className="label">Languages </td>  <td className="value">{languages} </td></tr>
-                <tr><td className="label">Target Audience </td>  <td className="value">{targetAudience} </td></tr>
+                <tbody>
+                    <tr>
+                        <td className="label">Themes </td>
+                        <td className="value">{themes} </td>
+                    </tr>
+                    <tr>
+                        <td className="label">Media Type </td>
+                        <td className="value">{mimetype} </td>
+                    </tr>
+                    <tr>
+                        <td className="label">Source </td>
+                        <td className="value">{source} </td>
+                    </tr>
+                    <tr>
+                        <td className="label">Languages </td>
+                        <td className="value">{languages} </td>
+                    </tr>
+                    <tr>
+                        <td className="label">Target Audience </td>
+                        <td className="value">{targetAudience} </td>
+                    </tr>
+                </tbody>
             </table>
             <div className="download-card">
                 <div className="mp4-logo">
@@ -181,7 +198,7 @@ const CreativeDetails = ({label,showFileName,themes,source,Key,_id,downloadsCoun
                     }
                 </div>
                 <div className="heads">
-                    <h3>{showFileName}</h3>
+                    <h3>{label}</h3>
                     <p className="downloaded"> <span className="count"> {downloadsCount}</span> Downloads   </p>
                 </div>
                 <div className="download-btn">
@@ -197,7 +214,11 @@ const CreativeDetails = ({label,showFileName,themes,source,Key,_id,downloadsCoun
             <div className="social-share">
                 <a className="facebook" href={'https://www.facebook.com/share.php?u='+encodeURIComponent(window.location.href)} target='_blank'><i className="facebook f icon"></i></a>
                 <a className="twitter" href={'https://twitter.com/intent/tweet?text='+encodeURIComponent(window.location.href)} target='_blank'><i className="twitter icon"></i></a>
-                <a className="whatsapp"  href={'https://api.whatsapp.com/send/?phone&text='+encodeURIComponent(window.location.href)} target='_blank'><i className="whatsapp icon"></i></a>
+                <a className="whatsapp"  href={'https://api.whatsapp.com/send/?phone   &text='+encodeURIComponent(window.location.href)} target='_blank'><i className="whatsapp icon"></i></a>
+                <a className="email" href={"mailto:?subject=Check out this resource I found on Poshangyan.com &body=I am sharing media from the Poshan Gyan website - a collection of trusted resources to improve India's nutritional status. Please use this link to access the file: "+ window.location.href+"."} title="Poshan Gyan">
+                    <i className="far fa-envelope"></i>
+                </a>
+
             </div>
         </Div>
     )

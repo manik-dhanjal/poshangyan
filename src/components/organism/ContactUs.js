@@ -5,19 +5,22 @@ import styled from "styled-components"
 
 const Div = styled.div`
 padding:60px;
-background:black;
+background:#f4d6cc;
 h2{
   text-align:center;
   margin-bottom:40px;
-  color:white;
 }
 .form-cont{
   max-width:400px;
   width:100%;
   margin:0 auto;
+
+}
+label{
+ color:black!important;
 }
 .submit-btn{
-  background:rgb(340,66,94);
+  background:black;
   color:white;
   width:200px;
   padding-top:15px;
