@@ -14,6 +14,7 @@ const [post,setPost] = useState({
     status:"pending"
 });
 
+
 useEffect(() => {
     (async () => {
       try{
@@ -49,7 +50,7 @@ useEffect(() => {
           <LatestBehave post={post}/>
           <MostDownloadMedia post={post}/>
         </div>
-        <ContactUs />
+        <ContactUs asd={"asd"} />
       </div>
     );
   
