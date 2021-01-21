@@ -356,7 +356,22 @@ exports.addSortingData = (req, res) => {
         'Any',
         'MoHFW',
         'MoWCD',
-        'others',
+        'Others',
+        "FSSAI",
+        "MDWS",
+        "Arogya World",
+        "BBC Media Action",
+        "Global Health Media",
+        "JEEVIKA",
+        "PATH",
+        "Save The Children",
+        "Sneha",
+        "Tata Trust",
+        "UNICEF India",
+        "USAID",
+        "WeCan",
+        "Vitamin Angels",
+        "Alive & Thrive"
     ]
 
     var mimetype = [

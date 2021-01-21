@@ -53,7 +53,7 @@ app.post('/addDownload',addDownloadCount)
 
 const {getPostInfo,deletePost,updatePostInfo} = require('./handlers/Posts')
 app.get('/posts/:postID', getPostInfo)
-app.delete('/posts/:postID',Auth, deletePost)
+app.post('/posts/:postID',Auth, deletePost)
 app.put('/posts/:postID',Auth, updatePostInfo)
 
 const {addSortingData,getSortingData,modifySortingData,delFromSortingData} = require('./handlers/sortingDataRoutes')
@@ -65,6 +65,11 @@ app.post('/deleteFromSortingData',Auth,delFromSortingData) //TODO: Add Auth  // 
 const {addAdmin,login} = require('./handlers/admin')
 
 app.post('/login',login)
+
+app.post('/sendEmail',(req,res)=>{
+    console.log(req.body)
+    res.send({yup:'done'});
+})
 
 // app.get('/posts/:postID', getPostInfo)
 // app.delete('/posts/:postID', deletePost)
