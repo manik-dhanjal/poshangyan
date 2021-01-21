@@ -26,11 +26,12 @@ justify-content:space-between;
     display: -webkit-box!important;
     width: min-content;
     &>a[type="prevItem"],&>a[type="nextItem"]{
-        background: #ff425e !important;
+        background: #ff425e80 !important;
         width: 20px;
         padding: 0px;
         color: white;
         &:hover{
+            background: #ff425e !important;
             color:white!important;
         }
     }
