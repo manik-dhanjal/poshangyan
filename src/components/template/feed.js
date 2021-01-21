@@ -4,7 +4,7 @@ import axios from "axios";
 import Snackbar from "@material-ui/core/Snackbar";
 import Alert from "@material-ui/lab/Alert";
 import { v4 as uuidv4 } from "uuid";
-import {  Progress } from 'semantic-ui-react'
+import { Progress } from 'semantic-ui-react'
 // import entire SDK
 import AWS from "aws-sdk";
 // import individual service
@@ -50,10 +50,33 @@ export class Feed extends Component {
       name: "Anshaj Kumar",
       snackbarType: 0,
       targetAudience: [],
-      percentCompleted: 0
+      percentCompleted: 0,
+      all_themes: [],
+      all_languages: [],
+      all_mediaType: [],
+      all_mimetype: [],
+      all_targetAudience: [],
+      all_sources: [],
     };
   }
-
+  componentDidMount() {
+    axios.get('/getSortingData')
+      .then(res => {
+        console.log(res.data)
+        let dat = res.data;
+        this.setState({
+          all_themes: dat.themes,
+          all_languages: dat.languages,
+          all_mediaType: dat.mediaType,
+          all_mimetype: dat.mimetype,
+          all_targetAudience: dat.targetAudience,
+          all_sources: dat.sources,
+        })
+      })
+      .catch((e) => {
+        console.log(e);
+      })
+  }
   handleThemeChange = (e, data) => {
     // console.log(data.value);
     this.setState({
@@ -101,6 +124,8 @@ export class Feed extends Component {
     });
     // console.log(data.value);
   };
+
+
 
   handleSubmit = (e) => {
     e.preventDefault();
@@ -153,9 +178,9 @@ export class Feed extends Component {
       let c = file.name;
       let extension = c.split(".")[c.split(".").length - 1];
       c = c.split(".");
-      c = c.slice(0,c.length-1).join(" ");
+      c = c.slice(0, c.length - 1).join(" ");
       let showFileName = c;
-      let ID = showFileName.toLowerCase().split(' ').join("-")
+      let ID = newPosts.label.toLowerCase().split(' ').join("-")
       newPosts.postId = ID;
 
       const params = {
@@ -178,53 +203,53 @@ export class Feed extends Component {
         .send((error, data) => {
           if (error) {
             // console.log(error)
-          }else{
-          // console.log(data);
-          // newPosts.ETag = data.ETag;
-          newPosts.Location = data.Location;
-          newPosts.key = data.key;
-          newPosts.Key = data.Key;
-          newPosts.Bucket = data.Bucket;
-          newPosts.showFileName = showFileName;
-          if (thumb && proceed) {
-            let c = thumb.name;
-            let extension = c.split(".")[c.split(".").length - 1];
-            c = c.split(".");
-            c = c.slice(0,c.length-1).join(" ");
-            const params = {
-              Bucket: process.env.REACT_APP_BUCKET_NAME,
-              Key: thumb.name,
-              Body: thumb, // optional
-              ContentType: thumb.type // required
-            };
-            s3.upload(params)
-              .on("httpUploadProgress", (progressEvent, response) => {
-                const percent = parseInt(
-                  (100 * progressEvent.loaded) / progressEvent.total
-                );
-                this.setState({
-                  percentCompleted: percent
-                });
-              })
-              .send((error, data) => {
-                if (error) {
-                  // console.log(error)
-                }else{
-                  // console.log(data);
-                  // newPosts.thumbETag = data.ETag;
-                  newPosts.thumbLocation = data.Location;
-                  newPosts.thumbkey = data.key;
-                  newPosts.thumbKey = data.Key;
-                  newPosts.thumbBucket = data.Bucket;
-                  newPosts.thumbshowFileName = c;
-                  this.post(newPosts);
-                }
-              });
-            
           } else {
-            this.post(newPosts);
+            // console.log(data);
+            // newPosts.ETag = data.ETag;
+            newPosts.Location = data.Location;
+            newPosts.key = data.key;
+            newPosts.Key = data.Key;
+            newPosts.Bucket = data.Bucket;
+            newPosts.showFileName = showFileName;
+            if (thumb && proceed) {
+              let c = thumb.name;
+              let extension = c.split(".")[c.split(".").length - 1];
+              c = c.split(".");
+              c = c.slice(0, c.length - 1).join(" ");
+              const params = {
+                Bucket: process.env.REACT_APP_BUCKET_NAME,
+                Key: thumb.name,
+                Body: thumb, // optional
+                ContentType: thumb.type // required
+              };
+              s3.upload(params)
+                .on("httpUploadProgress", (progressEvent, response) => {
+                  const percent = parseInt(
+                    (100 * progressEvent.loaded) / progressEvent.total
+                  );
+                  this.setState({
+                    percentCompleted: percent
+                  });
+                })
+                .send((error, data) => {
+                  if (error) {
+                    // console.log(error)
+                  } else {
+                    // console.log(data);
+                    // newPosts.thumbETag = data.ETag;
+                    newPosts.thumbLocation = data.Location;
+                    newPosts.thumbkey = data.key;
+                    newPosts.thumbKey = data.Key;
+                    newPosts.thumbBucket = data.Bucket;
+                    newPosts.thumbshowFileName = c;
+                    this.post(newPosts);
+                  }
+                });
+
+            } else {
+              this.post(newPosts);
+            }
           }
-        }
         });
     } else {
       this.setState({
@@ -259,79 +284,38 @@ export class Feed extends Component {
     var blog = "";
     var themeArray = [],
       langsArray = [];
+    const { all_languages, all_mediaType, all_sources, all_targetAudience, all_themes } = this.state;
 
-    var themes = [
-      "Ante Natal Care (ANC)",
-      "Breastfeeding",
-      "Anaemia Prevention",
-      "Immunization",
-      "Growth Monitoring",
-      "Sanitation/ WASH",
-      "Diarrhoea Management",
-      "Diet Diversity/ Overall Nutrition",
-      "Millet/Nutri Cereal",
-      "Behavioural Insights",
-      "Complementary Feeding",
-      "Food Fortication ",
-      "Girls Education, Diet & Right Age of Marriage",
-      "Poshan Pakhwada"
-    ];
-    var langs = [
-      "Assamese",
-      "Bengali",
-      "Gujarati",
-      "Hindi",
-      "Kannada",
-      "Kashmiri",
-      "Konkani",
-      "Malayalam",
-      "Manipuri",
-      "Marathi",
-      "Nepali",
-      "Oriya",
-      "Punjabi",
-      "Sanskrit",
-      "Sindhi",
-      "Tamil",
-      "Telugu",
-      "Urdu",
-      "Bodo",
-      "Santhali",
-      "Maithili",
-      "Dogri",
-      "Any",
-      "English"
-    ];
-    var target = ['Children under 5','Adolescent Girls' , 'Mothers','Pregnant Women','PRI member','other']
-    
-    themes.sort();
-    langs.sort();
+    all_themes.sort();
+    all_languages.sort();
 
-    for (var i = 0; i < themes.length; i++) {
+    for (var i = 0; i < all_themes.length; i++) {
       themeArray.push({
         key: i,
-        text: themes[i],
-        value: themes[i]
+        text: all_themes[i],
+        value: all_themes[i]
       });
     }
-    for (var i = 0; i < langs.length; i++) {
+    for (var i = 0; i < all_languages.length; i++) {
       langsArray.push({
         key: i,
-        text: langs[i],
-        value: langs[i]
+        text: all_languages[i],
+        value: all_languages[i]
       });
     }
-    var target = ['Children under 5','Adolescent Girls' , 'Mothers','Pregnant Women','PRI member','other']
     var targetArray = [];
-    for (var i = 0; i < target.length; i++) {
+    for (var i = 0; i < all_targetAudience.length; i++) {
       targetArray.push({
         key: i,
-        text: target[i],
-        value: target[i]
+        text: all_targetAudience[i],
+        value: all_targetAudience[i]
       });
     }
     var link = "https://poshangyan.s3.ap-south-1.amazonaws.com/dataFeed.png";
-    let per = this.state.percentCompleted == 0 ? null : this.state.percentCompleted; 
+    let per = this.state.percentCompleted == 0 ? null : this.state.percentCompleted;
+
+    let sources = all_sources.map((val) => <option value={val}>{val}</option>)
+    let mediaType = all_mediaType.map((val) => <option value={val}>{val}</option>)
 
     // if(per) let pro =  
     // if(per==100) pro=null;
@@ -347,14 +331,14 @@ export class Feed extends Component {
           </form>
         </p>
         <p style={{ textAlign: "center", marginTop: 40, marginBottom: 40 }}>
-          
+
           <form id="formData2">
             <input type="file" id="file2" ref={(ref) => this.thumbUpload = ref} />
           </form>
-          <p style={{marginLeft:-60,marginTop:5}} > Preview Image </p>
+          <p style={{ marginLeft: -60, marginTop: 5 }} > Preview Image </p>
         </p>
-      {  (per && !((per==0) || (per==100))) ?   <Progress style={{width:'100%'}} 
-      percent={this.state.percentCompleted} indicating progress /> : (null) }
+        {  (per && !((per == 0) || (per == 100))) ? <Progress style={{ width: '100%' }}
+          percent={this.state.percentCompleted} indicating progress /> : (null)}
         <Input
           style={{ width: "100%", marginTop: 10 }}
           onChange={this.handleNameChange}
@@ -385,7 +369,7 @@ export class Feed extends Component {
           options={langsArray}
           onChange={this.handleLangChange}
         />
-         
+
         <Input
           icon="folder open outline"
           iconPosition="left"
@@ -395,11 +379,7 @@ export class Feed extends Component {
           placeholder="Data Source"
         />
         <datalist id="source">
-          <option value="MoHFW">MoHFW</option>
-          <option value="MoWCD">MoWCD</option>
-          <option value="MDWS">MDWS</option>
-          <option value="FSSAI">FSSAI</option>
-          <option value="others">others</option>
+          {sources}
           {/* <option value="Social Media">Social Media</option> */}
         </datalist>
         <Input
@@ -409,11 +389,7 @@ export class Feed extends Component {
           placeholder="Media Type"
         />
         <datalist id="Media Type">
-        <option value="other">other</option>
-          <option value="IPC">IPC</option>
-          <option value="Mass Media">Mass Media</option>
-          <option value="Outdoor">Outdoor</option>
-          <option value="Social Media">Social Media</option>
+          {mediaType}
         </datalist>
         <Dropdown
           placeholder="Target Audience"
@@ -425,9 +401,9 @@ export class Feed extends Component {
           options={targetArray}
           onChange={this.handleAudienceChange}
         />
-        
-        
-        <div style={{ textAlign: "center",marginBottom:50 }}>
+
+
+        <div style={{ textAlign: "center", marginBottom: 50 }}>
           <Button
             inverted
             style={{ width: "50%", marginTop: 20, marginBottom: 1 }}
@@ -436,18 +412,18 @@ export class Feed extends Component {
           >
             Green
           </Button>
-            <h4 >{per}</h4>
+          <h4 >{per}</h4>
         </div>
-        <Snackbar open={this.state.snackbarType===1} autoHideDuration={3000} onClose={this.handleClose}>
-            <Alert onClose={this.handleClose} severity="success">
-          File successfully uploaded!!
+        <Snackbar open={this.state.snackbarType === 1} autoHideDuration={3000} onClose={this.handleClose}>
+          <Alert onClose={this.handleClose} severity="success">
+            File successfully uploaded!!
         </Alert>
-      </Snackbar>
-      <Snackbar open={this.state.snackbarType===2} autoHideDuration={3000} onClose={this.handleClose}>
-            <Alert onClose={this.handleClose} severity="error">
-          Please fill all fields!
+        </Snackbar>
+        <Snackbar open={this.state.snackbarType === 2} autoHideDuration={3000} onClose={this.handleClose}>
+          <Alert onClose={this.handleClose} severity="error">
+            Please fill all fields!
         </Alert>
-      </Snackbar>
+        </Snackbar>
       </div>
     )
   }
