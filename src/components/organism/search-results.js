@@ -85,7 +85,6 @@ const SearchResults = ({query}) => {
                 if( arrItem.includes("All") ){
                     newQuery[key].push('Any')
                 }else if(arrItem.includes("Other")){
-                    console.log(arrItem)
                     newQuery[key].push('others')
                 }
                 else{
@@ -98,7 +97,6 @@ const SearchResults = ({query}) => {
     useEffect(()=>{
         (async ()=>{
             const newQuery = AllToAnyHandler(query);
-            console.log(newQuery)
             var FilterData = {
                 themes:         newQuery.Themes?newQuery.Themes.toString():null,
                 languages:      newQuery.Languages?newQuery.Languages.toString():null,
