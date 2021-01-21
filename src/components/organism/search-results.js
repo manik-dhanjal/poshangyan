@@ -106,6 +106,12 @@ const SearchResults = ({query}) => {
                 source:         newQuery.Sources?newQuery.Sources.toString():null,
               }
               try{
+                setData({
+                    post:[],
+                    pageno:1,
+                    totalpage:1, 
+                    status:"pending"
+                 })
                 const res = await axios.post("/getFilteredInfo", FilterData)
                   
                 var l = res.data.length;
