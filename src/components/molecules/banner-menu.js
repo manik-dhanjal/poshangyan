@@ -29,7 +29,7 @@ padding:10px 10px;
     height: 40px;
     width: 40px;
     color: white;
-    background: rgb(340,66,94);
+    background: ${({to,now})=>to!==now?'rgb(340,66,94)':'#1cd11c'};
     border-radius: 50%;
     margin: 0;
     font-size: 1.2em;
@@ -116,7 +116,7 @@ const BannerMenu = ({query={}}) => {
         return temp;
    }
      return (
-        <Div>
+        <Div to={url} now={window.location.pathname+window.location.search}>
             <div className="menu">
                 {dropData.map( ( menu ,i) =>{
                 return  (

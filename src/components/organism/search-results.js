@@ -9,8 +9,8 @@ import ShowSearchResult from "../molecules/show-search-result"
 import SortFilterBtn from "../molecules/sort-filter-btn"
 const Div = styled.div`
 padding:60px 0px;
-
-.grid-search{
+justify-content:space-between;
+.grid-search,.arrange-me{
     display:grid;
     justify-content:center;
     grid-template-columns:repeat(4,300px);
@@ -26,11 +26,12 @@ padding:60px 0px;
     display: -webkit-box!important;
     width: min-content;
     &>a[type="prevItem"],&>a[type="nextItem"]{
-        background: #ff425e !important;
+        background: #ff425e80 !important;
         width: 20px;
         padding: 0px;
         color: white;
         &:hover{
+            background: #ff425e !important;
             color:white!important;
         }
     }
@@ -49,17 +50,17 @@ padding:60px 0px;
 
 }
 @media screen and (max-width:1024px){
-    .grid-search{
+    .grid-search,.arrange-me{
         grid-template-columns:repeat(3,300px);
     }
 }
 @media screen and (max-width:991px){
-    .grid-search{
+    .grid-search,.arrange-me{
         grid-template-columns:repeat(2,300px);
     }
 }
 @media screen and (max-width:630px){
-    .grid-search{
+    .grid-search,.arrange-me{
         grid-template-columns:repeat(1,300px);
     }
 }
@@ -106,6 +107,12 @@ const SearchResults = ({query}) => {
                 source:         newQuery.Sources?newQuery.Sources.toString():null,
               }
               try{
+                setData({
+                    post:[],
+                    pageno:1,
+                    totalpage:1, 
+                    status:"pending"
+                 })
                 const res = await axios.post("/getFilteredInfo", FilterData)
                   
                 var l = res.data.length;
@@ -151,7 +158,7 @@ const SearchResults = ({query}) => {
                     {
                         
                         data.status==="pending"?
-                        <PreSearchPost row={3}/>
+                        <PreSearchPost dummy={12}/>
                         :(
                           (data.status==="success"&&data.post.length)?
                           <>
