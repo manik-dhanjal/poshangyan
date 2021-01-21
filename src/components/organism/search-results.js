@@ -78,15 +78,17 @@ const SearchResults = ({query}) => {
         const newQuery = {};
         // console.log(query);
         for(const key in query){
+             newQuery[key] = [];
             for(const arrItem of query[key]){
+
                 if( arrItem.includes("All") ){
-                    newQuery[key] = 'Any'
+                    newQuery[key].push('Any')
                 }else if(arrItem.includes("Other")){
                     console.log(arrItem)
-                    newQuery[key] = 'others'
+                    newQuery[key].push('others')
                 }
                 else{
-                    newQuery[key] = arrItem;
+                    newQuery[key].push(arrItem)
                 }
             }
         }
