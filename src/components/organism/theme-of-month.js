@@ -24,7 +24,7 @@ padding:60px 0;
     }
 }
 
-.grid-custom{
+.grid-custom,.arrange-me{
     display:grid;
     grid-template-columns:repeat(4,1fr);
     &>div{
@@ -35,14 +35,15 @@ padding:60px 0;
     text-align:right;
     color:black;
 }
+
 @media screen and (max-width:1024px){
-    .grid-custom{
+    .grid-custom,.arrange-me{
         grid-template-columns:repeat(2,300px);
         justify-content:center;
     }
 }
 @media screen and (max-width:700px){
-    .grid-custom{
+    .grid-custom,.arrange-me{
         grid-template-columns:repeat(1,1fr);
         &>div{
             &:nth-of-type(4),:nth-of-type(3){
@@ -92,7 +93,7 @@ const ThemeOfMonth = () => {
                 </div>
                 {
                     post.status==="pending"?
-                    <PreSearchPost/>
+                    <PreSearchPost dummy={4}/>
                        :(
                            post.status==="success"?
                             <div className="grid-custom">

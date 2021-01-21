@@ -118,7 +118,7 @@ h4{
     }
 }
 `
-const CreativeDetails = ({label,showFileName,themes,source,Key,_id,downloadsCount,mimetype,targetAudience,mediaType,languages}) => {
+const CreativeDetails = ({label,showFileName,themes,source,Key,_id,downloadsCount,mimetype,targetAudience,languages}) => {
     
     const downloadImage = (filename) => {
         const s3 = new AWS.S3({
@@ -154,7 +154,7 @@ const CreativeDetails = ({label,showFileName,themes,source,Key,_id,downloadsCoun
         link.href = url;
         link.setAttribute('download', filename);
         downloadImage(filename)
-      }  
+      }
     return (
         <Div>
             <h1>{label}</h1>
@@ -173,7 +173,7 @@ const CreativeDetails = ({label,showFileName,themes,source,Key,_id,downloadsCoun
                     </tr>
                     <tr>
                         <td className="label">Media Type </td>
-                        <td className="value">{mediaType} </td>
+                        <td className="value">{mimetype} </td>
                     </tr>
                     <tr>
                         <td className="label">Source </td>

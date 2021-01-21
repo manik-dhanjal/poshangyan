@@ -28,6 +28,10 @@ label{
   padding-bottom:15px;
   font-size:1.2em;
   margin-top:15px;
+  &:focus{
+    background:#ff425e;
+    color:white;
+  }
 }
 .submit-btn:hover{
   background:rgb(212, 62, 84);

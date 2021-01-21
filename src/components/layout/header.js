@@ -311,6 +311,12 @@ const Header = () => {
                                         About Us
                                     </Link>
                                 </li>
+                                <li>
+                                    <Link to='/important-links'>
+                                        {/* <i class="linkify icon"></i> */}
+                                        <span>Links</span>
+                                    </Link>
+                                </li>
                             </ul>
                             <ul className='menu-icons'>
                                 <li>
@@ -318,12 +324,6 @@ const Header = () => {
                                         <i className="upload icon"></i> <span>Add Content</span>
                                     </a>
                                 </li>
-                                <li>
-                                    <Link to='/important-links'>
-                                        <i className="linkify icon"></i><span>Important Links</span>
-                                    </Link>
-                                </li>
-                            
                             </ul>
                         </div>
                         <div className='cart-main' >

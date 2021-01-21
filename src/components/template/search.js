@@ -19,6 +19,7 @@ const searchTreat = (queryString) =>{
             stage[key] = value;
             if(!entry[1])  delete stage[key]
         }
+        console.log(stage)
     return stage;
 }
 

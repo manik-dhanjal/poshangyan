@@ -1,33 +1,65 @@
 import React from 'react'
-import { Grid, Image } from 'semantic-ui-react'
+import styled from 'styled-components'
 
-const PreSearchPost = ({row=1}) => {
+const Div = styled.div`
 
-const grid=[];
- for(var i=0;i<row;i++){
-    grid.push(
-    <Grid columns='four' divided style={{padding:"30px 0"}} key={i}>
-      <Grid.Row>
-        <Grid.Column>
-          <Image src='https://react.semantic-ui.com/images/wireframe/media-paragraph.png' />
-        </Grid.Column>
-        <Grid.Column>
-          <Image src='https://react.semantic-ui.com/images/wireframe/media-paragraph.png' />
-        </Grid.Column>
-        <Grid.Column>
-          <Image src='https://react.semantic-ui.com/images/wireframe/media-paragraph.png' />
-        </Grid.Column>
-        <Grid.Column>
-          <Image src='https://react.semantic-ui.com/images/wireframe/media-paragraph.png' />
-        </Grid.Column>
-      </Grid.Row>
-    </Grid>
-  );
- }
+.skeleton {
+  width: 280px;
+  margin-bottom:50px;
+  .image, .btn ,.line{
+    background-image: linear-gradient(90deg,#ffeaea 0px,#ffd9c6 30px,#ffeaea 60px);
+    background-size: calc(320px + 100px);
+    animation: refresh 2s infinite ease-out;
+  }
+  
+  .image {
+    height: 180px;
+
+  }
+  .btn-grp{
+    display:flex;
+    justify-content:space-between;
+  }
+  .line{
+    height: 16px;
+    width: 60%;
+    margin:15px auto;
+  }
+  .btn {
+    height: 28px;
+    margin-top:8px;
+    width: calc( 50% - 15px );
+  } 
+}
+
+@keyframes refresh {
+  0% {
+    background-position: calc(-100px);
+  }
+    
+  40%, 100% {
+    background-position: 320px; 
+  }
+}
+  
+
+
+
+`
+const PreSearchPost = ({dummy=1}) => {
  return(
-     <div>
-         {grid.map(a => a)}
-     </div>
+     <Div className='arrange-me'>
+      {
+      [...Array(dummy)].map((x,i)=>(
+        <div className="skeleton" key={'dummy'+i}>
+          {console.log(i)}
+          <div className="image"></div>
+          <div className="line"></div>
+        </div>
+      ))
+      }
+        
+     </Div>
  )
 }
 

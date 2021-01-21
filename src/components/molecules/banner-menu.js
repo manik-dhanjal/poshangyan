@@ -29,7 +29,7 @@ padding:10px 10px;
     height: 40px;
     width: 40px;
     color: white;
-    background: rgb(340,66,94);
+    background: ${({to,now})=>to!==now?'rgb(340,66,94)':'#1cd11c'};
     border-radius: 50%;
     margin: 0;
     font-size: 1.2em;
@@ -96,15 +96,15 @@ const BannerMenu = ({query={}}) => {
        var other = false;
        var temp = [];  
         options.forEach(e=>{
-           if(e === "Any") any=true
-           if(e === "others") other=true;
-           if(e !== "Any" && e !== "others")
+           if(e.includes("All")) any=true
+           if(e.includes("Others")) other=true;
+           if(!e.includes("All") && !e.includes("Others"))
             temp.push( {label:e,value:e} )
         })
         temp = temp.sort((a,b)=> ( '' + a.label).localeCompare(b.label) )
 
-        if(any) temp.unshift({label:"Any",value:"Any"})
-        if(other) temp.push({label:"others",value:"others"})
+        if(any) temp.unshift({label:options[0],value:options[0]})
+        if(other) temp.push({label:options[options.length-1],value:options[options.length-1]})
         return temp;
    }
 
@@ -116,7 +116,7 @@ const BannerMenu = ({query={}}) => {
         return temp;
    }
      return (
-        <Div>
+        <Div to={url} now={window.location.pathname+window.location.search}>
             <div className="menu">
                 {dropData.map( ( menu ,i) =>{
                 return  (
@@ -146,7 +146,7 @@ const dropData=[
     {
         label:"Themes",
         options: [
-            "Any",
+            "All themes",
             "Ante Natal Care (ANC)",
             "Breastfeeding",
             "Anaemia Prevention",
@@ -160,13 +160,13 @@ const dropData=[
             "Girls Education, Diet & Right Age of Marriage",
             // "Poshan Pakhwada",
             "Complementary Feeding",
-            "Supplementation - Vit A",
-            "Supplementation - Deworming"
+            "Vit A supplements",
+            "Deworming"
           ]
     },{
-        label:"Language",
+        label:"Languages",
         options:[
-            "Any",
+            "All languages",
             "Assamese",
             "Bengali",
             "Gujarati",
@@ -192,9 +192,9 @@ const dropData=[
             "English"
           ]
     },{
-        label:"Media Type",
+        label:"Media Types",
         options:[
-            'Any',
+            'All media types',
             'PDF',
             'Video',
             'Audio',
@@ -202,26 +202,39 @@ const dropData=[
             'GIF'
           ]
     },{
-        label:"Target Audience",
+        label:"Target Audiences",
         options:[
-            'Any',
+            'All audiences',
             'Children under 5',
             'Adolescent Girls',
             'Mothers',
             'Pregnant Women',
             'PRI member',
             'Civil society',
-            'others'
+            'Health workers and Others'
           ]
     },{
-        label:"Source",
+        label:"Sources",
         options:[
-            'Any',
+            'All sources',
             'MoHFW',
             'MoWCD',
             'MDWS',
             'FSSAI',
-            'others',
+            'Arogya World',
+            'BBC Media Action ',
+            'Global Health Media ',
+            'JEEViKA',
+            'PATH',
+            'Save The Children',
+            'Sneha',
+            'Tata Trust',
+            'UNICEF India',
+            'USAID',
+            'WeCan',
+            'Vitamin Angels',
+            'Alive & Thrive',
+            'Others',
           ]
     }
 ]
