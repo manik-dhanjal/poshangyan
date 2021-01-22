@@ -111,77 +111,78 @@ app.post('/contactUsFormSubmission', (req, res) => {
 var schedule = require('node-schedule');
 
 // run every Friday at 7:00 AM
-schedule.scheduleJob('* 7 * * 5', () => {
-    // const { parse } = require('json2csv');
+schedule.scheduleJob('10 30 1 * * 5', () => {
+    const { parse } = require('json2csv');
 
 
-    // Post.find()
-    //     .then(res => {
-    //         // console.log(csv)
-    //         // console.log(res)
-    //         let data = [];
-    //         res.forEach((doc) => {
-    //             let temp = {
-    //                 downloadsCount: doc.downloadsCount,
-    //                 thumbBucket: doc.thumbBucket,
-    //                 mimetype: doc.mimetype,
-    //                 thumbLocation: doc.thumbLocation,
-    //                 label: doc.label,
-    //                 Bucket: doc.Bucket,
-    //                 postId: doc.postId,
-    //                 languages: doc.languages,
-    //                 showFileName: doc.showFileName,
-    //                 mediaType: doc.mediaType,
-    //                 thumbKey: doc.thumbKey,
-    //                 themes: doc.themes,
-    //                 Location: doc.Location,
-    //                 thumbkey: doc.thumbKey,
-    //                 Key: doc.Key,
-    //                 source: doc.source,
-    //                 targetAudience: doc.targetAudience,
-    //             }
-    //             data.push(temp);
-    //         });
-    //         const csv = parse(data, ["source", "Bucket"]);
-    //         var transporter = nodemailer.createTransport({
-    //             service: 'gmail',
-    //             auth: {
-    //                 user: 'poshangyan@gmail.com',
-    //                 pass: 'Anshaj@123'
-    //             }
-    //         });
+    Post.find()
+        .then(res => {
+            // console.log(csv)
+            // console.log(res)
+            let data = [];
+            res.forEach((doc) => {
+                let temp = {
+                    downloadsCount: doc.downloadsCount,
+                    thumbBucket: doc.thumbBucket,
+                    mimetype: doc.mimetype,
+                    thumbLocation: doc.thumbLocation,
+                    label: doc.label,
+                    Bucket: doc.Bucket,
+                    postId: doc.postId,
+                    languages: doc.languages,
+                    showFileName: doc.showFileName,
+                    mediaType: doc.mediaType,
+                    thumbKey: doc.thumbKey,
+                    themes: doc.themes,
+                    Location: doc.Location,
+                    thumbkey: doc.thumbKey,
+                    Key: doc.Key,
+                    source: doc.source,
+                    targetAudience: doc.targetAudience,
+                }
+                data.push(temp);
+            });
+            const csv = parse(data, ["source", "Bucket"]);
+            var transporter = nodemailer.createTransport({
+                service: 'gmail',
+                auth: {
+                    user: 'poshangyan@gmail.com',
+                    pass: 'Anshaj@123'
+                }
+            });
 
-    //         var message = {
-    //             from: "sender@server.com",
-    //             to: "anshajkumarsharma@gmail.com,poshangyan-niti@gov.in,meetridhi@2626.today",
-    //             subject: "Database Weekly Update",
-    //             html: `Updated database`,
-    //             attachments: [
-    //                 {
-    //                     filename: "updated_database.csv",
-    //                     content: csv,
-    //                 },
-    //             ]
-    //         };
+            var message = {
+                from: "sender@server.com",
+                to: "anshajkumarsharma@gmail.com,poshangyan-niti@gov.in,meetridhi@2626.today",
+                subject: "Database Weekly Update",
+                html: `Updated database`,
+                attachments: [
+                    {
+                        filename: "updated_database.csv",
+                        content: csv,
+                    },
+                ]
+            };
 
 
 
-    //         transporter.sendMail(message, (error, info) => {
-    //             if (error) {
-    //                 console.log(error);
-    //                 console.log({ err: "Error in sending email...." });
-    //             } else {
-    //                 console.log({ message: "Email sucessfully sent.." });
-    //             }
-    //         });
+            transporter.sendMail(message, (error, info) => {
+                if (error) {
+                    console.log(error);
+                    console.log({ err: "Error in sending email...." });
+                } else {
+                    console.log({ message: "Email sucessfully sent.." });
+                }
+            });
 
-    //     }).catch(e => {
-    //         console.log(e)
-    //     })
+        }).catch(e => {
+            console.log(e)
+        })
 })
-schedule.scheduleJob('* 7 * * 5', ()=>{
-    console.log
-})
+console.log(new Date().toString())
+// schedule.scheduleJob('10 30 1 * * 5', () => {
+//     console.log({ yup: 'ok' })
+// })
 // var a = require('./ASD.json')
 // const Post = require('./schema/postSchema')
 // console.log(a[1].label)
