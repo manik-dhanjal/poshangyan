@@ -157,7 +157,7 @@ const dropData=[
             "Diet Diversity/ Overall Nutrition",
             "Nutri Cereal",
             "Food Fortification",
-            "Girls Education, Diet & Right Age of Marriage",
+            "Girls Health and Education",
             // "Poshan Pakhwada",
             "Complementary Feeding",
             "Vit A supplements",
