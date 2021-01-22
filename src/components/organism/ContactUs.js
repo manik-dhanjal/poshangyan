@@ -114,7 +114,7 @@ export class FormExampleInverted extends Component {
                 value={this.state.email} onChange={(e) => this.hadleChange(e, 'email', e.target.value)} />
               }
                
-              <Form.Input fluid label='Phone Number' type="number" placeholder='+91625.......' value={this.state.phoneNo} onChange={(e) => this.hadleChange(e, 'phoneNo', e.target.value)} />
+              <Form.Input fluid label='Phone Number' type="tel" placeholder='+91625.......' value={this.state.phoneNo} onChange={(e) => this.hadleChange(e, 'phoneNo', e.target.value)} />
               <Form.Field
                 control={TextArea}
                 label='Message'
