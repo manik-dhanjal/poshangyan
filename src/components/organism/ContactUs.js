@@ -28,7 +28,7 @@ label{
   font-size:1.2em;
   margin-top:15px;
   &:focus{
-    background:#ff425e;
+    background:#1cd11c;
     color:white;
   }
 }

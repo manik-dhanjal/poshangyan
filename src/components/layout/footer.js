@@ -19,7 +19,7 @@ const Footer = () => {
         <SFooter>
             <Container>
                 <div className="copyright">NitiAayog <span>© 2020.All rights reserved.</span></div>
-                <div className='disclaimer'>The report/ material is provided for reference purposes only and do not constitute government endorsement or approval.</div>
+                <div className='disclaimer'>The resource materials provided on the site are for reference purposes only and do not constitute government endorsement or approval unless stated otherwise.</div>
             </Container>
         </SFooter>
     )
