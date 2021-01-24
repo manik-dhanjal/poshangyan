@@ -344,7 +344,6 @@ const Header = () => {
     )
 }
  const CartDrop = ({state,cart,deleteFromCart}) =>{
-    console.log(state)
      return(
         <Drop state = {state}>
             <div className='head'>

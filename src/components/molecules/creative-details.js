@@ -4,6 +4,7 @@ import AWS from "aws-sdk";
 import axios from 'axios';
 import { Button, Icon } from 'semantic-ui-react'
 import{ Link }from "react-router-dom"
+import handleDownload from "../../api/aws-handle-download"
 const Div = styled.div`
 flex:1;
 h4{
@@ -118,43 +119,43 @@ h4{
     }
 }
 `
-const CreativeDetails = ({label,showFileName,themes,source,Key,_id,downloadsCount,mimetype,targetAudience,languages}) => {
+const CreativeDetails = ({label,showFileName,themes,source,Key,_id,downloadsCount,mimetype,targetAudience,languages,Location}) => {
     
-    const downloadImage = (filename) => {
-        const s3 = new AWS.S3({
-         accessKeyId: process.env.REACT_APP_ACCESS_ID,
-         secretAccessKey: process.env.REACT_APP_ACCESS_KEY,
-         signatureVersion: 'v4',
-         region: 'ap-south-1'
-       });
-      let url = s3.getSignedUrl('getObject', {
-        Bucket: process.env.REACT_APP_BUCKET_NAME , Key: filename,
-        Expires: 300,
-        ResponseContentDisposition :  `attachment; filename=${filename}`
-      })
-        let link = document.createElement("a");
-            link.href = url;
-            link.setAttribute('download', filename);
-            link.click(); 
-    } 
-    const  addDownloadCount = () => {
-        axios.post("/adddownload",{
-            "_id":_id
-          })
-          .then((res) => {
-            // console.log(res.data);
-          })
+    // const downloadImage = (filename) => {
+    //     const s3 = new AWS.S3({
+    //      accessKeyId: process.env.REACT_APP_ACCESS_ID,
+    //      secretAccessKey: process.env.REACT_APP_ACCESS_KEY,
+    //      signatureVersion: 'v4',
+    //      region: 'ap-south-1'
+    //    });
+    //   let url = s3.getSignedUrl('getObject', {
+    //     Bucket: process.env.REACT_APP_BUCKET_NAME , Key: filename,
+    //     Expires: 300,
+    //     ResponseContentDisposition :  `attachment; filename=${filename}`
+    //   })
+    //     let link = document.createElement("a");
+    //         link.href = url;
+    //         link.setAttribute('download', filename);
+    //         link.click(); 
+    // } 
+    // const  addDownloadCount = () => {
+    //     axios.post("/adddownload",{
+    //         "_id":_id
+    //       })
+    //       .then((res) => {
+    //         // console.log(res.data);
+    //       })
           
-      } 
-      const  handleDownload = () => {
-        let url=Location
-        let filename= Key
-        addDownloadCount();
-        const link = document.createElement('a');
-        link.href = url;
-        link.setAttribute('download', filename);
-        downloadImage(filename)
-      }
+    //   } 
+    //   const  handleDownload = () => {
+    //     let url=Location
+    //     let filename= Key
+    //     addDownloadCount();
+    //     const link = document.createElement('a');
+    //     link.href = url;
+    //     link.setAttribute('download', filename);
+    //     downloadImage(filename)
+    //   }
     return (
         <Div>
             <h1>{label}</h1>
@@ -202,7 +203,7 @@ const CreativeDetails = ({label,showFileName,themes,source,Key,_id,downloadsCoun
                     <p className="downloaded"> <span className="count"> {downloadsCount}</span> Downloads   </p>
                 </div>
                 <div className="download-btn">
-                    <Button onClick={handleDownload} animated >
+                    <Button onClick={() => handleDownload(Location,Key,_id)} animated >
                         <Button.Content visible >Download</Button.Content>
                         <Button.Content hidden>
                             <Icon name='download' inverted />

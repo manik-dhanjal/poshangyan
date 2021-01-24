@@ -18,14 +18,14 @@ import axios from 'axios';
             link.setAttribute('download', filename);
             link.click(); 
     } 
-    const  addDownloadCount = (_id) => {
-        axios.post("/adddownload",{
-            "_id":_id
-          })
-          .then((res) => {
-            console.log(res.data);
-          })
-          
+    const  addDownloadCount = async (_id) => {
+      try{
+        const res = await axios.post("/adddownload",{"_id":_id});
+        console.log(res);
+      }
+      catch(e){
+        console.log(e.message,'error in adding download count')
+      }          
       } 
       const  handleDownload = (Location,Key,_id) => {
         let url=Location

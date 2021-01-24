@@ -12,14 +12,14 @@ const searchTreat = (queryString) =>{
     const urlParams = new URLSearchParams(queryString);
     const entries = urlParams.entries();
         for(const entry of entries) {
-          console.log(`${entry[0]}: ${entry[1]}`);
+        //   console.log(`${entry[0]}: ${entry[1]}`);
          
             const key = entry[0].replace(/\s/g,"");
             const value = entry[1].split(',');
             stage[key] = value;
             if(!entry[1])  delete stage[key]
         }
-        console.log(stage)
+        // console.log(stage)
     return stage;
 }
 
