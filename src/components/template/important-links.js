@@ -10,7 +10,7 @@ import niti from '../../assets/Images/important links/niti ayaog.png'
 import swach from '../../assets/Images/important links/swach.png'
 import nutri from '../../assets/Images/important links/nutrition.png'
 import wecan from '../../assets/Images/important links/wecan_logo.jpg'
-
+import nin from '../../assets/Images/important links/nin.png'
 
 const Div = styled.div`
 background:#f4d6cc;
@@ -56,7 +56,8 @@ background:#f4d6cc;
         margin-top:50px;
         margin-right: auto;
         margin-left:auto;
-        width:1160px;
+        width:870px;
+        padding-bottom:50px;
     }
     .thumb-cont{
         width: 260px;
@@ -197,5 +198,11 @@ const links = [
         link:'https://www.nutritionindia.info/',
         desc:"Nutrition India program aims to improve the nutritional status of children during the first 1,000 days of birth.",
         title:"Nutrition India Program"
+    },
+    {
+        img:nin,
+        link:'https://www.nin.res.in/NICE.html',
+        desc:"NIN is the premier Indian institute for nutrition operating as a public health, nutrition and translational research center under ICMR.",
+        title:"National Institute of Nutrition"
     },
 ]
