@@ -178,7 +178,7 @@ const links = [
         img:niti,
         link:'https://niti.gov.in/',
         desc:"The National Institute for Transforming India, also called NITI Aayog, is the premier policy think tank of the Government of India.",
-        title:"Niti Ayaog"
+        title:"NITI Aayog"
     },
     {
         img:swach,
