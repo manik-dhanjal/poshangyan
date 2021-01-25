@@ -32,6 +32,9 @@ background:#f4d6cc;
 }
 .container.top{
     text-align:center;
+    &>div:nth-of-type(1){
+        text-align:left;
+    }
     h1{
         margin-top:50px;
     }
@@ -88,7 +91,7 @@ const About = () => {
     return (
         <Div>
         <div className='container top' style={{paddingTop:50}}>
-            <BannerMenu />
+            <BannerMenu/>
                 <h1>
                     How to use this website
                 </h1>

@@ -317,14 +317,19 @@ const Header = () => {
                                         <span>Links</span>
                                     </Link>
                                 </li>
+                                <li>
+                                    <a href='https://docs.google.com/forms/d/e/1FAIpQLSciK2SDLtVkMhjH_TUqjmVOJv1ZlhbGMaLg8di0dymvf4axpg/viewform?usp=sf_link' target="_blank">
+                                        <span>Add Content</span>
+                                    </a>
+                                </li>
                             </ul>
-                            <ul className='menu-icons'>
+                            {/* <ul className='menu-icons'>
                                 <li>
                                     <a href='https://docs.google.com/forms/d/e/1FAIpQLSciK2SDLtVkMhjH_TUqjmVOJv1ZlhbGMaLg8di0dymvf4axpg/viewform?usp=sf_link' target="_blank">
                                         <i className="upload icon"></i> <span>Add Content</span>
                                     </a>
                                 </li>
-                            </ul>
+                            </ul> */}
                         </div>
                         <div className='cart-main' >
                                 <div onClick={() => setCartDropOpen(!IsCartDropOpen)}>
