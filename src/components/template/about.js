@@ -142,7 +142,8 @@ const About = () => {
             </div>
         </div>
         <div className='credits'>
-            This website was developed in collaboration with Bill & Melinda Gates Foundation, Centre for Social and Behaviour Change and 2626 Creative Studio.
+        This website was developed in collaboration with Bill & Melinda  Gates Foundation and Centre for Social & Behaviour Change, Ashoka University.<br/><br/>
+        Website designed and developed by 2626 Creative Studio.
         </div>
         </Div>
     )
