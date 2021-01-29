@@ -111,7 +111,7 @@ app.post('/contactUsFormSubmission', (req, res) => {
 var schedule = require('node-schedule');
 
 // run every Friday at 7:00 AM
-schedule.scheduleJob('10 30 1 * * 5', () => {
+schedule.scheduleJob('12 7 * * 5', () => {
     const { parse } = require('json2csv');
 
 
@@ -153,7 +153,7 @@ schedule.scheduleJob('10 30 1 * * 5', () => {
 
             var message = {
                 from: "sender@server.com",
-                to: "anshajkumarsharma@gmail.com,poshangyan-niti@gov.in,meetridhi@2626.today",
+                to: "anshajkumarsharma@gmail.com,poshangyan-niti@gov.in,meetridhi@2626.today,meetmanik@2626.today,meetkanika@2626.today",
                 subject: "Database Weekly Update",
                 html: `Updated database`,
                 attachments: [
@@ -180,9 +180,9 @@ schedule.scheduleJob('10 30 1 * * 5', () => {
         })
 })
 console.log(new Date().toString())
-// schedule.scheduleJob('10 30 1 * * 5', () => {
-//     console.log({ yup: 'ok' })
-// })
+schedule.scheduleJob('5 12 * * 5', () => {
+    console.log({ yup: 'ok' })
+})
 // var a = require('./ASD.json')
 // const Post = require('./schema/postSchema')
 // console.log(a[1].label)
