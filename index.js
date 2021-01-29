@@ -111,7 +111,7 @@ app.post('/contactUsFormSubmission', (req, res) => {
 var schedule = require('node-schedule');
 
 // run every Friday at 7:00 AM
-schedule.scheduleJob('12 7 * * 5', () => {
+schedule.scheduleJob('30 11 * * 5', () => {
     const { parse } = require('json2csv');
 
 
