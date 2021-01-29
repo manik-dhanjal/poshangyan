@@ -183,7 +183,7 @@ console.log(new Date().toString())
 schedule.scheduleJob('* * * * 5', () => {
     console.log(new Date().toString())
 })
-schedule.scheduleJob('23 12 * * 5', () => {
+schedule.scheduleJob('32 12 * * 5', () => {
     const { parse } = require('json2csv');
     console.log(new Date().toString())
 
