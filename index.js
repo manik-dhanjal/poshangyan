@@ -110,8 +110,8 @@ app.post('/contactUsFormSubmission', (req, res) => {
 
 var schedule = require('node-schedule');
 
-// run every Friday at 7:00 AM
-schedule.scheduleJob('30 11 * * 5', () => {
+// run every Friday at 6:00 PM
+schedule.scheduleJob('35 12 * * 5', () => {
     const { parse } = require('json2csv');
 
 
@@ -183,7 +183,7 @@ console.log(new Date().toString())
 schedule.scheduleJob('* * * * 5', () => {
     console.log(new Date().toString())
 })
-schedule.scheduleJob('32 12 * * 5', () => {
+schedule.scheduleJob('35 12 * * 5', () => {
     const { parse } = require('json2csv');
     console.log(new Date().toString())
 
