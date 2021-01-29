@@ -180,9 +180,9 @@ schedule.scheduleJob('35 12 * * 5', () => {
         })
 })
 console.log(new Date().toString())
-schedule.scheduleJob('* * * * 5', () => {
-    console.log(new Date().toString())
-})
+// schedule.scheduleJob('* * * * 5', () => {
+//     console.log(new Date().toString())
+// })
 schedule.scheduleJob('35 12 * * 5', () => {
     const { parse } = require('json2csv');
     console.log(new Date().toString())
