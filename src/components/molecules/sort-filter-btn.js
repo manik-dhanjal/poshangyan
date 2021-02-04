@@ -163,8 +163,8 @@ const SortFilterBtn = ({query}) => {
         var temp = [];  
          options.forEach(e=>{
             if(e.includes('All')) any=true
-            if(e === "Others") other=true;
-            if(!e.includes('All') && e !== "Others")
+            if(e.includes("Others")) other=true;
+            if(!e.includes('All') && !e.includes("Others"))
              temp.push( {label:e,value:e} )
          })
          temp = temp.sort((a,b)=> ( '' + a.label).localeCompare(b.label) )
