@@ -119,22 +119,48 @@ exports.getFilteredInfo = (req, res) => {
     });
 
 }
-exports.getThemeoftheMonth = (req, res) => {
-  Post.find()
-    .sort({ downloadsCount: -1 })
-    // .orderBy('viewsCount','desc')
-    .then(dat=>{
-      let posts=[];
-      dat.forEach(function(doc) { 
-        // if(doc.themes.includes('themeName')) posts.push(doc); 
-        if(doc.mimetype.includes('image')) posts.push(doc); 
-      });
-      return res.json(posts);
+exports.setThemeOfTheMonth = (req,res) =>{
+  process.env.themeofmonth = req.body.theme;
+  process.env.quote = req.body.quote;
+  res.send(process.env.themeofmonth + "is new theme of month")
+ }
+exports.getThemeoftheMonth = async (req, res) => {
+  try{
+    const data = await Post.find({ themes: new RegExp(process.env.themeofmonth) });
+    console.log({
+      post:data,
+      theme:process.env.themeofmonth,
+      quote:process.env.quote
     })
-    .catch(err => {
-      console.error(err)
-      res.send({err:'Something Went Wrong!!'})
-    });
+    res.send({
+      post:data,
+      theme:process.env.themeofmonth,
+      quote:process.env.quote
+    })
+  }
+  catch(e){
+    console.log(e)
+    res.send({
+      post:[],
+      theme:process.env.themeofmonth,
+      quote:process.env.quote
+    })
+  }
+  // Post.find()
+  //   .sort({ downloadsCount: -1 })
+  //   // .orderBy('viewsCount','desc')
+  //   .then(dat=>{
+  //     let posts=[];
+  //     dat.forEach(function(doc) { 
+  //       // if(doc.themes.includes('themeName')) posts.push(doc); 
+  //       if(doc.mimetype.includes('image')) posts.push(doc); 
+  //     });
+  //     return res.json(posts);
+  //   })
+  //   .catch(err => {
+  //     console.error(err)
+  //     res.send({err:'Something Went Wrong!!'})
+  //   });
 }
 exports.getPolularVideos = (req, res) => {
   Post.find()

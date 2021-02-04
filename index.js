@@ -41,7 +41,7 @@ app.get('/', upload.single('file'), (req, res) => {
     })
 })
 const {
-    getFilteredInfo, getThemeoftheMonth, getPolularVideos, addDownloadCount,
+    getFilteredInfo, getThemeoftheMonth, getPolularVideos, addDownloadCount,setThemeOfTheMonth
     //  update 
 
 }
@@ -54,6 +54,7 @@ app.post('/getFilteredInfo', getFilteredInfo)
 app.get('/getPopolarVideos', getPolularVideos)
 app.get('/getThemesOfTheMonth', getThemeoftheMonth)
 app.post('/addDownload', addDownloadCount)
+app.post('/set-theme-of-the-month',setThemeOfTheMonth)
 // app.post('/update',update)
 
 const { getPostInfo, deletePost, updatePostInfo } = require('./handlers/Posts')
@@ -66,6 +67,7 @@ const { addSortingData, getSortingData, modifySortingData, delFromSortingData } 
 app.get('/getSortingData', getSortingData)
 app.post('/modifySortingData', Auth, modifySortingData)      //TODO: Add Auth  // ADD + EDIT things
 app.post('/deleteFromSortingData', Auth, delFromSortingData) //TODO: Add Auth  // REMOVE things
+
 
 const { addAdmin, login } = require('./handlers/admin')
 

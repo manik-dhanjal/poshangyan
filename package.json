@@ -31,5 +31,8 @@
   "bugs": {
     "url": "https://github.com/Team2626Creative/poshangyan-backend/issues"
   },
-  "homepage": "https://github.com/Team2626Creative/poshangyan-backend#readme"
+  "homepage": "https://github.com/Team2626Creative/poshangyan-backend#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
 }
