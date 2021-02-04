@@ -122,7 +122,9 @@ exports.getFilteredInfo = (req, res) => {
 exports.setThemeOfTheMonth = (req,res) =>{
   process.env.themeofmonth = req.body.theme?req.body.theme:process.env.themeofmonth;
   process.env.quote = req.body.quote?req.body.quote:process.env.quote;
-  res.send(process.env.themeofmonth + "is new theme of month")
+  res.send( {
+      theme:process.env.themeofmonth,
+      quote:process.env.quote})
  }
 exports.getThemeoftheMonth = async (req, res) => {
   try{
