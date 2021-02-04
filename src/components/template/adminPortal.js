@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Container, Grid, Menu, Segment } from 'semantic-ui-react'
 import EditMain from './adminedit/editMain'
 import DataFeeder from './feed'
-
+import ThemeOfMonth from './adminedit/theme-of-month'
 export default class MenuExampleTabularOnLeft extends Component {
   state = { activeItem: 'Data Feeder' }
 
@@ -24,6 +24,9 @@ export default class MenuExampleTabularOnLeft extends Component {
             break;
         case 'Update':
             activeView = <EditMain />
+            break;
+        case 'Theme of the month':
+          activeView = <ThemeOfMonth/>
             break;
     }
 
