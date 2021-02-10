@@ -5,8 +5,7 @@ import csbc from '../../assets/Images/csbc.png'
 import bmgf from '../../assets/Images/bmgf.png'
 import studio from '../../assets/Images/2626.png'
 const SFooter =  styled.footer`
-background:white;
-padding:20px 0;
+
 font-size:1.1em;
 .copyright>span{
 color:grey;
@@ -17,65 +16,70 @@ font-size:0.9em;
     color:grey;
     font-size:0.9em;
 }
+
 .credits{
-    display:flex;
-    justify-content:space-between;
-    align-items:Center;
-    padding:20px 0;
-    .left{
+    background:#eee;
+    &>div{
         display:flex;
-        align-items:center;
-        &>a{
-            height:60px;
-            margin-right:50px;
-            img{
-                width:100%;
-                height:100%;
-                object-fit:contain;
-            }
-        }
-    }
-    .right{
-        &>a{
-            height:70px;
-            display:block;
-            img{
-                width:100%;
-                height:100%;
-                object-fit:contain;
+        flex-direction:column;
+        justify-content:center;
+        align-items:Center;
+        padding:25px 0;
+        .logos{
+            display:flex;
+            justify-content:center;
+            margin-top:10px;
+            &>a{
+                height:60px;
+                margin:0 25px;
+                img{
+                    width:100%;
+                    height:100%;
+                    object-fit:contain;
+                }
             }
         }
     }
 }
+.credits-our{
+    background:black;
+    color:white;
+    font-size:1em;
+    padding:10px 0;
+    text-align:center;
+}
+.bottom-footer{
+    padding-top:15px;
+    padding-bottom:15px;
+}
 @media screen and (max-width:768px){
     text-align:center;
     .credits{
-        .left>a{
-            margin-right:30px!important;
-            height:40px;
-        }
-        .right>a{
-            height:50px;
-        }
+        
     }
 }
 `
 const Footer = () => {
     return (
         <SFooter>
-            <Container>
-                <div className="copyright">NITI Aayog <span>© 2020.All rights reserved.</span></div>
-                <div className='disclaimer'>The resource materials provided on the site are for reference purposes only and do not constitute government endorsement or approval unless stated otherwise.</div>
                 <div className='credits'>
-                    <div className='left'>
-                       <a className='img-cont' href='https://www.gatesfoundation.org/' target='__blank'> <img src={bmgf}/></a>
-                       <a className='img-cont' href='https://csbc.org.in/' target='__blank'> <img src={csbc}/></a>
-                    </div>
-                    <div className='right'>
-                        <a className='img-cont' href='http://visit.2626.today/' target='__blank'> <img src={studio}/></a>
-                    </div>
+                    <Container>
+                        <h4>This website was developed in collaboration with</h4>
+                        <div className='logos'>
+                            <a className='img-cont' href='https://www.gatesfoundation.org/' target='__blank'> <img src={bmgf}/></a>
+                            <a className='img-cont' href='https://csbc.org.in/' target='__blank'> <img src={csbc}/></a>
+                        </div>
+                    </Container>
                 </div>
-            </Container>
+                <div className='credits-our'>
+                        <Container>
+                            Website designed and developed by 2626 Creative Studio.
+                        </Container>
+                </div>
+                <Container className='bottom-footer'>
+                    <div className="copyright">NITI Aayog <span>© 2020.All rights reserved.</span></div>
+                    <div className='disclaimer'>The resource materials provided on the site are for reference purposes only and do not constitute government endorsement or approval unless stated otherwise.</div>
+                </Container>
         </SFooter>
     )
 }
