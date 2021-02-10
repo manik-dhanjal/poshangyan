@@ -62,20 +62,6 @@ font-size:0.9em;
 const Footer = () => {
     return (
         <SFooter>
-                <div className='credits'>
-                    <Container>
-                        <h4>This website was developed in collaboration with</h4>
-                        <div className='logos'>
-                            <a className='img-cont' href='https://www.gatesfoundation.org/' target='__blank'> <img src={bmgf}/></a>
-                            <a className='img-cont' href='https://csbc.org.in/' target='__blank'> <img src={csbc}/></a>
-                        </div>
-                    </Container>
-                </div>
-                <div className='credits-our'>
-                        <Container>
-                            Website designed and developed by 2626 Creative Studio.
-                        </Container>
-                </div>
                 <Container className='bottom-footer'>
                     <div className="copyright">NITI Aayog <span>© 2020.All rights reserved.</span></div>
                     <div className='disclaimer'>The resource materials provided on the site are for reference purposes only and do not constitute government endorsement or approval unless stated otherwise.</div>
