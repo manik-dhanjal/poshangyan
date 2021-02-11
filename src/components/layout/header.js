@@ -6,6 +6,8 @@ import {useCart,useDeleteCart} from '../context/cart.context'
 import handleDownload from "../../api/aws-handle-download"
 import logo from '../../assets/Images/logo.png'
 import { Button, Icon } from 'semantic-ui-react'
+import axios from 'axios'
+import { v4 as uuidv4 } from 'uuid';
 const Nav = styled.nav`
 padding:${({location})=>(
                 location==='/'?'15px 0':'0px 0')};
@@ -349,6 +351,31 @@ const Header = () => {
     )
 }
  const CartDrop = ({state,cart,deleteFromCart}) =>{
+    function downloadAll()  {
+        // console.log({sadasd:"asdf"});
+
+       let items =  localStorage.getItem('cartItem')
+       var obj = JSON.parse(items);
+
+       console.log(items);
+       console.log(obj[0]);
+       let keys = [];
+       for(let i=0;i<obj.length;i++)
+       {
+           keys.push(obj[i].Key)
+       }
+       console.log(keys)
+       console.log({list:keys});
+       if(keys.length > 0){
+           axios.post(`/zipAndDownlaod?q=${uuidv4()}`,{list:keys})
+           .then(res=>{
+               console.log(res.data)
+           }).catch(err=>{
+               console.log(err)
+            //    alert("Error in downloading files")
+           })
+       }
+    }
      return(
         <Drop state = {state}>
             <div className='head'>
@@ -374,8 +401,8 @@ const Header = () => {
                     }
                 </div>
                 <hr/>
-                <Button animated >
-                    <Button.Content visible >Download</Button.Content>
+                <Button animated onClick={downloadAll} >
+                    <Button.Content visible  >Download</Button.Content>
                         <Button.Content hidden>
                             <Icon name='download' inverted />
                     </Button.Content>
