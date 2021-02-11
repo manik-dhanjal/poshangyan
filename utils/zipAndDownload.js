@@ -33,6 +33,7 @@ function createZip(file,fileList,res) {
     .pipe(output)
   output.on('finish', () => {
     // console.log('All writes are now complete.');
+    res.setHeader('Content-disposition', `attachment; filename=${file}`);
     res.download(output.path);
   });
   output.on('error',(err)=>{
