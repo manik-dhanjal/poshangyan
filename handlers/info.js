@@ -15,7 +15,7 @@ exports.getFilteredInfo = (req, res) => {
   // dataAddedBy: this.state.name.toString(),
   // targetAudience: this.state.targetAudience.toString(),
 
-  console.log(req.body)
+  // console.log(req.body)
   let filter = {};
   if(req.body.themes && !(req.body.themes.toLowerCase().includes('any')||(req.body.themes.toLowerCase().includes('all')&&!req.body.themes.toLowerCase().includes('overall'))||req.body.themes=='')){
     filter.themes = req.body.themes;
@@ -183,12 +183,12 @@ exports.getPolularVideos = (req, res) => {
 
 exports.addDownloadCount = (req, res) => {
   let currpost=[];
-  console.log(req.body)
+  // console.log(req.body)
    Post.findById(req.body._id)
     .then((pos)=>{
       pos.downloadsCount = pos.downloadsCount + 1;
       currpos = pos;
-      console.log(pos)
+      // console.log(pos)
       return pos.save();
     })
     .then(()=>{

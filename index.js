@@ -11,14 +11,16 @@ var upload = multer();
 const Post = require('./schema/postSchema')
 
 const nodemailer = require("nodemailer");
+const cors = require('cors')
 
-
+app.use(cors())
 // for parsing application/json
 app.use(bodyParser.json());
 
 // for parsing application/xwww-
 app.use(bodyParser.urlencoded({ extended: true }));
 //form-urlencoded
+app.use(express.static(__dirname + '/public'));
 
 // for parsing multipart/form-data
 // app.use(upload.array()); 
@@ -110,10 +112,18 @@ app.post('/contactUsFormSubmission', (req, res) => {
     });
 })
 
+const {zipAndDownload} = require('./utils/zipAndDownload')
+app.post('/zipAndDownlaod',zipAndDownload);
+
+app.get('/download', function(req, res){
+    const file = `${__dirname}/ASD.json`;
+    res.download(file); // Set disposition and send it.
+});
+
 var schedule = require('node-schedule');
 
 // run every Friday at 6:00 PM
-schedule.scheduleJob('35 12 * * 5', () => {
+schedule.scheduleJob('07 19 * * 4', () => {
     const { parse } = require('json2csv');
 
 
@@ -155,7 +165,8 @@ schedule.scheduleJob('35 12 * * 5', () => {
 
             var message = {
                 from: "sender@server.com",
-                to: "anshajkumarsharma@gmail.com,poshangyan-niti@gov.in,meetridhi@2626.today,meetmanik@2626.today,meetkanika@2626.today",
+                to: "anshajkumarsharma@gmail.com,poshangyan-niti@gov.in,meetridhi@2626.today,meetmanik@2626.today,meetkanika@2626.today,\
+                diksha.radhakrishnan@ashoka.edu.in,sailee.adhao@ashoka.edu.in",
                 subject: "Database Weekly Update",
                 html: `Updated database`,
                 attachments: [
@@ -182,10 +193,10 @@ schedule.scheduleJob('35 12 * * 5', () => {
         })
 })
 console.log(new Date().toString())
-// schedule.scheduleJob('* * * * 5', () => {
+// schedule.scheduleJob('*/2 * * * 4', () => {
 //     console.log(new Date().toString())
 // })
-schedule.scheduleJob('35 12 * * 5', () => {
+schedule.scheduleJob('30 00 19 * * 4', () => {
     const { parse } = require('json2csv');
     console.log(new Date().toString())
 
