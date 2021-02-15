@@ -353,24 +353,39 @@ const Header = () => {
  const CartDrop = ({state,cart,deleteFromCart}) =>{
     function downloadAll()  {
         // console.log({sadasd:"asdf"});
-
+        console.log('frustated as fuck')
        let items =  localStorage.getItem('cartItem')
        var obj = JSON.parse(items);
 
-       console.log(items);
-       console.log(obj[0]);
+    //    console.log(items);
+    //    console.log(obj[0]);
        let keys = [];
        for(let i=0;i<obj.length;i++)
        {
            keys.push(obj[i].Key)
        }
-       console.log(keys)
-       console.log({list:keys});
+    //    console.log('keys',keys)
+    //    console.log({list:keys});
        if(keys.length > 0){
-           axios.post(`/zipAndDownlaod?q=${uuidv4()}`,{list:keys})
-           .then(res=>{
-               console.log(res.data)
-           }).catch(err=>{
+           axios.post(`/zipAndDownlaod?q=${uuidv4()}`,{list:keys},{responseType: 'blob',
+           })
+           .then(({ data }) => {
+
+            const downloadUrl = window.URL.createObjectURL(new Blob([data]));
+    
+            const link = document.createElement('a');
+    
+            link.href = downloadUrl;
+    
+            link.setAttribute('download', 'Cart Items.zip'); //any other extension
+    
+            document.body.appendChild(link);
+    
+            link.click();
+    
+            link.remove();
+    
+          }).catch(err=>{
                console.log(err)
             //    alert("Error in downloading files")
            })
