@@ -39,7 +39,7 @@ exports.createZip = (req, res) => {
 }
 
 exports.downloadZip = (req,res) => {
-    res.download(__dirname+"\\public\\share\\"+ req.params.name);
+    res.download(__dirname+'/public/share/'+ req.params.name);
 } 
 // function createZip(file,fileList,res) {
 //   const output = fs.createWriteStream(join(__dirname, '\public\share', file))
