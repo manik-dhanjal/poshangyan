@@ -5,6 +5,7 @@ import {Link} from "react-router-dom"
 import {useCart,useDeleteCart} from '../context/cart.context'
 import { Button, Icon } from 'semantic-ui-react'
 import { v4 as uuidv4 } from 'uuid';
+import { Dimmer, Loader, Image, Segment } from 'semantic-ui-react';
 const Drop = styled.div`
 padding: 15px;
 padding: ${({state}) => state?'15px':'0 15px'};
@@ -83,13 +84,15 @@ hr{
  const CartDrop = ({state,cart,deleteFromCart}) =>{
     const [lastDownloaded,setLastDownloaded] = useState({
          id:'',
-         items:[]
+         items:[],
+         status:'success'
     });
     const createDownloadLink = async (cartItemKeys) => {
         console.log('getting download link')
         try{
+                
                 const response = await axios.post('/create-zip',{list:cartItemKeys});
-                await setLastDownloaded({id:response.data,items:cartItemKeys});
+                setLastDownloaded({id:response.data,items:cartItemKeys,status:'success'});
                 initiatDownload( response.data );
         }
         catch(e){
@@ -110,10 +113,13 @@ hr{
        const items =  localStorage.getItem('cartItem')
        const cartItems = JSON.parse(items);
        let cartItemsKey = [];
-
+       setLastDownloaded({...lastDownloaded,status:'pending'})
        cartItems.forEach((item)=> cartItemsKey.push(item.Key))
-            if( JSON.stringify( cartItemsKey) !== JSON.stringify( lastDownloaded.keys ) || !lastDownloaded.id ){
+            if( JSON.stringify( cartItemsKey) !== JSON.stringify( lastDownloaded.items ) || !lastDownloaded.id ){
                     createDownloadLink( cartItemsKey );
+            }
+            else{
+                initiatDownload( lastDownloaded.id );
             }
             
     }
@@ -143,11 +149,18 @@ hr{
                 </div>
                 <hr/>
                 <Button animated onClick={downloadAll} >
-                    <Button.Content visible  >Download</Button.Content>
+                    <Button.Content visible  >Download All</Button.Content>
                         <Button.Content hidden>
                             <Icon name='download' inverted />
                     </Button.Content>
-                </Button>                
+                </Button>     
+                   {
+                    lastDownloaded.status==='pending'?
+                    <Dimmer active inverted>
+                        <Loader inverted>Loading</Loader>
+                    </Dimmer> 
+                    :null
+                   }       
         </Drop>
      )
  }
