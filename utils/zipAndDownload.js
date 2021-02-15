@@ -62,7 +62,7 @@ exports.downloadZip = (req,res) => {
 
 exports.checkZipFiles = (req,res) =>{
 
-  fs.readdir(__dirname+'/public', (err, files) => {
+  fs.readdir(__dirname+'/public/share', (err, files) => {
     if(err)
     res.send(err+'error')
 
