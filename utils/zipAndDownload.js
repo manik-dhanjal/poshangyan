@@ -39,24 +39,30 @@ exports.createZip = (req, res) => {
 }
 
 exports.downloadZip = (req,res) => {
-  console.log(__dirname+"\\public\\share\\"+ req.params.name)
     res.download(__dirname+"\\public\\share\\"+ req.params.name);
 } 
-function createZip(file,fileList,res) {
-  const output = fs.createWriteStream(join(__dirname, '\public\share', file))
-  console.log(output.path)
-  s3Zip
-    .archive({ region: region, bucket: bucket }, folder, fileList)
-    .pipe(output)
-  output.on('finish', () => {
-    // console.log('All writes are now complete.');
-    // res.setHeader('Content-disposition','attachment' );
-    // res.setHeader('filename',file)
-    console.log(output.path)
-    res.send();
+// function createZip(file,fileList,res) {
+//   const output = fs.createWriteStream(join(__dirname, '\public\share', file))
+//   console.log(output.path)
+//   s3Zip
+//     .archive({ region: region, bucket: bucket }, folder, fileList)
+//     .pipe(output)
+//   output.on('finish', () => {
+//     // console.log('All writes are now complete.');
+//     // res.setHeader('Content-disposition','attachment' );
+//     // res.setHeader('filename',file)
+//     console.log(output.path)
+//     res.send();
+//   });
+//   output.on('error',(err)=>{
+//       console.log(err)
+//       res.send({message: "Something went wrong!!"})
+//   })
+// }
+
+exports.checkZipFiles = (req,res) =>{
+
+  fs.readdir(__dirname+'\\public\\share', (err, files) => {
+    res.send(files)
   });
-  output.on('error',(err)=>{
-      console.log(err)
-      res.send({message: "Something went wrong!!"})
-  })
 }
