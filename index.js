@@ -112,8 +112,10 @@ app.post('/contactUsFormSubmission', (req, res) => {
     });
 })
 
-const {zipAndDownload} = require('./utils/zipAndDownload')
-app.post('/zipAndDownlaod',zipAndDownload);
+const {createZip} = require('./utils/zipAndDownload')
+const {downloadZip} = require('./utils/zipAndDownload')
+app.get('/download-zip/:name',downloadZip)
+app.post('/create-zip',createZip);
 
 app.get('/download', function(req, res){
     const file = `${__dirname}/ASD.json`;
