@@ -18,8 +18,7 @@ const uuid = require('uuid')
 const file1 = '02 - Nutrition_and_Hygiene_Hindi.png';
 let fileList2 = [file1, '2-page Leaflet_5sutra_Hindi_31 Aug_Page_1.jpg', '3189 Unicief Poster 19x29inch-07.jpg'];
 exports.createZip = (req, res) => {
-  console.log('gh')
-  // const directoryPath = path.join(__dirname, 'public/share');
+
   let fileName = uuid.v4() + '-zip.zip';
 
     // createZip(file, req.body.list,res);
@@ -29,7 +28,6 @@ exports.createZip = (req, res) => {
       .archive({ region: region, bucket: bucket }, folder, req.body.list)
       .pipe(output)
     output.on('finish', () => {
-      console.log(output.path)
       res.send(fileName);
     });
     output.on('error',(err)=>{
@@ -41,24 +39,7 @@ exports.createZip = (req, res) => {
 exports.downloadZip = (req,res) => {
     res.download(__dirname+'/public/share/'+ req.params.name);
 } 
-// function createZip(file,fileList,res) {
-//   const output = fs.createWriteStream(join(__dirname, '\public\share', file))
-//   console.log(output.path)
-//   s3Zip
-//     .archive({ region: region, bucket: bucket }, folder, fileList)
-//     .pipe(output)
-//   output.on('finish', () => {
-//     // console.log('All writes are now complete.');
-//     // res.setHeader('Content-disposition','attachment' );
-//     // res.setHeader('filename',file)
-//     console.log(output.path)
-//     res.send();
-//   });
-//   output.on('error',(err)=>{
-//       console.log(err)
-//       res.send({message: "Something went wrong!!"})
-//   })
-// }
+
 
 exports.checkZipFiles = (req,res) =>{
 
@@ -69,3 +50,29 @@ exports.checkZipFiles = (req,res) =>{
     res.send(files+'files')
   });
 }
+
+var uploadsDir = __dirname + '/public/share';
+
+
+setInterval(function(){
+  fs.readdir(uploadsDir, function(err, files) {
+    files.forEach(function(file, index) {
+      fs.stat(path.join(uploadsDir, file), function(err, stat) {
+        var endTime, now;
+        if (err) {
+          return console.error(err);
+        }
+        now = new Date().getTime();
+        endTime = new Date(stat.ctime).getTime() + timeInSeconds;
+        if (now > endTime) {
+          return rimraf(path.join(uploadsDir, file), function(err) {
+            if (err) {
+              return console.error(err);
+            }
+            console.log('successfully deleted');
+          });
+        }
+      });
+    });
+  });
+},18000000)
