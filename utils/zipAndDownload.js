@@ -57,7 +57,7 @@ exports.checkZipFiles = (req,res) =>{
 }
 
 var uploadsDir = __dirname + '/public/share';
-var timeInSeconds = 5000
+var timeInSeconds = 1000*60*30
 
 setInterval(function(){
   fs.readdir(uploadsDir, function(err, files) {
