@@ -6,6 +6,7 @@ import {useCart,useDeleteCart} from '../context/cart.context'
 import { Button, Icon } from 'semantic-ui-react'
 import { v4 as uuidv4 } from 'uuid';
 import { Dimmer, Loader, Image, Segment } from 'semantic-ui-react';
+
 const Drop = styled.div`
 padding: 15px;
 padding: ${({state}) => state?'15px':'0 15px'};
@@ -87,6 +88,7 @@ hr{
          items:[],
          status:'success'
     });
+    const currentCartItems = useCart()
     const createDownloadLink = async (cartItemKeys) => {
         console.log('getting download link')
         try{
@@ -110,11 +112,10 @@ hr{
     }
     function downloadAll()  {
 
-       const items =  localStorage.getItem('cartItem')
-       const cartItems = JSON.parse(items);
        let cartItemsKey = [];
+       if(currentCartItems<=0) return 0;
        setLastDownloaded({...lastDownloaded,status:'pending'})
-       cartItems.forEach((item)=> cartItemsKey.push(item.Key))
+       currentCartItems.forEach((item)=> cartItemsKey.push(item.Key))
             if( JSON.stringify( cartItemsKey) !== JSON.stringify( lastDownloaded.items ) || !lastDownloaded.id ){
                     createDownloadLink( cartItemsKey );
             }
@@ -148,8 +149,8 @@ hr{
                     }
                 </div>
                 <hr/>
-                <Button animated onClick={downloadAll} >
-                    <Button.Content visible  >Download All</Button.Content>
+                <Button animated disabled={!currentCartItems.length} onClick={downloadAll}  >
+                    <Button.Content visible   >Download All</Button.Content>
                         <Button.Content hidden>
                             <Icon name='download' inverted />
                     </Button.Content>
