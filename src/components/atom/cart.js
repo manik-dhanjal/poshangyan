@@ -126,9 +126,9 @@ hr{
 
        let cartItemsKey = [];
        if(currentCartItems<=0) return 0;
-       setLastDownloaded({...lastDownloaded,status:'pending'})
        currentCartItems.forEach((item)=> cartItemsKey.push(item.Key))
-            if( JSON.stringify( cartItemsKey) !== JSON.stringify( lastDownloaded.items ) || !lastDownloaded.id ){
+            if( JSON.stringify( cartItemsKey) !== JSON.stringify( lastDownloaded.items )){
+                    setLastDownloaded({...lastDownloaded,status:'pending'})
                     createDownloadLink( cartItemsKey );
             }
             else{
