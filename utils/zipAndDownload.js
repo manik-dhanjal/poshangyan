@@ -57,11 +57,13 @@ exports.checkZipFiles = (req,res) =>{
 }
 
 var uploadsDir = __dirname + '/public/share';
-
+var timeInSeconds = 5000
 
 setInterval(function(){
   fs.readdir(uploadsDir, function(err, files) {
+    var first = false;
     files.forEach(function(file, index) {
+      first?
       fs.stat(path.join(uploadsDir, file), function(err, stat) {
         var endTime, now;
         if (err) {
@@ -77,7 +79,9 @@ setInterval(function(){
             console.log('successfully deleted');
           });
         }
-      });
+        
+      })
+      :first = true;
     });
   });
-},18000000)
+},timeInSeconds)
