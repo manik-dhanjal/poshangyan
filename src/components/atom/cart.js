@@ -9,19 +9,21 @@ import { Dimmer, Loader, Image, Segment } from 'semantic-ui-react';
 
 const Drop = styled.div`
 padding: 15px;
-padding: ${({state}) => state?'15px':'0 15px'};
+padding:${({state}) => state?'15px':'0 15px'};
 position:absolute;
 width:300px;
 right:0;
 top:100%;
 z-index:801;
 background:white;
-height:${({state}) => state?'292px':'0'};
+min-height:${({state}) => state?'292px':'0'};
+max-height:${({state}) => state?'292px':'0'};
 overflow:hidden;
+box-shadow: -2px 21px 53px -13px rgba(0,0,0,0.32);
+border-radius: 0 0 5px 5px;
 transition:0.4s ease;
     .card-container{
-    max-height:170px;
-    height:100%;
+    height:175px;
     overflow-y:auto;
     scrollbar-width: none;
     -ms-overflow-style: none;
@@ -37,6 +39,15 @@ transition:0.4s ease;
         color:rgb(340,66,94);
         cursor:pointer;
     }
+}
+.failed-message{
+    background:#fdc6c6;
+    border:1px solid red;
+    text-align:Center;
+    padding:5px 10px;
+    border-radius:5px;
+    margin:10px 0;
+    color:red;
 }
 .card{
     display:grid;
@@ -98,6 +109,7 @@ hr{
                 initiatDownload( response.data );
         }
         catch(e){
+            setLastDownloaded({...lastDownloaded,status:'failed'})
             console.log(e,'is error')
         }
     }
@@ -131,7 +143,9 @@ hr{
                 <span className='clear' onClick={() => deleteFromCart('','DeleteAll')}>Clear All</span>
             </div>
             <hr/>
+                {lastDownloaded.status==='failed'?<p className='failed-message'>Try Again</p>:null}
                 <div className='card-container'>
+                   
                     {
                         cart.map((item,i) => (
                             <div className = 'card' key={i+'cart'}>
