@@ -31,8 +31,9 @@ exports.createZip = (req, res) => {
       res.send(fileName);
     });
     output.on('error',(err)=>{
-        console.log(err)
-        res.send({message: "Something went wrong!!"})
+        res.status(500)
+        res.send(err+'error')
+        // res.send({message: "Something went wrong!!"})
     })
 }
 
