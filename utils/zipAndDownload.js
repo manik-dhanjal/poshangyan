@@ -23,7 +23,7 @@ exports.createZip = (req, res) => {
 
     // createZip(file, req.body.list,res);
     const output = fs.createWriteStream(join(__dirname, 'public/share', fileName))
-    console.log(req.body.list)
+    console.log(output.path)
     s3Zip
       .archive({ region: region, bucket: bucket }, folder, req.body.list)
       .pipe(output)
