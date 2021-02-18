@@ -116,6 +116,7 @@ hr{
     const initiatDownload = async (fileName) => {
         console.log('download-initiated')
             const downloadUrl = 'https://poshangyan-backend.herokuapp.com/download-zip/'+fileName;
+            // const downloadUrl =  'http://localhost:8080/download-zip/'+fileName;
             console.log(downloadUrl)
             const link = document.createElement('a');
             link.href = downloadUrl;

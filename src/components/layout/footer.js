@@ -1,9 +1,7 @@
 import React from 'react'
 import styled from "styled-components"
 import{ Container} from "@material-ui/core"
-import csbc from '../../assets/Images/csbc.png'
-import bmgf from '../../assets/Images/bmgf.png'
-import studio from '../../assets/Images/2626.png'
+
 const SFooter =  styled.footer`
 
 font-size:1.1em;
