@@ -56,8 +56,7 @@ app.post('/getFilteredInfo', getFilteredInfo)
 app.get('/getPopolarVideos', getPolularVideos)
 app.get('/getThemesOfTheMonth', getThemeoftheMonth)
 app.post('/addDownload', addDownloadCount)
-app.post('/set-theme-of-the-month',setThemeOfTheMonth)
-// app.post('/update',update)
+app.post('/set-theme-of-the-month',Auth,setThemeOfTheMonth)
 
 const { getPostInfo, deletePost, updatePostInfo } = require('./handlers/Posts')
 app.get('/posts/:postID', getPostInfo)
@@ -71,9 +70,10 @@ app.post('/modifySortingData', Auth, modifySortingData)      //TODO: Add Auth  /
 app.post('/deleteFromSortingData', Auth, delFromSortingData) //TODO: Add Auth  // REMOVE things
 
 
-const { addAdmin, login } = require('./handlers/admin')
+const { addAdmin, login , validAdmin} = require('./handlers/admin')
 
 app.post('/login', login)
+app.post('/isValidAdmin',Auth,validAdmin)
 
 app.post('/contactUsFormSubmission', (req, res) => {
     console.log(req.body)

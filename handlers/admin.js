@@ -67,3 +67,7 @@ exports.login = (req,res) =>{
         res.status(500).send({err:'something went wrong!!'})
     }
 }
+
+validAdmin = (req,res) => {
+    res.status(200).send({msg:true});
+}
