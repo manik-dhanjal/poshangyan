@@ -287,7 +287,8 @@ const dropData=[
             "Santhali",
             "Maithili",
             "Dogri",
-            "English"
+            "English",
+            "Garo"
           ]
     },{
         label:"Media Type",
