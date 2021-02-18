@@ -64,6 +64,14 @@ const PostEdit = ({post,handleBackbutton}) => {
     const handleSubmit = (e) =>{
         e.preventDefault()
         setEditPostData({...editPostData,postId:slug(editPostData.label)})
+        let key = localStorage.getItem('passkey');
+        // axios.put(`/posts/${editPostData._id}`,{...editPostData,passkey:key})
+        // .then(res=>{
+        //     console.log(res.data)
+        // })
+        // .catch(e=>{
+        //     console.log(e)
+        // })
         console.log(e)
     }
     const fileUpload = useRef(null)
