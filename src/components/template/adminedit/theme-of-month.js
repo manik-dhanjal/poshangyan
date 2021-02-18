@@ -26,9 +26,12 @@ const ThemeOfMonth = () => {
         e.preventDefault();
         try{
             await setData({...data,status:'pending'})
+    let key = localStorage.getItem('passkey');
+
             const dat = await axios.post('/set-theme-of-the-month',{
                 theme:data.theme,
-                quote:data.quote
+                quote:data.quote,
+                passkey:key
             })
             await setData({...data,status:'success'})
             console.log(dat,'updated successfully')
