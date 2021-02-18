@@ -50,13 +50,15 @@ const ThemeOfMonth = () => {
     useEffect( ()=>{
         (async () => {
             try{
-
+    let key = localStorage.getItem('passkey');
+            
             const res = await axios.post('/set-theme-of-the-month') 
             console.log(res)
             setData({
                 status:'success',
                 theme:res.data.theme,
-                quote:res.data.quote
+                quote:res.data.quote,
+                passkey: key 
              })
         }catch(e){
             console.log(e)
