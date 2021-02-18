@@ -23,7 +23,6 @@ const Div = styled.div`
 
 const PostEdit = ({post,handleBackbutton}) => {
     const [editPostData,setEditPostData] = useState(post)
-    console.log({post})
 
     useEffect(()=>{
         console.log(editPostData)
@@ -49,6 +48,7 @@ const PostEdit = ({post,handleBackbutton}) => {
         setEditPostData({...editPostData,[e.target.name]:e.target.value})
     }
     const handleDropChange = (e,data) =>{
+        console.log(data.name,editPostData)
         setEditPostData({...editPostData,[data.name]:data.value.toString()})
     }
     const setDefaultValue = (e) =>{
@@ -97,14 +97,14 @@ const PostEdit = ({post,handleBackbutton}) => {
             <Button onClick={handleBackbutton} className=''>Back</Button>
               
             <div className='form'>
-
+{/* 
                     <form id="formData" className='custom-input'>
                         <input type="file" id="file" ref={fileUpload} />
                     </form>
                     
                     <form id="formData2" className='custom-input'>
                         <input type="file" id="file2" ref={thumbUpload} />
-                    </form>
+                    </form> */}
 
             {/* {  (per && !((per==0) || (per==100))) ?   <Progress style={{width:'100%'}} 
             percent={this.state.percentCompleted} indicating progress /> : (null) } */}
@@ -121,7 +121,7 @@ const PostEdit = ({post,handleBackbutton}) => {
                                 options={sortMenuTab(menu.options)} 
                                 defaultValue={setDefaultValue(menu.label)} 
                                 onChange={handleDropChange} 
-                                name="theme" 
+                                name={menu.label}
                                 className='custom-input'
                             />
                     </div>
@@ -152,7 +152,7 @@ export default PostEdit
 
 const dropData=[
     {
-        label:"Themes",
+        label:"themes",
         options: [
             "Ante Natal Care (ANC)",
             "Breastfeeding",
@@ -171,7 +171,7 @@ const dropData=[
             "Supplementation - Deworming"
           ]
     },{
-        label:"Languages",
+        label:"languages",
         options:[
             "Any",
             "Assamese",
@@ -199,7 +199,7 @@ const dropData=[
             "English"
           ]
     },{
-        label:"Media Type",
+        label:"mediaType",
         options:[
             "Any",
             'IPC',
@@ -209,7 +209,7 @@ const dropData=[
             'Others'
           ]
     },{
-        label:"Target Audience",
+        label:"targetAudience",
         options:[
             "Any",
             'Children under 5',
@@ -221,7 +221,7 @@ const dropData=[
             'Others'
           ]
     },{
-        label:"Source",
+        label:"source",
         options:[
             "Any",
             'MoHFW',

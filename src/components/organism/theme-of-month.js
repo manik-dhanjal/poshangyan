@@ -74,8 +74,8 @@ const ThemeOfMonth = () => {
                 console.log(e)
                 setPost({
                     data:[],
-                    theme:data.theme,
-                    quote:data.quote,
+                    theme:'',
+                    quote:'',
                     status:"fail"
                 })
             }
