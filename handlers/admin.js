@@ -68,6 +68,6 @@ exports.login = (req,res) =>{
     }
 }
 
-validAdmin = (req,res) => {
+exports.validAdmin = (req,res) => {
     res.status(200).send({msg:true});
 }
