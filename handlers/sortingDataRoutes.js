@@ -41,19 +41,19 @@ exports.delFromSortingData = (req, res) => {
                     new_value = removeItemAll(data.languages, val);
                     if (new_value.length == 0) new_value.push('Other')
                     data.languages = new_value;
-                    updatePostsAfterDeletion(type, val);
+                    // updatePostsAfterDeletion(type, val);
                     break;
                 case 'themes':
                     new_value = removeItemAll(data.themes, val);
                     if (new_value.length == 0) new_value.push('Other')
                     data.themes = new_value;
-                    updatePostsAfterDeletion(type, val);
+                    // updatePostsAfterDeletion(type, val);
                     break;
                 case 'mediaType':
                     new_value = removeItemAll(data.mediaType, val);
                     if (new_value.length == 0) new_value.push('Other')
                     data.mediaType = new_value;
-                    updatePostsAfterDeletion(type, val);
+                    // updatePostsAfterDeletion(type, val);
                     break;
                 case 'mimetype':
                     new_value = removeItemAll(data.mimetype, val);
@@ -64,13 +64,13 @@ exports.delFromSortingData = (req, res) => {
                     new_value = removeItemAll(data.targetAudience, val);
                     if (new_value.length == 0) new_value.push('Other')
                     data.sources = new_value;
-                    updatePostsAfterDeletion(type, val);
+                    // updatePostsAfterDeletion(type, val);
                     break;
                 case 'sources':
                     new_value = removeItemAll(data.sources, val);
                     if (new_value.length == 0) new_value.push('Other')
                     data.sources = new_value;
-                    updatePostsAfterDeletion(type, val);
+                    // updatePostsAfterDeletion(type, val);
                     break;
             }
             return data.save();
@@ -114,7 +114,7 @@ exports.modifySortingData = (req, res) => {
                             }
                         }
                         data.languages = makeArrayUnique(data.languages);
-                        update(type, val, new_val);
+                        // update(type, val, new_val);
                     }
                     break;
                 case 'themes':
@@ -129,7 +129,7 @@ exports.modifySortingData = (req, res) => {
                             }
                         }
                         data.themes = makeArrayUnique(data.themes);
-                        update(type, val, new_val);
+                        // update(type, val, new_val);
                     }
                     break;
                 case 'mediaType':
@@ -144,7 +144,7 @@ exports.modifySortingData = (req, res) => {
                             }
                         }
                         data.mediaType = makeArrayUnique(data.mediaType);
-                        update(type, val, new_val);
+                        // update(type, val, new_val);
                     }
                     break;
                 case 'mimetype':
@@ -173,7 +173,7 @@ exports.modifySortingData = (req, res) => {
                             }
                         }
                         data.targetAudience = makeArrayUnique(data.targetAudience);
-                        update(type, val, new_val);
+                        // update(type, val, new_val);
                     }
                     break;
                 case 'sources':
@@ -188,7 +188,7 @@ exports.modifySortingData = (req, res) => {
                             }
                         }
                         data.sources = makeArrayUnique(data.sources);
-                        update(type, val, new_val);
+                        // update(type, val, new_val);
                     }
                     break;
             }
