@@ -43,7 +43,7 @@ const ThemeOfMonth = () => {
         
     }
     const [data,setData] = useState({
-        status:'pending',
+        status:'success',
         theme:'',
         quote:''
     })
@@ -53,9 +53,11 @@ const ThemeOfMonth = () => {
     useEffect( ()=>{
         (async () => {
             try{
-    let key = localStorage.getItem('passkey');
+            let key = localStorage.getItem('passkey');
             
-            const res = await axios.post('/set-theme-of-the-month',{passkey:key}) 
+            const res = await axios.post('/set-theme-of-the-month',{
+                passkey: key 
+            }) 
             console.log(res)
             setData({
                 status:'success',

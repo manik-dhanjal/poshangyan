@@ -50,11 +50,6 @@ export default class MenuExampleTabularOnLeft extends Component {
                 onClick={this.handleItemClick}
               />
               <Menu.Item
-                name='Notify'
-                active={activeItem === 'Notify'}
-                onClick={this.handleItemClick}
-              />
-              <Menu.Item
                 name='Update'
                 active={activeItem === 'Update'}
                 onClick={this.handleItemClick}
@@ -62,16 +57,6 @@ export default class MenuExampleTabularOnLeft extends Component {
               <Menu.Item
                 name='Theme of the month'
                 active={activeItem === 'Theme of the month'}
-                onClick={this.handleItemClick}
-              />
-              <Menu.Item
-                name='Subscribed Users'
-                active={activeItem === 'Subscribed Users'}
-                onClick={this.handleItemClick}
-              />
-              <Menu.Item
-                name='Manage Admins'
-                active={activeItem === 'Manage Admins'}
                 onClick={this.handleItemClick}
               />
             </Menu>
