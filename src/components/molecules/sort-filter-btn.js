@@ -329,6 +329,7 @@ const dropData=[
             'Sneha',
             'Tata Trust',
             'UNICEF India',
+            'NITI Aayog',
             'USAID',
             'WeCan',
             'Vitamin Angels',
