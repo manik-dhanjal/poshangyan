@@ -30,37 +30,37 @@ exports.getPostInfo = (req,res) =>{
   let post=req.body;
   console.log(post)
   res.send('send');
-    // Post.findByIdAndUpdate(post.id, {
-    //   label:post.label;
-    // }, 
-    //                           function (err, docs) { 
-    //   if (err){ 
-    //       console.log(err) 
-    //   } 
-    //   else{ 
-    //       console.log("Updated User : ", docs); 
-    //   } 
-    // }); 
-    // Post.findById(req.params.postID)
-    //   .then(dat=>{
-    //     console.log(dat)
-    //     if(dat){
-    //         if(req.body.themes) dat.themes = req.body.themes;
-    //         if(req.body.languages) dat.languages = req.body.languages;
-    //         if(req.body.source) dat.source = req.body.source;
-    //         if(req.body.mediaType) dat.mediaType = req.body.mediaType;
-    //         if(req.body.targetAudience) dat.targetAudience = req.body.targetAudience;
-    //         if(req.body.label) dat.label = req.body.label;
-    //         if(req.body.mimetype) dat.mimetype = req.body.mimetype;
-    //         post = dat;
-    //     }
-    //      return dat.save()
-    //   })
-    //   .then(()=>{
-    //     res.send(post) 
-    //   })
-    //   .catch(err => {
-    //     console.error(err)
-    //     res.send({err:'Something Went Wrong!!'})
-    //   });
+    Post.findByIdAndUpdate(post.id, {
+      label:post.label
+    }, 
+                              function (err, docs) { 
+      if (err){ 
+          console.log(err) 
+      } 
+      else{ 
+          console.log("Updated User : ", docs); 
+      } 
+    }); 
+    Post.findById(req.params.postID)
+      .then(dat=>{
+        console.log(dat)
+        if(dat){
+            if(req.body.themes) dat.themes = req.body.themes;
+            if(req.body.languages) dat.languages = req.body.languages;
+            if(req.body.source) dat.source = req.body.source;
+            if(req.body.mediaType) dat.mediaType = req.body.mediaType;
+            if(req.body.targetAudience) dat.targetAudience = req.body.targetAudience;
+            if(req.body.label) dat.label = req.body.label;
+            if(req.body.mimetype) dat.mimetype = req.body.mimetype;
+            post = dat;
+        }
+         return dat.save()
+      })
+      .then(()=>{
+        res.send(post) 
+      })
+      .catch(err => {
+        console.error(err)
+        res.send({err:'Something Went Wrong!!'})
+      });
   }
