@@ -121,7 +121,7 @@ exports.getFilteredInfo = (req, res) => {
 }
 exports.setThemeOfTheMonth = (req,res) =>{
   if(req.body.theme) process.env.themeofmonth = req.body.theme;
-  if(req.body.quote) process.env.quote = req.body
+  if(req.body.quote) process.env.quote = req.body.quote;
 
   res.send( {
       theme:process.env.themeofmonth,
