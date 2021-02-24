@@ -1,5 +1,6 @@
 const Admin = require('../schema/adminSchema')
 module.exports = (req,res,next) => {
+    //console.log(req.body)
     if(req.body.passkey){
         Admin.find()
         .then((doc)=>{

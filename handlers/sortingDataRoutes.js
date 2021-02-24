@@ -41,19 +41,19 @@ exports.delFromSortingData = (req, res) => {
                     new_value = removeItemAll(data.languages, val);
                     if (new_value.length == 0) new_value.push('Other')
                     data.languages = new_value;
-                    // updatePostsAfterDeletion(type, val);
+                    updatePostsAfterDeletion(type, val);
                     break;
                 case 'themes':
                     new_value = removeItemAll(data.themes, val);
                     if (new_value.length == 0) new_value.push('Other')
                     data.themes = new_value;
-                    // updatePostsAfterDeletion(type, val);
+                    updatePostsAfterDeletion(type, val);
                     break;
                 case 'mediaType':
                     new_value = removeItemAll(data.mediaType, val);
                     if (new_value.length == 0) new_value.push('Other')
                     data.mediaType = new_value;
-                    // updatePostsAfterDeletion(type, val);
+                    updatePostsAfterDeletion(type, val);
                     break;
                 case 'mimetype':
                     new_value = removeItemAll(data.mimetype, val);
@@ -64,13 +64,13 @@ exports.delFromSortingData = (req, res) => {
                     new_value = removeItemAll(data.targetAudience, val);
                     if (new_value.length == 0) new_value.push('Other')
                     data.sources = new_value;
-                    // updatePostsAfterDeletion(type, val);
+                    updatePostsAfterDeletion(type, val);
                     break;
                 case 'sources':
                     new_value = removeItemAll(data.sources, val);
                     if (new_value.length == 0) new_value.push('Other')
                     data.sources = new_value;
-                    // updatePostsAfterDeletion(type, val);
+                    updatePostsAfterDeletion(type, val);
                     break;
             }
             return data.save();
@@ -114,7 +114,8 @@ exports.modifySortingData = (req, res) => {
                             }
                         }
                         data.languages = makeArrayUnique(data.languages);
-                        // update(type, val, new_val);
+                        data.markModified('languages');
+                        update(type, val, new_val);
                     }
                     break;
                 case 'themes':
@@ -129,7 +130,8 @@ exports.modifySortingData = (req, res) => {
                             }
                         }
                         data.themes = makeArrayUnique(data.themes);
-                        // update(type, val, new_val);
+                        data.markModified('themes');
+                        update(type, val, new_val);
                     }
                     break;
                 case 'mediaType':
@@ -144,7 +146,8 @@ exports.modifySortingData = (req, res) => {
                             }
                         }
                         data.mediaType = makeArrayUnique(data.mediaType);
-                        // update(type, val, new_val);
+                        data.markModified('mediaType');
+                        update(type, val, new_val);
                     }
                     break;
                 case 'mimetype':
@@ -173,7 +176,8 @@ exports.modifySortingData = (req, res) => {
                             }
                         }
                         data.targetAudience = makeArrayUnique(data.targetAudience);
-                        // update(type, val, new_val);
+                        data.markModified('targetAudience');
+                        update(type, val, new_val);
                     }
                     break;
                 case 'sources':
@@ -188,17 +192,20 @@ exports.modifySortingData = (req, res) => {
                             }
                         }
                         data.sources = makeArrayUnique(data.sources);
-                        // update(type, val, new_val);
+                        data.markModified('sources');
+                        update(type, val, new_val);
                     }
                     break;
             }
+            //console.log(data.languages,"BR")
             return data.save();
         })
         .then((dat) => {
+           // console.log(dat.languages,"AR")
             res.status(200).send(dat);
         })
         .catch(e => {
-            res.status(400).send({ message: "Not Found" });
+            res.status(404).send({ message: "Not Found" });
         })
 }
 function update(type, val, new_val) {
@@ -403,8 +410,8 @@ function updatePostsAfterDeletion(type, val) {
     switch (type) {
         case 'languages':
             Posts.find()
-                .then(dat => {
-                    dat.forEach(post => {
+                .then(posts => {
+                    posts.forEach(post => {
                         // console.log(post.languages)
                         if (post.languages.includes(val)) {
                             let temp_val = post.languages.split(',');
@@ -414,9 +421,9 @@ function updatePostsAfterDeletion(type, val) {
                             temp_val = makeArrayUnique(temp_val);
                             console.log(temp_val)
                             let new_val = temp_val.join(',');
-                            dat.languages = new_val;
+                            post.languages = new_val;
                             console.log(new_val)
-                            dat.save();
+                            post.save();
                         }
                     })
                 })
@@ -426,9 +433,8 @@ function updatePostsAfterDeletion(type, val) {
             break;
         case 'themes':
             Posts.find()
-                .limit(40)
-                .then(dat => {
-                    dat.forEach(post => {
+                .then(posts => {
+                    posts.forEach(post => {
                         // console.log(post.themes)
                         if (post.themes.includes(val)) {
                             let temp_val = post.themes.split(',');
@@ -438,9 +444,9 @@ function updatePostsAfterDeletion(type, val) {
                             temp_val = makeArrayUnique(temp_val);
                             console.log(temp_val)
                             let new_val = temp_val.join(',');
-                            dat.themes = new_val;
+                            post.themes = new_val;
                             console.log(new_val)
-                            dat.save();
+                            post.save();
                         }
                     })
                 })
@@ -450,9 +456,8 @@ function updatePostsAfterDeletion(type, val) {
             break;
         case 'mediaType':
             Posts.find()
-                .limit(40)
-                .then(dat => {
-                    dat.forEach(post => {
+                .then(posts => {
+                    posts.forEach(post => {
                         // console.log(post.languages)
                         if (post.languages.includes(val)) {
                             let temp_val = post.languages.split(',');
@@ -462,9 +467,9 @@ function updatePostsAfterDeletion(type, val) {
                             temp_val = makeArrayUnique(temp_val);
                             console.log(temp_val)
                             let new_val = temp_val.join(',');
-                            dat.languages = new_val;
+                            post.languages = new_val;
                             console.log(new_val)
-                            dat.save();
+                            post.save();
                         }
                     })
                 })
@@ -476,9 +481,8 @@ function updatePostsAfterDeletion(type, val) {
             break;
         case 'targetAudience':
             Posts.find()
-                .limit(40)
-                .then(dat => {
-                    dat.forEach(post => {
+                .then(posts => {
+                    posts.forEach(post => {
                         // console.log(post.targetAudience)
                         if (post.targetAudience.includes(val)) {
                             let temp_val = post.targetAudience.split(',');
@@ -488,9 +492,9 @@ function updatePostsAfterDeletion(type, val) {
                             temp_val = makeArrayUnique(temp_val);
                             console.log(temp_val)
                             let new_val = temp_val.join(',');
-                            dat.targetAudience = new_val;
+                            post.targetAudience = new_val;
                             console.log(new_val)
-                            dat.save();
+                            post.save();
                         }
                     })
                 })
@@ -500,9 +504,8 @@ function updatePostsAfterDeletion(type, val) {
             break;
         case 'sources':
             Posts.find()
-                .limit(40)
-                .then(dat => {
-                    dat.forEach(post => {
+                .then(posts => {
+                    posts.forEach(post => {
                         // console.log(post.languages)
                         if (post.source.includes(val)) {
                             let temp_val = post.source.split(',');
@@ -512,9 +515,9 @@ function updatePostsAfterDeletion(type, val) {
                             temp_val = makeArrayUnique(temp_val);
                             console.log(temp_val)
                             let new_val = temp_val.join(',');
-                            dat.source = new_val;
+                            post.source = new_val;
                             console.log(new_val)
-                            dat.save();
+                            post.save();
                         }
                     })
                 })
