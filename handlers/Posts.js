@@ -27,7 +27,20 @@ exports.getPostInfo = (req,res) =>{
   }
 
   exports.updatePostInfo = (req,res) =>{
-  let post={};
+  let post=req.body;
+  console.log(post)
+  res.send('send');
+    Post.findByIdAndUpdate(post.id, {
+      label:post.label
+    }, 
+                              function (err, docs) { 
+      if (err){ 
+          console.log(err) 
+      } 
+      else{ 
+          console.log("Updated User : ", docs); 
+      } 
+    }); 
     Post.findById(req.params.postID)
       .then(dat=>{
         console.log(dat)

@@ -8,7 +8,7 @@ exports.getSortingData = (req, res) => {
             res.status(200).send(data);
         })
         .catch(e => {
-            res.status(400).send({ message: "Not Found" });
+            res.status(404).send({ message: "Not Found" });
         })
 }
 function removeItemAll(arr, value) {
