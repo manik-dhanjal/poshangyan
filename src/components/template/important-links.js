@@ -14,6 +14,7 @@ import nin from '../../assets/Images/important links/nin.png'
 
 const Div = styled.div`
 background:#f4d6cc;
+padding-bottom:60px;
 .main{
     margin:0px auto;
 }
@@ -23,7 +24,6 @@ background:#f4d6cc;
 .wecan-cont{
     background:white;
     padding:20px 30px;
-    margin-top:30px;
 
     .wecan-card{
         max-width:500px;
@@ -57,7 +57,6 @@ background:#f4d6cc;
         margin-right: auto;
         margin-left:auto;
         width:870px;
-        padding-bottom:50px;
     }
     .thumb-cont{
         width: 260px;
@@ -116,17 +115,6 @@ const ImportantLinks = () => {
                 <h1>Important Links</h1>
             </div>
                
-            <div className='wecan-cont'>
-                <a className='wecan-card' href='https://www.wecollaborate4nutrition.org' target="__blank">
-                    <div className='img-cont'>
-                        <img src={wecan}/>
-                    </div>
-                    <div className='content'>
-                        <h3>WeCan</h3>
-                        <p>WeCan Mothers' support page contains resource materials from the Government and development partners and links to support groups, helplines, lactation experts and associations.</p>
-                    </div>
-                </a>
-            </div>
             <div className='container main'>
                 <div className='thumb-collection'>
                     {
@@ -143,7 +131,18 @@ const ImportantLinks = () => {
                         ))      
                     }
                 </div>
-            </div>    
+            </div>   
+            <div className='wecan-cont'>
+                <a className='wecan-card' href='https://www.wecollaborate4nutrition.org' target="__blank">
+                    <div className='img-cont'>
+                        <img src={wecan}/>
+                    </div>
+                    <div className='content'>
+                        <h3>WeCan</h3>
+                        <p>WeCan Mothers' support page contains resource materials from the Government and development partners and links to support groups, helplines, lactation experts and associations.</p>
+                    </div>
+                </a>
+            </div> 
         </Div>
     )
 }
