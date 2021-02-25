@@ -155,7 +155,7 @@ hr{
                                 </div>
                                 <div className = 'content'>
                                     <p>{item.label}</p>
-                                        <span onClick={() => deleteFromCart(item._id,'DeleteOne')} class='close-btn'>
+                                        <span onClick={() => deleteFromCart(item._id,'DeleteOne')} className='close-btn'>
                                             <i className="close icon"></i>
                                         </span>
                                 </div>
