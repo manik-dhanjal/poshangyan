@@ -5,6 +5,9 @@ import Snackbar from "@material-ui/core/Snackbar";
 import Alert from "@material-ui/lab/Alert";
 import { v4 as uuidv4 } from "uuid";
 import {  Progress } from 'semantic-ui-react'
+import {useCategories} from "../context/post.context"
+import { Dimmer, Loader, Image, Segment } from 'semantic-ui-react';
+
 // import entire SDK
 import AWS from "aws-sdk";
 // import individual service
@@ -23,10 +26,8 @@ const Div = styled.div`
 
 const PostEdit = ({post,handleBackbutton}) => {
     const [editPostData,setEditPostData] = useState(post)
-
-    useEffect(()=>{
-        console.log(editPostData)
-    })
+    const rawCategories = useCategories();
+    const [updateStatus,setUpdateStatus] = useState("");
     var slug = (str) => {
         str = str.replace(/^\s+|\s+$/g, ''); // trim
         str = str.toLowerCase();
@@ -63,16 +64,18 @@ const PostEdit = ({post,handleBackbutton}) => {
     }
     const handleSubmit = (e) =>{
         e.preventDefault()
+        setUpdateStatus("pending")
         setEditPostData({...editPostData,postId:slug(editPostData.label)})
         let key = localStorage.getItem('passkey');
         axios.put(`/posts/${editPostData._id}`,{...editPostData,passkey:key})
         .then(res=>{
+            setUpdateStatus("success")
             console.log(res.data)
         })
         .catch(e=>{
+            setUpdateStatus("failed")
             console.log(e)
         })
-        console.log(e)
     }
     const fileUpload = useRef(null)
     const thumbUpload = useRef(null)
@@ -92,6 +95,27 @@ const PostEdit = ({post,handleBackbutton}) => {
          if(other) temp.push({text:"others",value:"others"})
          return temp;
     }
+    const dropData=[
+      
+          {
+            label:"themes",
+            options: rawCategories.status==="success"? sortMenuTab(rawCategories.data.themes):[]
+        },  {
+            label:"languages",
+            options: rawCategories.status==="success"? sortMenuTab(rawCategories.data.languages):[]
+        }
+        //   ,{
+        //       label:"Mime Type",
+        //       options:rawCategories.status==="success"? sortMenuTab(rawCategories.data.mimetype):[]
+        //   }
+          ,{
+              label:"target Audience",
+              options: rawCategories.status==="success"?sortMenuTab(rawCategories.data.targetAudience):[]
+          },{
+              label:"source",
+              options: rawCategories.status==="success"?sortMenuTab(rawCategories.data.sources):[]
+          }
+      ]
     return (
         <Div>
             <Button onClick={handleBackbutton} className=''>Back</Button>
@@ -118,7 +142,7 @@ const PostEdit = ({post,handleBackbutton}) => {
                                 required
                                 search 
                                 selection 
-                                options={sortMenuTab(menu.options)} 
+                                options={menu.options} 
                                 defaultValue={setDefaultValue(menu.label)} 
                                 onChange={handleDropChange} 
                                 name={menu.label}
@@ -134,102 +158,109 @@ const PostEdit = ({post,handleBackbutton}) => {
                     {/* <h4 >{per}</h4> */}
                 </div>
             </div>
-                {/* <Snackbar open={this.state.snackbarType===1} autoHideDuration={3000} onClose={this.handleClose}>
-                    <Alert onClose={this.handleClose} severity="success">
+            {
+                    updateStatus==='pending'?
+                    <Dimmer active inverted>
+                        <Loader inverted>Loading</Loader>
+                    </Dimmer> 
+                    :null
+            }       
+            <Snackbar open={updateStatus==="success"} autoHideDuration={3000} onClose={() => setUpdateStatus("")}>
+                    <Alert onClose={() => setUpdateStatus("")} severity="success">
                     File successfully uploaded!!
                 </Alert>
             </Snackbar>
-            <Snackbar open={this.state.snackbarType===2} autoHideDuration={3000} onClose={this.handleClose}>
-                    <Alert onClose={this.handleClose} severity="error">
+            <Snackbar open={updateStatus==="failed"} autoHideDuration={3000} onClose={() => setUpdateStatus("")}>
+                    <Alert onClose={() => setUpdateStatus("")} severity="error">
                 Please fill all fields!
                 </Alert>
-            </Snackbar> */}
+            </Snackbar>
         </Div>
     )
 }
 
 export default PostEdit
 
-const dropData=[
-    {
-        label:"themes",
-        options: [
-            "Ante Natal Care (ANC)",
-            "Breastfeeding",
-            "Anaemia Prevention",
-            "Immunization",
-            "Growth Monitoring",
-            "Sanitation/ WASH",
-            "Diarrhoea Management",
-            "Diet Diversity/ Overall Nutrition",
-            "Nutri Cereal",
-            "Food Fortification",
-            "Girls Education, Diet & Right Age of Marriage",
-            // "Poshan Pakhwada",
-            "Complementary Feeding",
-            "Supplementation - Vit A",
-            "Supplementation - Deworming"
-          ]
-    },{
-        label:"languages",
-        options:[
-            "Any",
-            "Assamese",
-            "Bengali",
-            "Gujarati",
-            "Hindi",
-            "Kannada",
-            "Kashmiri",
-            "Konkani",
-            "Malayalam",
-            "Manipuri",
-            "Marathi",
-            "Nepali",
-            "Oriya",
-            "Punjabi",
-            "Sanskrit",
-            "Sindhi",
-            "Tamil",
-            "Telugu",
-            "Urdu",
-            "Bodo",
-            "Santhali",
-            "Maithili",
-            "Dogri",
-            "English",
-            "Garo",
-          ]
-    },{
-        label:"mediaType",
-        options:[
-            "Any",
-            'IPC',
-            'Mass Media',
-            'Outdoor',
-            'Social Media',
-            'Others'
-          ]
-    },{
-        label:"targetAudience",
-        options:[
-            "Any",
-            'Children under 5',
-            'Adolescent Girls',
-            'Mothers',
-            'Pregnant Women',
-            'PRI member',
-            'Civil society',
-            'Others'
-          ]
-    },{
-        label:"source",
-        options:[
-            "Any",
-            'MoHFW',
-            'MoWCD',
-            'MDWS',
-            'FSSAI',
-            'Others',
-          ]
-    }
-]
+// const dropData=[
+//     {
+//         label:"themes",
+//         options: [
+//             "Ante Natal Care (ANC)",
+//             "Breastfeeding",
+//             "Anaemia Prevention",
+//             "Immunization",
+//             "Growth Monitoring",
+//             "Sanitation/ WASH",
+//             "Diarrhoea Management",
+//             "Diet Diversity/ Overall Nutrition",
+//             "Nutri Cereal",
+//             "Food Fortification",
+//             "Girls Education, Diet & Right Age of Marriage",
+//             // "Poshan Pakhwada",
+//             "Complementary Feeding",
+//             "Supplementation - Vit A",
+//             "Supplementation - Deworming"
+//           ]
+//     },{
+//         label:"languages",
+//         options:[
+//             "Any",
+//             "Assamese",
+//             "Bengali",
+//             "Gujarati",
+//             "Hindi",
+//             "Kannada",
+//             "Kashmiri",
+//             "Konkani",
+//             "Malayalam",
+//             "Manipuri",
+//             "Marathi",
+//             "Nepali",
+//             "Oriya",
+//             "Punjabi",
+//             "Sanskrit",
+//             "Sindhi",
+//             "Tamil",
+//             "Telugu",
+//             "Urdu",
+//             "Bodo",
+//             "Santhali",
+//             "Maithili",
+//             "Dogri",
+//             "English",
+//             "Garo",
+//           ]
+//     },{
+//         label:"mediaType",
+//         options:[
+//             "Any",
+//             'IPC',
+//             'Mass Media',
+//             'Outdoor',
+//             'Social Media',
+//             'Others'
+//           ]
+//     },{
+//         label:"targetAudience",
+//         options:[
+//             "Any",
+//             'Children under 5',
+//             'Adolescent Girls',
+//             'Mothers',
+//             'Pregnant Women',
+//             'PRI member',
+//             'Civil society',
+//             'Others'
+//           ]
+//     },{
+//         label:"source",
+//         options:[
+//             "Any",
+//             'MoHFW',
+//             'MoWCD',
+//             'MDWS',
+//             'FSSAI',
+//             'Others',
+//           ]
+//     }
+// ]
