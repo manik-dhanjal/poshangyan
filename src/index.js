@@ -7,8 +7,8 @@ import './assets/fonts/Lato-Bold.ttf'
 import './assets/fonts/Lato-Regular.ttf'
 import './assets/fonts/Lato-Light.ttf'
 
-axios.defaults.baseURL = "https://poshangyan-backend.herokuapp.com/"
-// axios.defaults.baseURL = "http://localhost:8080/"
+// axios.defaults.baseURL = "https://poshangyan-backend.herokuapp.com/"
+axios.defaults.baseURL = "http://15.207.28.179:3000/"
 
 const styleLink = document.createElement("link");
 styleLink.rel = "stylesheet";
