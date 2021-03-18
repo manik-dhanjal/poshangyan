@@ -96,7 +96,7 @@ const ThemeOfMonth = () => {
                     post.status==="pending"?
                     <>
                         <div className='head'>
-                            <h2> Theme of The Month</h2>
+                            <h2> Theme of The {getMonth()}</h2>
                         </div>
                         <PreSearchPost dummy={4}/>
                     </>
