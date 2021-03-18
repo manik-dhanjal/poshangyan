@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import PostCards from '../atom/admin.PostCards'
 import { Icon,Pagination} from "semantic-ui-react"
 import { formatMs } from '@material-ui/core'
-
+import AlertPopup from '../template/adminedit/Views/AlertPopup'
 const Div = styled.div`
 .show-post{
   padding:20px 0px;
@@ -57,8 +57,31 @@ const PostsList = ({allPost,handleEditClick}) => {
         totalpage:1, 
         status:"pending"
       });
+    const [alertState,setAlertState] = useState({
+      post:{},
+      status:'close',
+      message:"",
+      subMessage:""
+    });
+      const handleDeleteClick = (post) => {
+        setAlertState({
+          post:post,
+          status:'close'
+        });
+        // let passkey = localStorage.getItem('passkey')
+        // axios.post(`/posts/${post._id}`,{passkey})
+        //   .then((res)=>{
+        //     console.log(res.data)
+        //   })
+        //   .catch(e=>{
+        //     console.log(e);
+        //   })
+      }
       const handlePageChange = (e,i) =>{
         setFilteredPost({...filteredPost,pageno:i.activePage}) 
+      }
+      const handleAlertDelete = (type,post) =>{
+        console.log(type,post)
       }
       const handleSearch = (e) =>{
         setSearchVal(e.target.value.toLowerCase())
@@ -113,6 +136,7 @@ const PostsList = ({allPost,handleEditClick}) => {
                                 post={post} 
                                 key={post.postId} 
                                 handleEditClick={handleEditClick}
+                                Modal = {<AlertPopup message={alertState.message} submessage={alertState.sumMessage} delete={handleAlertDelete} type={"post"} val={alertState.post} />}
                             />
                         ))}
                         </div>  
@@ -139,6 +163,7 @@ const PostsList = ({allPost,handleEditClick}) => {
                     )):null
                 }     */}
                 </div>
+                
         </Div>
     )
 }

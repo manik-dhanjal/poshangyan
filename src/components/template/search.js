@@ -28,6 +28,7 @@ const Search = (props) => {
     useEffect(()=>{
         setQuery(searchTreat(props.location.search))
     },[props.location.search])
+
     return (
         <Div>
             <Banner query={query}><h1>{query.Themes && query.Themes.length==1?query.Themes:"SEARCH RESULTS"}</h1></Banner>
