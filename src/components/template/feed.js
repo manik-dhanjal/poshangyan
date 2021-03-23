@@ -416,9 +416,9 @@ export class Feed extends Component {
           placeholder="Source"
         />
         <datalist id="source">
-          {sources} */}
-          {/* <option value="Social Media">Social Media</option> */}
-        {/* </datalist> */}
+          {sources}
+          <option value="Social Media">Social Media</option>
+        </datalist> */}
         {/* <Input
           list="Media Type"
           style={{ width: "100%", marginTop: 1}}
@@ -427,7 +427,7 @@ export class Feed extends Component {
         />
         <datalist id="Media Type">
           {mediaType}
-        </datalist> */}
+        </datalist>  */}
         <Dropdown
           placeholder="Target Audience"
           fluid

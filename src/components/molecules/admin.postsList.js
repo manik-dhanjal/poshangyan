@@ -4,6 +4,7 @@ import PostCards from '../atom/admin.PostCards'
 import { Icon,Pagination} from "semantic-ui-react"
 import { formatMs } from '@material-ui/core'
 import AlertPopup from '../template/adminedit/Views/AlertPopup'
+import axios from 'axios'
 const Div = styled.div`
 .show-post{
   padding:20px 0px;
@@ -64,18 +65,18 @@ const PostsList = ({allPost,handleEditClick}) => {
       subMessage:""
     });
       const handleDeleteClick = (post) => {
-        setAlertState({
-          post:post,
-          status:'close'
-        });
-        // let passkey = localStorage.getItem('passkey')
-        // axios.post(`/posts/${post._id}`,{passkey})
-        //   .then((res)=>{
-        //     console.log(res.data)
-        //   })
-        //   .catch(e=>{
-        //     console.log(e);
-        //   })
+        // setAlertState({
+        //   post:post,
+        //   status:'close'
+        // });
+        let passkey = localStorage.getItem('passkey')
+        axios.post(`/posts/${post._id}`,{passkey})
+          .then((res)=>{
+            console.log(res.data)
+          })
+          .catch(e=>{
+            console.log(e);
+          })
       }
       const handlePageChange = (e,i) =>{
         setFilteredPost({...filteredPost,pageno:i.activePage}) 
@@ -115,6 +116,7 @@ const PostsList = ({allPost,handleEditClick}) => {
           totalpage:ans, 
           status:allPost.status})
       },[allPost])
+      console.log(filteredPost)
     return (
         <Div>
                 <form className='search-cont' onSubmit={handleSearchBtn}>
@@ -136,6 +138,7 @@ const PostsList = ({allPost,handleEditClick}) => {
                                 post={post} 
                                 key={post.postId} 
                                 handleEditClick={handleEditClick}
+                                handleDeleteClick = {handleDeleteClick}
                                 Modal = {<AlertPopup message={alertState.message} submessage={alertState.sumMessage} delete={handleAlertDelete} type={"post"} val={alertState.post} />}
                             />
                         ))}
