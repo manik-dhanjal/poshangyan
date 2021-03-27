@@ -1,0 +1,41 @@
+{
+  "files": {
+    "main.css": "/static/css/main.835db24c.chunk.css",
+    "main.js": "/static/js/main.4f822771.chunk.js",
+    "main.js.map": "/static/js/main.4f822771.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.e19b347c.js",
+    "runtime-main.js.map": "/static/js/runtime-main.e19b347c.js.map",
+    "static/css/2.700d4682.chunk.css": "/static/css/2.700d4682.chunk.css",
+    "static/js/2.4a2d5a9b.chunk.js": "/static/js/2.4a2d5a9b.chunk.js",
+    "static/js/2.4a2d5a9b.chunk.js.map": "/static/js/2.4a2d5a9b.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/2.700d4682.chunk.css.map": "/static/css/2.700d4682.chunk.css.map",
+    "static/css/main.835db24c.chunk.css.map": "/static/css/main.835db24c.chunk.css.map",
+    "static/js/2.4a2d5a9b.chunk.js.LICENSE.txt": "/static/js/2.4a2d5a9b.chunk.js.LICENSE.txt",
+    "static/media/1.19c6f320.png": "/static/media/1.19c6f320.png",
+    "static/media/2.0d9ee24b.png": "/static/media/2.0d9ee24b.png",
+    "static/media/3.b95a3702.png": "/static/media/3.b95a3702.png",
+    "static/media/4.4128c598.png": "/static/media/4.4128c598.png",
+    "static/media/AMB.851d5444.png": "/static/media/AMB.851d5444.png",
+    "static/media/Banner1.955d3620.jpg": "/static/media/Banner1.955d3620.jpg",
+    "static/media/App.css": "/static/media/Lato-Regular.9919edff.ttf",
+    "static/media/MoHFW.a89bef7f.png": "/static/media/MoHFW.a89bef7f.png",
+    "static/media/MoWC.2a792293.png": "/static/media/MoWC.2a792293.png",
+    "static/media/abhiyan.19bf3f37.png": "/static/media/abhiyan.19bf3f37.png",
+    "static/media/bmgf.d4269737.png": "/static/media/bmgf.d4269737.png",
+    "static/media/cross.22d9b723.svg": "/static/media/cross.22d9b723.svg",
+    "static/media/eri.5c52ac32.png": "/static/media/eri.5c52ac32.png",
+    "static/media/niti ayaog.f8869771.png": "/static/media/niti ayaog.f8869771.png",
+    "static/media/nutrition.d179fdbd.png": "/static/media/nutrition.d179fdbd.png",
+    "static/media/slick-theme.css": "/static/media/slick.c94f7671.ttf",
+    "static/media/swach.6a4917ae.png": "/static/media/swach.6a4917ae.png",
+    "static/media/tick.1f500011.svg": "/static/media/tick.1f500011.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.e19b347c.js",
+    "static/css/2.700d4682.chunk.css",
+    "static/js/2.4a2d5a9b.chunk.js",
+    "static/css/main.835db24c.chunk.css",
+    "static/js/main.4f822771.chunk.js"
+  ]
+}

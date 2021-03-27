@@ -10,10 +10,11 @@ import niti from '../../assets/Images/important links/niti ayaog.png'
 import swach from '../../assets/Images/important links/swach.png'
 import nutri from '../../assets/Images/important links/nutrition.png'
 import wecan from '../../assets/Images/important links/wecan_logo.jpg'
-
+import nin from '../../assets/Images/important links/nin.png'
 
 const Div = styled.div`
 background:#f4d6cc;
+padding-bottom:60px;
 .main{
     margin:0px auto;
 }
@@ -23,7 +24,6 @@ background:#f4d6cc;
 .wecan-cont{
     background:white;
     padding:20px 30px;
-    margin-top:30px;
 
     .wecan-card{
         max-width:500px;
@@ -56,7 +56,7 @@ background:#f4d6cc;
         margin-top:50px;
         margin-right: auto;
         margin-left:auto;
-        width:1160px;
+        width:870px;
     }
     .thumb-cont{
         width: 260px;
@@ -115,17 +115,6 @@ const ImportantLinks = () => {
                 <h1>Important Links</h1>
             </div>
                
-            <div className='wecan-cont'>
-                <a className='wecan-card' href='https://www.wecollaborate4nutrition.org' target="__blank">
-                    <div className='img-cont'>
-                        <img src={wecan}/>
-                    </div>
-                    <div className='content'>
-                        <h3>WeCan</h3>
-                        <p>WeCan Mothers' support page contains resource materials from the Government and development partners and links to support groups, helplines, lactation experts and associations.</p>
-                    </div>
-                </a>
-            </div>
             <div className='container main'>
                 <div className='thumb-collection'>
                     {
@@ -142,7 +131,18 @@ const ImportantLinks = () => {
                         ))      
                     }
                 </div>
-            </div>    
+            </div>   
+            <div className='wecan-cont'>
+                <a className='wecan-card' href='https://www.wecollaborate4nutrition.org' target="__blank">
+                    <div className='img-cont'>
+                        <img src={wecan}/>
+                    </div>
+                    <div className='content'>
+                        <h3>WeCan</h3>
+                        <p>WeCan Mothers' support page contains resource materials from the Government and development partners and links to support groups, helplines, lactation experts and associations.</p>
+                    </div>
+                </a>
+            </div> 
         </Div>
     )
 }
@@ -178,7 +178,7 @@ const links = [
         img:niti,
         link:'https://niti.gov.in/',
         desc:"The National Institute for Transforming India, also called NITI Aayog, is the premier policy think tank of the Government of India.",
-        title:"Niti Ayaog"
+        title:"NITI Aayog"
     },
     {
         img:swach,
@@ -197,5 +197,11 @@ const links = [
         link:'https://www.nutritionindia.info/',
         desc:"Nutrition India program aims to improve the nutritional status of children during the first 1,000 days of birth.",
         title:"Nutrition India Program"
+    },
+    {
+        img:nin,
+        link:'https://www.nin.res.in/NICE.html',
+        desc:"NIN is the premier Indian institute for nutrition operating as a public health, nutrition and translational research center under ICMR.",
+        title:"National Institute of Nutrition"
     },
 ]

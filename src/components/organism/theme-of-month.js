@@ -64,13 +64,18 @@ const ThemeOfMonth = () => {
             try{
                 var {data} = await   axios.get("/getThemesOfTheMonth");
                 setPost({
-                    data:data.slice(0,4),
+                    data:data.post.slice(0,4),
+                    theme:data.theme,
+                    quote:data.quote,
                     status:"success"
                 })
             }
              catch(e){
+                console.log(e)
                 setPost({
                     data:[],
+                    theme:'',
+                    quote:'',
                     status:"fail"
                 })
             }
@@ -87,18 +92,26 @@ const ThemeOfMonth = () => {
     return (
         <Div>
             <Container>
-                <div className='head'>
-                    <h2> Theme of The Month: Antenatal Care </h2>
-                    <p>{getMonth()} is the month for promoting ANC among pregnant women and their families </p>
-                </div>
                 {
                     post.status==="pending"?
-                    <PreSearchPost dummy={4}/>
+                    <>
+                        <div className='head'>
+                            <h2> Theme of The {getMonth()}</h2>
+                        </div>
+                        <PreSearchPost dummy={4}/>
+                    </>
                        :(
                            post.status==="success"?
-                            <div className="grid-custom">
-                                { post.data.map( ( a,i ) => <Cards post={a} key={i} /> ) }
-                            </div>
+                           <>
+                            <div className='head'>
+                                    <h2> Theme of The {getMonth()}: {post.theme} </h2>
+                                    {post.quote?<p>{post.quote}</p>:null}
+                                    {/* <p>{getMonth()} is the month for promoting ANC among pregnant women and their families </p> */}
+                                </div>
+                                <div className="grid-custom">
+                                    { post.data.map( ( a,i ) => <Cards post={a} key={i} /> ) }
+                                </div>
+                            </>
                             :<h3 className="message">Unable to find Your Data ...</h3>
                        ) 
                 }
@@ -109,3 +122,4 @@ const ThemeOfMonth = () => {
 }
 
 export default ThemeOfMonth
+

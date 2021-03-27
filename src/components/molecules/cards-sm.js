@@ -101,7 +101,6 @@ const Cards = ({post}) => {
     const {label,Location,thumbLocation,mimetype,Key,_id,themes} = post;
     const addToCart = useAddCart()
     const isItemInCart = useCheckItemInCart()(post._id);
-
     return (
         <Div tagColor={tagColor(themes)}>
                 <Link to={`${slugCreater(post.themes)}/${post.postId}`} className="link">
@@ -122,13 +121,14 @@ const Cards = ({post}) => {
                   </Button>
                   <Button onClick={() => addToCart(post)} animated disabled = {isItemInCart} className='add-to-cart-btn'>
                       <Button.Content visible > {!isItemInCart?'Add To Cart':'Added'}</Button.Content>
-                    { 
-                      !isItemInCart? 
+                   
                         <Button.Content hidden>
+                        { !isItemInCart? 
                             <i className="shopping cart icon"></i>
+                            :<i className="check icon"></i>
+                        }    
                         </Button.Content>
-                        :null
-                    }
+
                   </Button>
                 </div>
         </Div>

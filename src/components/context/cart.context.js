@@ -24,7 +24,6 @@ export const   CartProvider = ({children}) => {
         }  
     }, [])
     useEffect(() => {
-        console.log(cart)
         if (typeof(Storage) !== "undefined") {
             localStorage.cartItem = JSON.stringify(cart);
         } else {

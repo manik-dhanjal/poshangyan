@@ -66,12 +66,12 @@ const Cart = () => {
                                     <h3>{item.label}</h3>
                                     <div>{item.themes}</div>
                                     <div className='buttons'>
-                                        <Button onClick={() => handleDownload(item.Location,item.Key,item._id)} animated >
+                                        {/* <Button onClick={() => handleDownload(item.Location,item.Key,item._id)} animated >
                                             <Button.Content visible >Download</Button.Content>
                                             <Button.Content hidden>
                                                 <Icon name='download' inverted />
                                             </Button.Content>
-                                        </Button>
+                                        </Button> */}
                                         <Button onClick={() => deleteFromCart(item._id)} animated >
                                             <Button.Content visible >Remove</Button.Content>
                                             <Button.Content hidden>

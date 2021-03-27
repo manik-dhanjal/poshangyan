@@ -2,6 +2,8 @@ import React , {useState,useEffect} from 'react'
 import styled from "styled-components"
 import ReactMultiSelectCheckboxes from "react-multiselect-checkboxes";
 import {Link} from "react-router-dom"
+import {useCategories} from "../context/post.context"
+
 const Div = styled.div`
 display:none!important;
 @media screen and (max-width:768px){
@@ -110,11 +112,12 @@ display:block!important;
         }
         .popup-btns{
             display:flex;
-            &>div{
+            .clear-btn{
                 padding:15px 0;
                 text-align:Center;
                 width:100%;
                 cursor:pointer;
+                color:black;
             }
             .apply-btn{
                 background:#2680eb;
@@ -131,10 +134,12 @@ display:block!important;
 const SortFilterBtn = ({query}) => {
     const [params,setParams] =  useState(query)
     const [url,setUrl] = useState("")
-    const [activeTab,setActiveTab] = useState("Language")
+    const [activeTab,setActiveTab] = useState("Languages")
     const [isFilterOpen,setIsFilterOpen] = useState(false)
     const [isSortOpen,setIsSortOpen] = useState(false)
     const [sort,setSort] = useState("")
+    const rawCategories = useCategories();
+   
     const UrlCreater = (e,name) =>{
      const temp = {...params};
      const key = name.replace(/\s/g,'')
@@ -157,35 +162,35 @@ const SortFilterBtn = ({query}) => {
       setUrl(temp)
     }, [params])
 
+
     const sortMenuTab = (options) =>{
-        var any = false;
-        var other = false;
+
+        var any, other;
         var temp = [];  
          options.forEach(e=>{
-            if(e.includes('All')) any=true
-            if(e === "Others") other=true;
-            if(!e.includes('All') && e !== "Others")
+            if(e.includes('All')) any = e;
+            if(e.includes("Others")) other = e;
+            if(!e.includes('All') && !e.includes("Others"))
              temp.push( {label:e,value:e} )
+
          })
+
          temp = temp.sort((a,b)=> ( '' + a.label).localeCompare(b.label) )
  
-         if(any) temp.unshift({label:options[0],value:options[0]})
-         if(other) temp.push({label:options[options.length-1],value:options[options.length-1]})
+         if(any) temp.unshift({label:any,value:any})
+         if(other) temp.push({label:other,value:other})
          return temp;
     }
  
     const setDefaultValue = (label) =>{
          label = label.replace(/\s/g,"")
          var temp = [];
-        //  console.log(params)
-        //  if(query[label]&&query[label].length)
-        //      temp = query[label].map(a => {return {label:a,value:a} })
+
         for( var key in params){
             if(label === key){
                 temp = [...params[key].map(a => {return {label:a,value:a}})]
             } 
         }   
-        // console.log(temp,'temp')
          return temp;
     }
     const handleFilterChange = (label) =>{
@@ -196,7 +201,21 @@ const SortFilterBtn = ({query}) => {
                 temp.sort=[label]
              setParams(temp)
     }
-
+    const dropData=[
+        {
+              label:"Languages",
+              options: rawCategories.status==="success"? sortMenuTab(rawCategories.data.languages):[]
+          },{
+              label:"Media Types",
+              options:rawCategories.status==="success"? sortMenuTab(rawCategories.data.mimetype):[]
+          },{
+              label:"Target Audiences",
+              options: rawCategories.status==="success"?sortMenuTab(rawCategories.data.targetAudience):[]
+          },{
+              label:"Sources",
+              options: rawCategories.status==="success"?sortMenuTab(rawCategories.data.sources):[]
+          }
+      ]
       return (
          <Div filter={isFilterOpen? "0":"-500px"} sort={isSortOpen? "0":"-250px"} >
              <div className="popup filter" >
@@ -220,7 +239,7 @@ const SortFilterBtn = ({query}) => {
                                     data.label==activeTab?
                                         <ReactMultiSelectCheckboxes
                                             placeholderButtonLabel={data.label}  
-                                            options = { sortMenuTab(data.options) } 
+                                            options = { data.options } 
                                             defaultValue ={ setDefaultValue(data.label) } 
                                             onChange = {e=> UrlCreater(e,data.label)}
                                             menuIsOpen={true}
@@ -230,10 +249,11 @@ const SortFilterBtn = ({query}) => {
                                         :null
                                 ))
                             }
+
                         </div>
                  </div>
                  <div className="popup-btns">
-                    <div className="clear-btn" onClick={()=> { setParams({}) }}>Clear</div>
+                    <Link to="/search" className="clear-btn" onClick={()=> { setIsFilterOpen(false) }}>Clear</Link>
                     <Link to={url}  className="apply-btn" onClick={()=>{setIsFilterOpen(false)}}>Apply</Link>
                  </div>
              </div>
@@ -247,7 +267,7 @@ const SortFilterBtn = ({query}) => {
                        <div className="sort-btn"><input type='radio' name='sort' value = 'latest' onChange={()=>  handleSortChange('date')}/><label htmlFor='latest'>Latest</label></div>
                  </div>
                  <div className="popup-btns">
-                    <Link to={url}  className="apply-btn" onClick={()=>{setIsFilterOpen(false)}}>Apply</Link>
+                    <Link to={url}  className="apply-btn" onClick={()=> setIsSortOpen(false) }>Apply</Link>
                  </div>
              </div>
              <div className="btn-grps">
@@ -259,80 +279,3 @@ const SortFilterBtn = ({query}) => {
 }
 
 export default SortFilterBtn
-
-const dropData=[
-  {
-        label:"Language",
-        options:[
-            "All languages",
-            "Assamese",
-            "Bengali",
-            "Gujarati",
-            "Hindi",
-            "Kannada",
-            "Kashmiri",
-            "Konkani",
-            "Malayalam",
-            "Manipuri",
-            "Marathi",
-            "Nepali",
-            "Oriya",
-            "Punjabi",
-            "Sanskrit",
-            "Sindhi",
-            "Tamil",
-            "Telugu",
-            "Urdu",
-            "Bodo",
-            "Santhali",
-            "Maithili",
-            "Dogri",
-            "English"
-          ]
-    },{
-        label:"Media Type",
-        options:[
-            'All media types',
-            'PDF',
-            'Video',
-            'Audio',
-            'Image',
-            'GIF'
-          ]
-    },{
-        label:"Target Audience",
-        options:[
-            'All audiences',
-            'Children under 5',
-            'Adolescent Girls',
-            'Mothers',
-            'Pregnant Women',
-            'PRI member',
-            'Civil society',
-            'Others'
-          ]
-    },{
-        label:"Source",
-        options:[
-            'All sources',
-            'MoHFW',
-            'MoWCD',
-            'MDWS',
-            'FSSAI',
-            'Arogya World',
-            'BBC Media Action ',
-            'Global Health Media ',
-            'JEEViKA',
-            'PATH',
-            'Save The Children',
-            'Sneha',
-            'Tata Trust',
-            'UNICEF India',
-            'USAID',
-            'WeCan',
-            'Vitamin Angels',
-            'Alive & Thrive',
-            'Others',
-          ]
-    }
-]

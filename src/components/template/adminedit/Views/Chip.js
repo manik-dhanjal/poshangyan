@@ -58,7 +58,7 @@ export class Chips extends Component {
                     {!this.state.editing ? <div className="single__chip"  > <p className="val__para">{val} </p>
                     <div className="action__container">
                         
-                        <AlertPopup message={message} submessage={sumMessage} delete={this.props.delete} type={type} val={val} />
+                        <AlertPopup message={message} submessage={sumMessage} delete={this.props.delete} type={type} val={val} />m
                         <Icon name='edit' style={{ marginLeft: 5, cursor: 'pointer' }} onClick={(event) => {
                             event.stopPropagation();
                             // this.props.edit(type, val)

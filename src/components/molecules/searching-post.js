@@ -52,7 +52,6 @@ const PreSearchPost = ({dummy=1}) => {
       {
       [...Array(dummy)].map((x,i)=>(
         <div className="skeleton" key={'dummy'+i}>
-          {console.log(i)}
           <div className="image"></div>
           <div className="line"></div>
         </div>

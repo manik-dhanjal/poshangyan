@@ -5,7 +5,10 @@ import {Link} from "react-router-dom"
 import {useCart,useDeleteCart} from '../context/cart.context'
 import handleDownload from "../../api/aws-handle-download"
 import logo from '../../assets/Images/logo.png'
+import CartDrop from '../atom/cart'
 import { Button, Icon } from 'semantic-ui-react'
+import axios from 'axios'
+import { v4 as uuidv4 } from 'uuid';
 const Nav = styled.nav`
 padding:${({location})=>(
                 location==='/'?'15px 0':'0px 0')};
@@ -202,81 +205,6 @@ ${({location})=>(
            
 }
 `
-const Drop = styled.div`
-padding: 15px;
-padding: ${({state}) => state?'15px':'0 15px'};
-position:absolute;
-width:300px;
-right:0;
-top:100%;
-z-index:801;
-background:white;
-height:${({state}) => state?'292px':'0'};
-overflow:hidden;
-transition:0.4s ease;
-    .card-container{
-    max-height:170px;
-    height:100%;
-    overflow-y:auto;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-}
-.head{
-    display:flex;
-    justify-content:space-between;
-    h4{
-        margin:0;
-    }
-    span{
-        font-size:0.85em;
-        color:rgb(340,66,94);
-        cursor:pointer;
-    }
-}
-.card{
-    display:grid;
-    grid-template-columns:25% 75%;
-    margin-bottom:20px;
-    &:last-of-type{
-        margin-bottom:0;
-    }
-    .img-cont{
-        width:100%;
-        height:50px;
-        img{
-            width:100%;
-            height:100%;
-            object-fit:cover;
-        }
-    }
-    .content{
-        display:flex;
-        margin-left:15px;
-        align-items:center;
-        justify-content:space-between;
-        p{
-            margin:0;
-        }
-        .close-btn{
-            margin-left:5px;
-            transition:0.2s ease;
-            cursor:pointer;
-            &:hover{
-                color:rgb(340,66,94);
-            }
-        }
-    }
-}
-
-.ui.animated.button {
-    background: rgb(340,66,94);
-    color: white;
-    float:right;
-}
-hr{
-    color:rgb(340,66,94);
-}
-`
 const Header = () => {
     const cart = useCart();
     const ChangeCart = useDeleteCart()
@@ -290,7 +218,7 @@ const Header = () => {
         <Container>
             <Nav location = {path} menu = {isMenuOpen}>
                     <a href="https://niti.gov.in/" className="logo niti-ayaog" target="_blank">
-                        <img src="https://poshangyan.s3.ap-south-1.amazonaws.com/niti-aayog-logo.png" alt="logo" />
+                        <img src="https://poshan-gyan.s3.ap-south-1.amazonaws.com/niti-aayog-logo.png" alt="logo" />
                         <div className='govt'>Government of India</div>
                     </a>
                     <div className='main-logo'>
@@ -317,14 +245,19 @@ const Header = () => {
                                         <span>Links</span>
                                     </Link>
                                 </li>
+                                <li>
+                                    <a href='https://docs.google.com/forms/d/e/1FAIpQLSciK2SDLtVkMhjH_TUqjmVOJv1ZlhbGMaLg8di0dymvf4axpg/viewform?usp=sf_link' target="_blank">
+                                        <span>Add Content</span>
+                                    </a>
+                                </li>
                             </ul>
-                            <ul className='menu-icons'>
+                            {/* <ul className='menu-icons'>
                                 <li>
                                     <a href='https://docs.google.com/forms/d/e/1FAIpQLSciK2SDLtVkMhjH_TUqjmVOJv1ZlhbGMaLg8di0dymvf4axpg/viewform?usp=sf_link' target="_blank">
                                         <i className="upload icon"></i> <span>Add Content</span>
                                     </a>
                                 </li>
-                            </ul>
+                            </ul> */}
                         </div>
                         <div className='cart-main' >
                                 <div onClick={() => setCartDropOpen(!IsCartDropOpen)}>
@@ -343,40 +276,7 @@ const Header = () => {
         </Container>
     )
 }
- const CartDrop = ({state,cart,deleteFromCart}) =>{
-    console.log(state)
-     return(
-        <Drop state = {state}>
-            <div className='head'>
-                <h4>Cart</h4>
-                <span className='clear' onClick={() => deleteFromCart('','DeleteAll')}>Clear All</span>
-            </div>
-            <hr/>
-                <div className='card-container'>
-                    {
-                        cart.map((item,i) => (
-                            <div className = 'card' key={i+'cart'}>
-                                <div className='img-cont'>
-                                    <img src = {item.thumbLocation||item.Location}/>
-                                </div>
-                                <div className = 'content'>
-                                    <p>{item.label}</p>
-                                        <span onClick={() => deleteFromCart(item._id,'DeleteOne')} class='close-btn'>
-                                            <i className="close icon"></i>
-                                        </span>
-                                </div>
-                            </div>
-                        ))
-                    }
-                </div>
-                <hr/>
-                <Button animated >
-                    <Button.Content visible >Download</Button.Content>
-                        <Button.Content hidden>
-                            <Icon name='download' inverted />
-                    </Button.Content>
-                </Button>                
-        </Drop>
-     )
- }
+
+
+
 export default Header

@@ -5,11 +5,31 @@ import Snackbar from "@material-ui/core/Snackbar";
 import Alert from "@material-ui/lab/Alert";
 import { v4 as uuidv4 } from "uuid";
 import { Progress } from 'semantic-ui-react'
+import styled from "styled-components"
 // import entire SDK
 import AWS from "aws-sdk";
 // import individual service
 import S3 from "aws-sdk/clients/s3";
 
+const Div = styled.div`
+.heading-2{
+  margin-top:10px;
+  margin-bottom:10px;
+}
+.upload{
+  display:flex;
+  justify-content:start;
+  &>div{
+    margin:20px 0;
+    margin-top:30px;
+    margin-bottom:15px;
+    width:50%;
+    h4{
+      margin-bottom:20px;
+    }
+  }
+}
+`
 const useStyles = {
   editor: {
     marginLeft: "200px",
@@ -44,10 +64,10 @@ export class Feed extends Component {
       hidden: true,
       themes: [],
       languages: [],
-      source: "others",
+      source: "Others",
       label: "",
-      mediaType: "",
-      name: "Anshaj Kumar",
+      mediaType: "Others",
+      name: "Admin",
       snackbarType: 0,
       targetAudience: [],
       percentCompleted: 0,
@@ -64,6 +84,7 @@ export class Feed extends Component {
       .then(res => {
         console.log(res.data)
         let dat = res.data;
+        console.log(dat)
         this.setState({
           all_themes: dat.themes,
           all_languages: dat.languages,
@@ -168,12 +189,15 @@ export class Feed extends Component {
       });
       proceed = false;
     }
+    AWS.config.update({region: process.env.REACT_APP_REGION});
+
     const s3 = new AWS.S3({
       accessKeyId: process.env.REACT_APP_ACCESS_ID,
       secretAccessKey: process.env.REACT_APP_ACCESS_KEY,
       Bucket: process.env.REACT_APP_BUCKET_NAME,
       region: process.env.REACT_APP_REGION
     });
+
     if (file && proceed) {
       let c = file.name;
       let extension = c.split(".")[c.split(".").length - 1];
@@ -189,7 +213,8 @@ export class Feed extends Component {
         Body: file, // optional
         ContentType: file.type // required
       };
-      // console.log(file)
+
+      
       newPosts.mimetype = file.type;
       s3.upload(params)
         .on("httpUploadProgress", (progressEvent, response) => {
@@ -199,10 +224,11 @@ export class Feed extends Component {
           this.setState({
             percentCompleted: percent
           });
+          console.log(response)
         })
         .send((error, data) => {
           if (error) {
-            // console.log(error)
+            console.log(error)
           } else {
             // console.log(data);
             // newPosts.ETag = data.ETag;
@@ -283,7 +309,8 @@ export class Feed extends Component {
     // const Feed = useRef(null);
     var blog = "";
     var themeArray = [],
-      langsArray = [];
+      langsArray = [],
+      sourceArray=[];
     const { all_languages, all_mediaType, all_sources, all_targetAudience, all_themes } = this.state;
 
     all_themes.sort();
@@ -311,86 +338,101 @@ export class Feed extends Component {
         value: all_targetAudience[i]
       });
     }
-    var link = "https://poshangyan.s3.ap-south-1.amazonaws.com/dataFeed.png";
+    for (var i = 0; i < all_sources.length; i++) {
+      sourceArray.push({
+        key: i,
+        text: all_sources[i],
+        value: all_sources[i]
+      });
+    }
+    var link = "https://poshan-gyan.s3.ap-south-1.amazonaws.com/dataFeed.png";
     let per = this.state.percentCompleted == 0 ? null : this.state.percentCompleted;
 
-    let sources = all_sources.map((val) => <option value={val}>{val}</option>)
-    let mediaType = all_mediaType.map((val) => <option value={val}>{val}</option>)
+    let sources = all_sources.map((val,i) => <option value={val} key={"op"+i}>{val}</option>)
+    let mediaType = all_mediaType.map((val) => <option value={val} key={"opd"+i}>{val}</option>)
 
     // if(per) let pro =  
     // if(per==100) pro=null;
     return (
-      <div className="root">
-        <p style={{ textAlign: "center", marginTop: 40, marginBottom: 20 }}>
-          <img src={link} alt="Feed" style={{ maxWidth: "80%" }} />
-        </p>
+      <Div className="root">
+        <h2 className="heading-2">Add New Post</h2>
         <hr />
-        <p style={{ textAlign: "center", marginTop: 40, marginBottom: 40 }}>
-          <form id="formData">
-            <input type="file" id="file" ref={(ref) => this.fileUpload = ref} />
-          </form>
-        </p>
-        <p style={{ textAlign: "center", marginTop: 40, marginBottom: 40 }}>
-
-          <form id="formData2">
-            <input type="file" id="file2" ref={(ref) => this.thumbUpload = ref} />
-          </form>
-          <p style={{ marginLeft: -60, marginTop: 5 }} > Preview Image </p>
-        </p>
+        <div className="upload">
+          <div className = "upoload-file">
+            <h4> Upload File </h4>
+            <form id="formData">
+              <input type="file" id="file" className = "custom-file-input" ref={(ref) => this.fileUpload = ref} />
+            </form>
+          </div>
+          <div className="upload-thumb">
+            <h4>Upload Thumbnail </h4>
+            <form id="formData2">
+              <input type="file" id="file2" className = "custom-file-input" ref={(ref) => this.thumbUpload = ref} />
+            </form>
+          </div>
+        </div>
         {  (per && !((per == 0) || (per == 100))) ? <Progress style={{ width: '100%' }}
           percent={this.state.percentCompleted} indicating progress /> : (null)}
-        <Input
-          style={{ width: "100%", marginTop: 10 }}
+        {/* <Input
+          style={{ width: "100%", marginTop: 15 }}
           onChange={this.handleNameChange}
           placeholder="Your Name"
-        />
+        /> */}
         <Input
-          style={{ width: "100%", marginTop: 10 }}
+          style={{ width: "100%", marginTop: 15 }}
           onChange={this.handleLabelChange}
-          placeholder="Label"
+          placeholder="Name"
         />
         <Dropdown
-          placeholder="Select Theme"
+          placeholder="Theme"
           fluid
           multiple
           search
           selection
-          style={{ marginTop: 10 }}
+          style={{ marginTop: 15 }}
           options={themeArray}
           onChange={this.handleThemeChange}
         />
         <Dropdown
-          placeholder="Select Language"
+          placeholder="Language"
           fluid
           multiple
           search
           selection
-          style={{ marginTop: 10 }}
+          style={{ marginTop: 15 }}
           options={langsArray}
           onChange={this.handleLangChange}
         />
-
-        <Input
+        <Dropdown
+            placeholder="Source"
+            fluid
+            search
+            selection
+            style={{ marginTop: 15 }}
+            options={sourceArray}
+            onChange={this.handleSourceChange}
+          />
+        {/* <Input
           icon="folder open outline"
           iconPosition="left"
           list="source"
           onChange={this.handleSourceChange}
-          style={{ width: "100%", marginTop: 10 }}
-          placeholder="Data Source"
+          style={{ width: "100%", marginTop: 15 }}
+          placeholder="Source"
         />
         <datalist id="source">
           {sources}
-          {/* <option value="Social Media">Social Media</option> */}
-        </datalist>
-        <Input
+          <option value="Social Media">Social Media</option>
+        </datalist> */}
+        {/* <Input
           list="Media Type"
-          style={{ width: "100%", marginTop: 10 }}
+          style={{ width: "100%", marginTop: 1}}
           onChange={this.handleMediaTypeChange}
           placeholder="Media Type"
         />
         <datalist id="Media Type">
           {mediaType}
-        </datalist>
+        </datalist>  */}
         <Dropdown
           placeholder="Target Audience"
           fluid
@@ -403,14 +445,14 @@ export class Feed extends Component {
         />
 
 
-        <div style={{ textAlign: "center", marginBottom: 50 }}>
+        <div style={{  marginBottom: 50 }}>
           <Button
             inverted
-            style={{ width: "50%", marginTop: 20, marginBottom: 1 }}
+            style={{ maxWidth:150,width:"50%", marginTop: 20, marginBottom: 1 }}
             color="green"
             onClick={this.handleSubmit}
           >
-            Green
+            Upload
           </Button>
           <h4 >{per}</h4>
         </div>
@@ -424,7 +466,7 @@ export class Feed extends Component {
             Please fill all fields!
         </Alert>
         </Snackbar>
-      </div>
+      </Div>
     )
   }
 }

@@ -6,6 +6,9 @@ import img2 from "../../assets/Images/about-us/2.png"
 import img3 from "../../assets/Images/about-us/3.png"
 import img4 from "../../assets/Images/about-us/4.png"
 
+import csbc from '../../assets/Images/csbc.png'
+import bmgf from '../../assets/Images/bmgf.png'
+import{ Container} from "@material-ui/core"
 const Div = styled.div`
 background:#f4d6cc;
 .custom-cont{
@@ -23,15 +26,41 @@ background:#f4d6cc;
 .back-white{
     background:#f2f2f2;
 }
-.credits{
+.credits-our{
     padding:20px 30px;
     text-align:center;
     background:black;
     color:white;
     font-size:1.2em;
 }
+.credits{
+    background:#eee;
+    &>div{
+        display:flex;
+        flex-direction:column;
+        justify-content:center;
+        align-items:Center;
+        padding:25px 0;
+        .logos{
+            display:flex;
+            justify-content:center;
+            margin-top:10px;
+            &>a{
+                height:60px;
+                margin:0 25px;
+                img{
+                    height:100%;
+                    object-fit:contain;
+                }
+            }
+        }
+    }
+}
 .container.top{
     text-align:center;
+    &>div:nth-of-type(1){
+        text-align:left;
+    }
     h1{
         margin-top:50px;
     }
@@ -88,7 +117,7 @@ const About = () => {
     return (
         <Div>
         <div className='container top' style={{paddingTop:50}}>
-            <BannerMenu />
+            <BannerMenu/>
                 <h1>
                     How to use this website
                 </h1>
@@ -141,9 +170,19 @@ const About = () => {
                 </div>
             </div>
         </div>
+        {/* <div className='credits-our'>
+        This website was developed in collaboration with Bill & Melinda  Gates Foundation and Centre for Social & Behaviour Change, Ashoka University.<br/><br/>
+        Website designed and developed by 2626 Creative Studio.
+        </div> */}
         <div className='credits'>
-            This website was developed in collaboration with Bill & Melinda Gates Foundation, Centre for Social and Behaviour Change and 2626 Creative Studio.
-        </div>
+                    <Container>
+                        <h4>This website was developed in collaboration with</h4>
+                        <div className='logos'>
+                            <a className='img-cont' href='https://www.gatesfoundation.org/' target='__blank'> <img src={bmgf}/></a>
+                            <a className='img-cont' href='https://csbc.org.in/' target='__blank'> <img src={csbc}/></a>
+                        </div>
+                    </Container>
+                </div>
         </Div>
     )
 }
