@@ -2,9 +2,9 @@ import React ,{useState,useEffect}from 'react'
 import styled from 'styled-components'
 import PostCards from '../atom/admin.PostCards'
 import { Icon,Pagination} from "semantic-ui-react"
-import { formatMs } from '@material-ui/core'
-import AlertPopup from '../template/adminedit/Views/AlertPopup'
-import axios from 'axios'
+import DeleteModal from "./admin.delete-modal"
+import Snackbar from "@material-ui/core/Snackbar";
+import Alert from "@material-ui/lab/Alert";
 const Div = styled.div`
 .show-post{
   padding:20px 0px;
@@ -50,33 +50,27 @@ const Div = styled.div`
   }
 `
 
-const PostsList = ({allPost,handleEditClick}) => {
+const PostsList = ({allPost,handleEditClick,setAllPost}) => {
     const [searchVal,setSearchVal] = useState('');
+    const [deletePopup,setDeletePopup] = useState({
+      state:false,
+      post:{}
+    })
     const [filteredPost,setFilteredPost] = useState( {
         post:[],
         pageno:1,
         totalpage:1, 
         status:"pending"
       });
-    const [alertState,setAlertState] = useState({
-      post:{},
-      status:'close',
-      message:"",
-      subMessage:""
-    });
+      const [snackState,setSnackState] = useState(0);
+
+
+
       const handleDeleteClick = (post) => {
-        // setAlertState({
-        //   post:post,
-        //   status:'close'
-        // });
-        let passkey = localStorage.getItem('passkey')
-        axios.post(`/posts/${post._id}`,{passkey})
-          .then((res)=>{
-            console.log(res.data)
-          })
-          .catch(e=>{
-            console.log(e);
-          })
+        setDeletePopup({
+          post:post,
+          status:true
+        });
       }
       const handlePageChange = (e,i) =>{
         setFilteredPost({...filteredPost,pageno:i.activePage}) 
@@ -116,13 +110,13 @@ const PostsList = ({allPost,handleEditClick}) => {
           totalpage:ans, 
           status:allPost.status})
       },[allPost])
-      console.log(filteredPost)
     return (
         <Div>
                 <form className='search-cont' onSubmit={handleSearchBtn}>
                     <input type='text' name='search' placeholder='Search' onChange={handleSearch} value={searchVal}/>
                     <button type='submit'><i className="search icon"></i></button>
                 </form>
+                <DeleteModal setOpen = {setDeletePopup} open={deletePopup} setSnackState={setSnackState}/>
                 <div className='show-post'>
                 {
                                 
@@ -139,7 +133,6 @@ const PostsList = ({allPost,handleEditClick}) => {
                                 key={post.postId} 
                                 handleEditClick={handleEditClick}
                                 handleDeleteClick = {handleDeleteClick}
-                                Modal = {<AlertPopup message={alertState.message} submessage={alertState.sumMessage} delete={handleAlertDelete} type={"post"} val={alertState.post} />}
                             />
                         ))}
                         </div>  
@@ -161,12 +154,17 @@ const PostsList = ({allPost,handleEditClick}) => {
                         : <h3 className="message"> No files found for selected filters ...</h3>
                     )
                 }
-                {/* {
-                    filteredPost.length?filteredPost.map((post)=>(
-                    )):null
-                }     */}
                 </div>
-                
+                <Snackbar open={snackState === 1} autoHideDuration={3000} onClose={()=>setSnackState(0)}>
+                  <Alert onClose={()=>setSnackState(0)} severity="success">
+                    Creative deleted successfully.
+                  </Alert>
+                  </Snackbar>
+                  <Snackbar open={snackState === 2} autoHideDuration={3000} onClose={()=>setSnackState(0)}>
+                    <Alert onClose={()=>setSnackState(0)} severity="error">
+                       Please try again later!
+                  </Alert>
+                </Snackbar>
         </Div>
     )
 }

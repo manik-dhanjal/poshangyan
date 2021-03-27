@@ -32,7 +32,7 @@ const handleBackbutton = () =>{
     <Div>
       {
         activeView.view==="find"?
-          <PostsList allPost={allPost} handleEditClick={handleEditClick}/>
+          <PostsList allPost={allPost} setAllPost={setAllPost} handleEditClick={handleEditClick}/>
           :<PostEdit post={activeView.post} handleBackbutton={handleBackbutton}/>
       }
     </Div>

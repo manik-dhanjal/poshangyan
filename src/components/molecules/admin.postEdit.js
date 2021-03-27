@@ -7,7 +7,6 @@ import { v4 as uuidv4 } from "uuid";
 import {  Progress } from 'semantic-ui-react'
 import {useCategories} from "../context/post.context"
 import { Dimmer, Loader, Image, Segment } from 'semantic-ui-react';
-
 // import entire SDK
 import AWS from "aws-sdk";
 // import individual service
@@ -49,7 +48,6 @@ const PostEdit = ({post,handleBackbutton}) => {
         setEditPostData({...editPostData,[e.target.name]:e.target.value})
     }
     const handleDropChange = (e,data) =>{
-        console.log(data.name,editPostData)
         setEditPostData({...editPostData,[data.name]:data.value.toString()})
     }
     const setDefaultValue = (e) =>{
@@ -132,6 +130,7 @@ const PostEdit = ({post,handleBackbutton}) => {
 
             {/* {  (per && !((per==0) || (per==100))) ?   <Progress style={{width:'100%'}} 
             percent={this.state.percentCompleted} indicating progress /> : (null) } */}
+          
                 <Input onChange={handleInputChange} placeholder="Name" name='label'className='custom-input' value={editPostData.label} required/>
                  {dropData.map( ( menu ,i) =>{
                 return  (
@@ -181,86 +180,3 @@ const PostEdit = ({post,handleBackbutton}) => {
 
 export default PostEdit
 
-// const dropData=[
-//     {
-//         label:"themes",
-//         options: [
-//             "Ante Natal Care (ANC)",
-//             "Breastfeeding",
-//             "Anaemia Prevention",
-//             "Immunization",
-//             "Growth Monitoring",
-//             "Sanitation/ WASH",
-//             "Diarrhoea Management",
-//             "Diet Diversity/ Overall Nutrition",
-//             "Nutri Cereal",
-//             "Food Fortification",
-//             "Girls Education, Diet & Right Age of Marriage",
-//             // "Poshan Pakhwada",
-//             "Complementary Feeding",
-//             "Supplementation - Vit A",
-//             "Supplementation - Deworming"
-//           ]
-//     },{
-//         label:"languages",
-//         options:[
-//             "Any",
-//             "Assamese",
-//             "Bengali",
-//             "Gujarati",
-//             "Hindi",
-//             "Kannada",
-//             "Kashmiri",
-//             "Konkani",
-//             "Malayalam",
-//             "Manipuri",
-//             "Marathi",
-//             "Nepali",
-//             "Oriya",
-//             "Punjabi",
-//             "Sanskrit",
-//             "Sindhi",
-//             "Tamil",
-//             "Telugu",
-//             "Urdu",
-//             "Bodo",
-//             "Santhali",
-//             "Maithili",
-//             "Dogri",
-//             "English",
-//             "Garo",
-//           ]
-//     },{
-//         label:"mediaType",
-//         options:[
-//             "Any",
-//             'IPC',
-//             'Mass Media',
-//             'Outdoor',
-//             'Social Media',
-//             'Others'
-//           ]
-//     },{
-//         label:"targetAudience",
-//         options:[
-//             "Any",
-//             'Children under 5',
-//             'Adolescent Girls',
-//             'Mothers',
-//             'Pregnant Women',
-//             'PRI member',
-//             'Civil society',
-//             'Others'
-//           ]
-//     },{
-//         label:"source",
-//         options:[
-//             "Any",
-//             'MoHFW',
-//             'MoWCD',
-//             'MDWS',
-//             'FSSAI',
-//             'Others',
-//           ]
-//     }
-// ]

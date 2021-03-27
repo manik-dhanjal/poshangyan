@@ -101,7 +101,6 @@ hr{
     });
     const currentCartItems = useCart()
     const createDownloadLink = async (cartItemKeys) => {
-        console.log('getting download link')
         try{
                 
                 const response = await axios.post('/create-zip',{list:cartItemKeys});
@@ -114,10 +113,8 @@ hr{
         }
     }
     const initiatDownload = async (fileName) => {
-        console.log('download-initiated')
-            const downloadUrl = 'https://poshangyan-backend.herokuapp.com/download-zip/'+fileName;
-            // const downloadUrl =  'http://localhost:8080/download-zip/'+fileName;
-            console.log(downloadUrl)
+            const downloadUrl = 'https://poshangyan-api.niti.gov.in/download-zip/'+fileName;
+            // const downloadUrl =  'http://localhost:8000/download-zip/'+fileName;
             const link = document.createElement('a');
             link.href = downloadUrl;
             link.setAttribute('download',fileName);

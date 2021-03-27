@@ -189,12 +189,15 @@ export class Feed extends Component {
       });
       proceed = false;
     }
+    AWS.config.update({region: process.env.REACT_APP_REGION});
+
     const s3 = new AWS.S3({
       accessKeyId: process.env.REACT_APP_ACCESS_ID,
       secretAccessKey: process.env.REACT_APP_ACCESS_KEY,
       Bucket: process.env.REACT_APP_BUCKET_NAME,
       region: process.env.REACT_APP_REGION
     });
+
     if (file && proceed) {
       let c = file.name;
       let extension = c.split(".")[c.split(".").length - 1];
@@ -210,7 +213,8 @@ export class Feed extends Component {
         Body: file, // optional
         ContentType: file.type // required
       };
-      // console.log(file)
+
+      
       newPosts.mimetype = file.type;
       s3.upload(params)
         .on("httpUploadProgress", (progressEvent, response) => {
@@ -220,10 +224,11 @@ export class Feed extends Component {
           this.setState({
             percentCompleted: percent
           });
+          console.log(response)
         })
         .send((error, data) => {
           if (error) {
-            // console.log(error)
+            console.log(error)
           } else {
             // console.log(data);
             // newPosts.ETag = data.ETag;
@@ -340,7 +345,7 @@ export class Feed extends Component {
         value: all_sources[i]
       });
     }
-    var link = "https://poshangyan.s3.ap-south-1.amazonaws.com/dataFeed.png";
+    var link = "https://poshan-gyan.s3.ap-south-1.amazonaws.com/dataFeed.png";
     let per = this.state.percentCompleted == 0 ? null : this.state.percentCompleted;
 
     let sources = all_sources.map((val,i) => <option value={val} key={"op"+i}>{val}</option>)

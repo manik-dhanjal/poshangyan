@@ -101,7 +101,6 @@ const Cards = ({post}) => {
     const {label,Location,thumbLocation,mimetype,Key,_id,themes} = post;
     const addToCart = useAddCart()
     const isItemInCart = useCheckItemInCart()(post._id);
-    console.log(post)
     return (
         <Div tagColor={tagColor(themes)}>
                 <Link to={`${slugCreater(post.themes)}/${post.postId}`} className="link">
