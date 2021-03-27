@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect ,useState} from 'react'
 import styled from 'styled-components'
 import { Button, Dropdown, TextArea, Form, Loader, Dimmer} from "semantic-ui-react";
+import {useCategories} from "../../context/post.context"
 
 const Div = styled.div`
 .custom-input{
@@ -18,6 +19,8 @@ height:100%;
 `;
 
 const ThemeOfMonth = () => {
+    const rawCategories = useCategories();
+    
     const handleChange = (s,e) =>{
         setData({...data,[e.name]:e.value})
     }
@@ -43,18 +46,14 @@ const ThemeOfMonth = () => {
         
     }
     const [data,setData] = useState({
-        status:'success',
+        status:'noLoad',
         theme:'',
         quote:''
-    })
-    useEffect(()=>{
-        console.log(data)
     })
     useEffect( ()=>{
         (async () => {
             try{
             let key = localStorage.getItem('passkey');
-            
             const res = await axios.post('/set-theme-of-the-month',{
                 passkey: key 
             }) 
@@ -91,6 +90,7 @@ const ThemeOfMonth = () => {
          if(other) temp.push({text:"others",value:"others"})
          return temp;
     }
+    const themeList = rawCategories.status==="success"? sortMenuTab(rawCategories.data.themes):[]
     return (
         <Div>
             <Form className='form' onSubmit={handleSubmit}>
@@ -100,6 +100,7 @@ const ThemeOfMonth = () => {
                         <Loader inverted/>
                     </Dimmer>
                     : (
+                        data.status!="noLoad"?(
                             data.status=='success'?(
                             <>
                                 <div className="select-cont">
@@ -109,7 +110,7 @@ const ThemeOfMonth = () => {
                                             required
                                             search 
                                             selection 
-                                            options={sortMenuTab(themeList)} 
+                                            options={themeList} 
                                             defaultValue={data.theme} 
                                             onChange={handleChange} 
                                             name="theme" 
@@ -124,6 +125,11 @@ const ThemeOfMonth = () => {
                                 </div>
                             </>
                             ):<h2>Unable to load data</h2>
+                            ):<>
+                             <Dimmer active inverted>
+                                <Loader inverted/>
+                            </Dimmer>
+                            </>
                     )
                 }
                 </Form>
@@ -133,20 +139,20 @@ const ThemeOfMonth = () => {
 
 export default ThemeOfMonth
 
-const themeList = [
-    "Ante Natal Care",
-    "Breastfeeding",
-    "Anaemia Prevention",
-    "Immunization",
-    "Growth Monitoring",
-    "Sanitation/ WASH",
-    "Diarrhoea Management",
-    "Diet Diversity/ Overall Nutrition",
-    "Nutri Cereal",
-    "Food Fortification",
-    "Girls Health and Education",
-    // "Poshan Pakhwada",
-    "Complementary Feeding",
-    "Vit A supplements",
-    "Deworming"
-  ]
+// const themeList = [
+//     "Ante Natal Care",
+//     "Breastfeeding",
+//     "Anaemia Prevention",
+//     "Immunization",
+//     "Growth Monitoring",
+//     "Sanitation/ WASH",
+//     "Diarrhoea Management",
+//     "Diet Diversity/ Overall Nutrition",
+//     "Nutri Cereal",
+//     "Food Fortification",
+//     "Girls Health and Education",
+//     // "Poshan Pakhwada",
+//     "Complementary Feeding",
+//     "Vit A supplements",
+//     "Deworming"
+//   ]

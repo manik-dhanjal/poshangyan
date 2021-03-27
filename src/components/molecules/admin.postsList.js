@@ -75,11 +75,16 @@ const PostsList = ({allPost,handleEditClick,setAllPost}) => {
       const handlePageChange = (e,i) =>{
         setFilteredPost({...filteredPost,pageno:i.activePage}) 
       }
-      const handleAlertDelete = (type,post) =>{
-        console.log(type,post)
-      }
+   
       const handleSearch = (e) =>{
         setSearchVal(e.target.value.toLowerCase())
+      }
+      const handleDelete = (post) =>{
+        const tempPost = allPost.posts.filter((item)=>{
+          if(item._id!==post._id) return item; 
+        })
+      
+        setAllPost({...allPost,posts:tempPost})
       }
       const handleSearchBtn = (e) =>{
         e.preventDefault();
@@ -112,11 +117,11 @@ const PostsList = ({allPost,handleEditClick,setAllPost}) => {
       },[allPost])
     return (
         <Div>
-                <form className='search-cont' onSubmit={handleSearchBtn}>
+                <form className='search-cont' onSubmit={handleSearchBtn} >
                     <input type='text' name='search' placeholder='Search' onChange={handleSearch} value={searchVal}/>
                     <button type='submit'><i className="search icon"></i></button>
                 </form>
-                <DeleteModal setOpen = {setDeletePopup} open={deletePopup} setSnackState={setSnackState}/>
+                <DeleteModal setOpen = {setDeletePopup} open={deletePopup} setSnackState={setSnackState} handleDelete={handleDelete}/>
                 <div className='show-post'>
                 {
                                 

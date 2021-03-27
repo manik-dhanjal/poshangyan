@@ -1,12 +1,12 @@
 import React from 'react'
 import styled from "styled-components"
 import { Button, Header, Image, Modal } from 'semantic-ui-react'
-
+import axios from "axios";
 
 const Div = styled.div`
 
 `
-const DeleteModal = ({setOpen,open,setSnackState}) => {
+const DeleteModal = ({setOpen,open,setSnackState,handleDelete}) => {
     console.log(open.post)
     const post = open.post;
      const handleDeleteClick = () => {
@@ -15,6 +15,7 @@ const DeleteModal = ({setOpen,open,setSnackState}) => {
           .then((res)=>{
             setOpen({...open,status:false})
             setSnackState(1)
+            handleDelete(post);
           })
           .catch(e=>{
             setSnackState(2)
@@ -41,7 +42,7 @@ const DeleteModal = ({setOpen,open,setSnackState}) => {
                 </Modal.Description>
             </Modal.Content>
             <Modal.Actions>
-                <Button color='black' onClick={() => {setOpen({...open,status:false}); setSnackState(2)}}>
+                <Button color='black' onClick={() => {setOpen({...open,status:false}); }}>
                 Nope
                 </Button>
                 <Button
