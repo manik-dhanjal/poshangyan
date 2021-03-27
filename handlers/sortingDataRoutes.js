@@ -94,7 +94,7 @@ exports.modifySortingData = (req, res) => {
 
     const { type, val, new_val } = req.body;
 
-    console.log({ type, val, new_val })
+    // console.log({ type, val, new_val })
 
     if (req.body.new_val) case2 = true;
     else case1 = true;
@@ -209,7 +209,7 @@ exports.modifySortingData = (req, res) => {
         })
 }
 function update(type, val, new_val) {
-    console.log(type, val, new_val)
+    // console.log(type, val, new_val)
     if (type && val && new_val) {
         switch (type) {
             case 'languages':
@@ -415,14 +415,14 @@ function updatePostsAfterDeletion(type, val) {
                         // console.log(post.languages)
                         if (post.languages.includes(val)) {
                             let temp_val = post.languages.split(',');
-                            console.log(temp_val)
+                            // console.log(temp_val)
                             removeItemAll(temp_val, val)
                             if (temp_val.length == 0) temp_val.push('Others');
                             temp_val = makeArrayUnique(temp_val);
-                            console.log(temp_val)
+                            // console.log(temp_val)
                             let new_val = temp_val.join(',');
                             post.languages = new_val;
-                            console.log(new_val)
+                            // console.log(new_val)
                             post.save();
                         }
                     })
@@ -438,14 +438,14 @@ function updatePostsAfterDeletion(type, val) {
                         // console.log(post.themes)
                         if (post.themes.includes(val)) {
                             let temp_val = post.themes.split(',');
-                            console.log(temp_val)
+                            // console.log(temp_val)
                             removeItemAll(temp_val, val)
                             if (temp_val.length == 0) temp_val.push('Others');
                             temp_val = makeArrayUnique(temp_val);
-                            console.log(temp_val)
+                            // console.log(temp_val)
                             let new_val = temp_val.join(',');
                             post.themes = new_val;
-                            console.log(new_val)
+                            // console.log(new_val)
                             post.save();
                         }
                     })
@@ -461,14 +461,14 @@ function updatePostsAfterDeletion(type, val) {
                         // console.log(post.languages)
                         if (post.languages.includes(val)) {
                             let temp_val = post.languages.split(',');
-                            console.log(temp_val)
+                            // console.log(temp_val)
                             removeItemAll(temp_val, val)
                             if (temp_val.length == 0) temp_val.push('Others');
                             temp_val = makeArrayUnique(temp_val);
-                            console.log(temp_val)
+                            // console.log(temp_val)
                             let new_val = temp_val.join(',');
                             post.languages = new_val;
-                            console.log(new_val)
+                            // console.log(new_val)
                             post.save();
                         }
                     })
@@ -486,14 +486,14 @@ function updatePostsAfterDeletion(type, val) {
                         // console.log(post.targetAudience)
                         if (post.targetAudience.includes(val)) {
                             let temp_val = post.targetAudience.split(',');
-                            console.log(temp_val)
+                            // console.log(temp_val)
                             removeItemAll(temp_val, val)
                             if (temp_val.length == 0) temp_val.push('Others');
                             temp_val = makeArrayUnique(temp_val);
-                            console.log(temp_val)
+                            // console.log(temp_val)
                             let new_val = temp_val.join(',');
                             post.targetAudience = new_val;
-                            console.log(new_val)
+                            // console.log(new_val)
                             post.save();
                         }
                     })
@@ -509,14 +509,14 @@ function updatePostsAfterDeletion(type, val) {
                         // console.log(post.languages)
                         if (post.source.includes(val)) {
                             let temp_val = post.source.split(',');
-                            console.log(temp_val)
+                            // console.log(temp_val)
                             removeItemAll(temp_val, val)
                             if (temp_val.length == 0) temp_val.push('Others');
                             temp_val = makeArrayUnique(temp_val);
-                            console.log(temp_val)
+                            // console.log(temp_val)
                             let new_val = temp_val.join(',');
                             post.source = new_val;
-                            console.log(new_val)
+                            // console.log(new_val)
                             post.save();
                         }
                     })

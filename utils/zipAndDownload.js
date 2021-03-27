@@ -11,7 +11,7 @@ const s3Zip = require('s3-zip')
 
 
 const region = 'ap-south-1'
-const bucket = 'poshangyan'
+const bucket = 'poshan-gyan'
 const folder = ''
 const uuid = require('uuid')
 
@@ -23,18 +23,21 @@ exports.createZip = (req, res) => {
 
     // createZip(file, req.body.list,res);
     const output = fs.createWriteStream(join(__dirname, 'public/share', fileName))
-    console.log(output.path)
-    s3Zip
-      .archive({ region: region, bucket: bucket }, folder, req.body.list)
+      console.log(region,bucket)
+      s3Zip
+      .archive({ region: region, bucket: bucket}, folder, req.body.list)
       .pipe(output)
     output.on('finish', () => {
+      res.status(200);
       res.send(fileName);
     });
     output.on('error',(err)=>{
+      consol.log(err)
         res.status(500)
         res.send(err+'error')
         // res.send({message: "Something went wrong!!"})
     })
+    // res.send(fileName);
 }
 
 exports.downloadZip = (req,res) => {

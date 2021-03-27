@@ -28,7 +28,7 @@ exports.getPostInfo = (req,res) =>{
 
   exports.updatePostInfo = (req,res) =>{
   let post=req.body;
-  console.log(post)
+  // console.log(post)
   res.send('send');
     Post.findByIdAndUpdate(post.id, {
       label:post.label

@@ -326,7 +326,38 @@ schedule.scheduleJob('30 00 19 * * 4', () => {
 
 // } 
 
+app.get("/change",(req,res)=>{
+    Post.find({ "_id" : "5fbd3f1f5296ae2e50fdaaeb"}, function (err, tempPost) {
+        if (err){
+            console.log(err);
+            tempPost = [];
+            res.status(500)
+            res.send(err)
+        }
+        else{
+            tempPost = tempPost.map((post)=>{
+                // post.Bucket = "poshan-gyan";
+                post.Location = "https://poshan-gyan.s3.ap-south-1.amazonaws.com/Creative+1+Hoardings+World+Bank-01fa37abd1-c63a-4046-a088-f9901c1e35c0.jpg";
+                // if(post.thumbLocation) post.thumbLocation = post.thumbLocation.replace("https://poshangyan.s3.ap-south-1", "https://poshan-gyan.s3.ap-south-1");
+                // if(post.thumbBucket) post.thumbBucket = "poshan-gyan"
+                post.save();
+                return post;
+            })
+            console.log(tempPost)
+            // tempPost.save(
+            //     function (err) {
+            //         if(err) {
+            //             console.log(err);
+            //         }else {
+                        res.status(200).send(tempPost)
+            //         }
+            //     }
+            // )
 
+        }
+    });
+
+})
 app.use((error, req, res, next) => {
     console.log(error)
     const status = error.statusCode || 500
@@ -350,8 +381,9 @@ mongoose.connect(
     }
 )
     .then(result => {
-        app.listen(process.env.PORT || 8080, () => {
-            console.log('Server Started at port 8080')
+        const port =process.env.PORT || 8000;
+        app.listen(port, () => {
+            console.log('Server Started at port '+ port)
         })
     }).catch(err => {
         console.log(err);

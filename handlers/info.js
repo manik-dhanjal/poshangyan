@@ -130,11 +130,11 @@ exports.setThemeOfTheMonth = (req,res) =>{
 exports.getThemeoftheMonth = async (req, res) => {
   try{
     const data = await Post.find({ themes: new RegExp(process.env.themeofmonth) });
-    console.log({
-      post:data,
-      theme:process.env.themeofmonth,
-      quote:process.env.quote
-    })
+    // console.log({
+    //   post:data,
+    //   theme:process.env.themeofmonth,
+    //   quote:process.env.quote
+    // })
     res.send({
       post:data,
       theme:process.env.themeofmonth,

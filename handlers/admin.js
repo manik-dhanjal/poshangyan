@@ -21,7 +21,7 @@ exports.addAdmin = (req,res) => {
     }
     if(req.body.username && req.body.password && req.body.verified){
                 new Admin(newAdmin).save().then((s)=>{
-                    console.log(s);
+                    // console.log(s);
                     res.status(200).send({message:'successfully added'})
                 }).catch(e=>{
                     res.status(500).send({err:'something went wrong!!'})
