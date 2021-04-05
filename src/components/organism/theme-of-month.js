@@ -104,7 +104,7 @@ const ThemeOfMonth = () => {
                            post.status==="success"?
                            <>
                             <div className='head'>
-                                    <h2> Theme of The {getMonth()}: {post.theme} </h2>
+                                    <h2> Theme of {getMonth()}: {post.theme} </h2>
                                     {post.quote?<p>{post.quote}</p>:null}
                                     {/* <p>{getMonth()} is the month for promoting ANC among pregnant women and their families </p> */}
                                 </div>
