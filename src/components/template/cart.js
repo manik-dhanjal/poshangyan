@@ -50,7 +50,6 @@ padding:50px 0;
 const Cart = () => {
     const cart = useCart();
     const deleteFromCart = useDeleteCart()
-    console.log(cart,'cart page')
 
     return (
         <Div>

@@ -68,7 +68,6 @@ const PostEdit = ({post,handleBackbutton}) => {
         axios.put(`/posts/${editPostData._id}`,{...editPostData,passkey:key})
         .then(res=>{
             setUpdateStatus("success")
-            console.log(res.data)
         })
         .catch(e=>{
             setUpdateStatus("failed")

@@ -8,7 +8,7 @@ import './assets/fonts/Lato-Regular.ttf'
 import './assets/fonts/Lato-Light.ttf'
 
 axios.defaults.baseURL = "https://poshangyan-api.niti.gov.in/"
-// axios.defaults.baseURL = "http://localhost:8000"
+// axios.defaults.baseURL = "http://localhost:3000";
 
 const styleLink = document.createElement("link");
 styleLink.rel = "stylesheet";

@@ -82,9 +82,7 @@ export class Feed extends Component {
   componentDidMount() {
     axios.get('/getSortingData')
       .then(res => {
-        console.log(res.data)
         let dat = res.data;
-        console.log(dat)
         this.setState({
           all_themes: dat.themes,
           all_languages: dat.languages,
@@ -99,19 +97,16 @@ export class Feed extends Component {
       })
   }
   handleThemeChange = (e, data) => {
-    // console.log(data.value);
     this.setState({
       themes: data.value
     });
   };
   handleLangChange = (e, data) => {
-    // console.log(data.value);
     this.setState({
       languages: data.value
     });
   };
   handleSourceChange = (e, data) => {
-    // console.log(data.value);
     this.setState({
       source: data.value
     });
@@ -122,7 +117,6 @@ export class Feed extends Component {
     });
   };
   handleMediaTypeChange = (e, data) => {
-    // console.log(data.value);
     this.setState({
       mediaType: data.value
     });
@@ -131,19 +125,16 @@ export class Feed extends Component {
     this.setState({
       label: data.value
     });
-    // console.log(data.value);
   };
   handleNameChange = (e, data) => {
     this.setState({
       name: data.value
     });
-    // console.log(data.value);
   };
   handleAudienceChange = (e, data) => {
     this.setState({
       targetAudience: data.value
     });
-    // console.log(data.value);
   };
 
 
@@ -156,7 +147,6 @@ export class Feed extends Component {
         var percentCompleted = Math.round(
           (progressEvent.loaded * 100) / progressEvent.total
         );
-        // console.log(percentCompleted);
         // this.setState({percentCompleted})
       }.bind(this)
     };
@@ -224,13 +214,11 @@ export class Feed extends Component {
           this.setState({
             percentCompleted: percent
           });
-          console.log(response)
         })
         .send((error, data) => {
           if (error) {
             console.log(error)
           } else {
-            // console.log(data);
             // newPosts.ETag = data.ETag;
             newPosts.Location = data.Location;
             newPosts.key = data.key;
@@ -259,9 +247,8 @@ export class Feed extends Component {
                 })
                 .send((error, data) => {
                   if (error) {
-                    // console.log(error)
+                    console.log(error)
                   } else {
-                    // console.log(data);
                     // newPosts.thumbETag = data.ETag;
                     newPosts.thumbLocation = data.Location;
                     newPosts.thumbkey = data.key;
@@ -286,11 +273,9 @@ export class Feed extends Component {
   };
 
   post = (newPost) => {
-    console.log(newPost)
     axios
       .post("/upload", newPost)
       .then((res) => {
-        console.log(res.data);
         this.setState({
           snackbarType: 1
         });

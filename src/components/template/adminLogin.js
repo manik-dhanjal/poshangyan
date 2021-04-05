@@ -13,7 +13,6 @@ export class Admin extends Component {
     handleChange =  (type,value)=>{
         switch(type){ 
             case 'username':
-                console.log(value)
                 this.setState({
                     userName:value
                 })
@@ -31,17 +30,12 @@ export class Admin extends Component {
         }
         axios.post('/login',details)
             .then(res=>{
-                console.log(JSON.parse(localStorage.getItem('user')))
-                console.log(res)
                 localStorage.setItem('user',JSON.stringify(res.data));
                 localStorage.setItem('passkey',res.data.passkey);
                 this.props.history.push('/adminPortal');
             })
             .catch(e=>{
-                console.log({e})
-                // console.log(e)
-                
-                console.log(e.response.data)
+                console.log(e)
                 this.setState({
                   snackbarMessage:e.response.data.message,
                   showSnackbar:true

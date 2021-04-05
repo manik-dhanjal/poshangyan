@@ -37,7 +37,6 @@ const ThemeOfMonth = () => {
                 passkey:key
             })
             await setData({...data,status:'success'})
-            console.log(dat,'updated successfully')
         }
         catch(e){
             await setData({...data,status:'fail'})
@@ -57,7 +56,6 @@ const ThemeOfMonth = () => {
             const res = await axios.post('/set-theme-of-the-month',{
                 passkey: key 
             }) 
-            console.log(res)
             setData({
                 status:'success',
                 theme:res.data.theme,

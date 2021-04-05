@@ -35,7 +35,6 @@ export class Chips extends Component {
         let message;
         if(this.state.value!==this.state.tempValue) message = await this.props.edit(this.props.type,this.state.value,this.state.tempValue)
         else {message = 'Successfully Updated2!'; this.setState({editing:false});}
-        console.log({message})
     }
     handleChange = (e) => {
         this.setState({
@@ -58,7 +57,7 @@ export class Chips extends Component {
                     {!this.state.editing ? <div className="single__chip"  > <p className="val__para">{val} </p>
                     <div className="action__container">
                         
-                        <AlertPopup message={message} submessage={sumMessage} delete={this.props.delete} type={type} val={val} />m
+                        <AlertPopup message={message} submessage={sumMessage} delete={this.props.delete} type={type} val={val} />
                         <Icon name='edit' style={{ marginLeft: 5, cursor: 'pointer' }} onClick={(event) => {
                             event.stopPropagation();
                             // this.props.edit(type, val)

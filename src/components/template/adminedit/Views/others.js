@@ -57,7 +57,6 @@ export class Others extends Component {
     componentDidMount() {
         axios.get('/getSortingData')
             .then(res => {
-                console.log(res.data)
                 let dat = res.data;
                 this.setState({
                     themes: dat.themes,
@@ -98,7 +97,6 @@ export class Others extends Component {
         let passkey = localStorage.getItem('passkey')
         axios.post('./modifySortingData', { type, val, new_val, passkey })
             .then((res) => {
-                console.log({ eeee: res.data })
                 let dat = res.data;
                 if (res.data.message !== 'not authorised!!') {
                     this.setState({
@@ -123,7 +121,7 @@ export class Others extends Component {
                 return;
             })
             .catch((e) => {
-                console.log({ eeee: e });
+                console.log(e);
                 this.setSnackbarMessageAndTimeOut('Something went wrong!')
             })
     }
@@ -131,7 +129,6 @@ export class Others extends Component {
         let passkey = localStorage.getItem('passkey')
         axios.post('./deleteFromSortingData', { type, val, passkey })
             .then((res) => {
-                console.log({ eeee: res.data })
                 let dat = res.data;
                 if (res.data.message !== 'not authorised!!') {
                     this.setState({
@@ -156,7 +153,7 @@ export class Others extends Component {
                 return;
             })
             .catch((e) => {
-                console.log({ eeee: e });
+                console.log(e);
                 this.setSnackbarMessageAndTimeOut('Something went wrong!')
             })
     }

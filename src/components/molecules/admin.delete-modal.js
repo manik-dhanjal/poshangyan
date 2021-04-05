@@ -7,7 +7,6 @@ const Div = styled.div`
 
 `
 const DeleteModal = ({setOpen,open,setSnackState,handleDelete}) => {
-    console.log(open.post)
     const post = open.post;
      const handleDeleteClick = () => {
         let passkey = localStorage.getItem('passkey')

@@ -14,7 +14,6 @@ export default class MenuExampleTabularOnLeft extends Component {
     let key = localStorage.getItem('passkey');
     axios.post('/isValidAdmin', { passkey: key })
       .then((res) => {
-        console.log(res.data)
       })
       .catch((e) => {
         console.log(e)

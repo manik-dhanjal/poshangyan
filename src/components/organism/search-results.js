@@ -66,6 +66,7 @@ justify-content:space-between;
 }
 `
 const SearchResults = ({query}) => {
+    
     const [data, setData] = useState({
         post:[],
         pageno:1,
@@ -77,7 +78,6 @@ const SearchResults = ({query}) => {
     }
     const AllToAnyHandler = (query) =>{
         const newQuery = {};
-        // console.log(query);
         for(const key in query){
              newQuery[key] = [];
             for(const arrItem of query[key]){
@@ -95,13 +95,14 @@ const SearchResults = ({query}) => {
         return newQuery;
     }
     useEffect(()=>{
+        
         (async ()=>{
-            const newQuery = AllToAnyHandler(query);
+            const newQuery = await AllToAnyHandler(query);
             var FilterData = {
                 themes:         newQuery.Themes?newQuery.Themes.toString():null,
                 languages:      newQuery.Languages?newQuery.Languages.toString():null,
                 targetAudience: newQuery.TargetAudiences?newQuery.TargetAudiences.toString():null,
-                mimetype:       newQuery.MediaTypes? newQuery.MediaTypes.toString():null,
+                mimetype:       newQuery.MediaType? newQuery.MediaType.toString():null,
                 source:         newQuery.Sources?newQuery.Sources.toString():null,
               }
               try{
@@ -111,6 +112,7 @@ const SearchResults = ({query}) => {
                     totalpage:1, 
                     status:"pending"
                  })
+
                 const res = await axios.post("/getFilteredInfo", FilterData)
                   
                 var l = res.data.length;
@@ -118,7 +120,6 @@ const SearchResults = ({query}) => {
                 if(l%12) ans++;
                 ans+=Math.floor(l/12);
                 var sortedRes;
-                
                 switch(query.sort?query.sort[0]:""){
                   case "download":{
                       sortedRes = res.data.sort((a,b)=> b.downloadsCount-a.downloadsCount)

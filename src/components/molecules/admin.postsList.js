@@ -88,7 +88,6 @@ const PostsList = ({allPost,handleEditClick,setAllPost}) => {
       }
       const handleSearchBtn = (e) =>{
         e.preventDefault();
-        console.log(e)
         const SearchResult = allPost.status==='success'?allPost.posts.filter((post)=>{
           if(post.label.toLowerCase().includes(searchVal)||searchVal===''){
             return post;

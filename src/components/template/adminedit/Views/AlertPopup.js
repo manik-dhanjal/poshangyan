@@ -4,8 +4,6 @@ import { Button, Header, Icon, Modal } from 'semantic-ui-react'
 function ModalExampleBasic(props) {
   const [open, setOpen] = React.useState(false)
 
-  console.log({props})
-
   const { val, type } = props;
 
   return (
