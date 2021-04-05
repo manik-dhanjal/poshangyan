@@ -28,8 +28,7 @@ exports.uploadFile = (req, res) => {
   // res.send({received:req.body})
 
   const post = new Post(req.body)
-np
-    .then(pos=>{
+    post.save().then(pos=>{
       console.log(pos)
       res.status(200).send({received:pos})
     })
