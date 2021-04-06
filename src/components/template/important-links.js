@@ -132,7 +132,7 @@ const ImportantLinks = () => {
                     }
                 </div>
             </div>   
-            <div className='wecan-cont'>
+            {/* <div className='wecan-cont'>
                 <a className='wecan-card' href='https://www.wecollaborate4nutrition.org' target="__blank">
                     <div className='img-cont'>
                         <img src={wecan}/>
@@ -142,7 +142,7 @@ const ImportantLinks = () => {
                         <p>WeCan Mothers' support page contains resource materials from the Government and development partners and links to support groups, helplines, lactation experts and associations.</p>
                     </div>
                 </a>
-            </div> 
+            </div>  */}
         </Div>
     )
 }
