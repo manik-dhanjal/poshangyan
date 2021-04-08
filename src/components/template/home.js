@@ -43,7 +43,7 @@ useEffect(() => {
       <div>
         <Banner >
           <h1>Poshan Gyan</h1>
-          <h2>The most trusted and comprehensive resources to improve India's nutritional status, at your fingertips</h2>
+          <h2>The most trusted and comprehensive resources to improve India's nutrition and helth behaviours, at your fingertips</h2>
         </Banner>
         <div style={{ background: "white" }}>
           <ThemeOfMonth/>
