@@ -76,11 +76,14 @@ app.post('/login', login)
 app.post('/isValidAdmin',Auth,validAdmin)
 
 app.post('/contactUsFormSubmission', (req, res) => {
-    console.log(req.body)
+    // console.log(req.body)
     let data = req.body;
     // const { parse } = require('json2csv');
     // create reusable transporter object using the default SMTP transport
     var transporter = nodemailer.createTransport({
+        host: 'smtp.gmail.com',
+		port: 465,
+		secure: true,
         service: 'gmail',
         auth: {
             user: 'poshangyan@gmail.com',
