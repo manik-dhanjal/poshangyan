@@ -392,6 +392,7 @@ export class Feed extends Component {
             placeholder="Source"
             fluid
             search
+            multiple
             selection
             style={{ marginTop: 15 }}
             options={sourceArray}
