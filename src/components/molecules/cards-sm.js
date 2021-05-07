@@ -56,6 +56,11 @@ align-items:center;
         text-align:center;
         color:black;
         min-height:2.5em;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
     }
     .ui.animated.button {
         background: rgb(340,66,94);
