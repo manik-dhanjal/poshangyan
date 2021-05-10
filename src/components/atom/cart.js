@@ -113,8 +113,8 @@ hr{
         }
     }
     const initiatDownload = async (fileName) => {
-            // const downloadUrl = 'https://poshangyan-api.niti.gov.in/download-zip/'+fileName;
-            const downloadUrl =  'http://localhost:3000/download-zip/'+fileName;
+            const downloadUrl = 'https://poshangyan-api.niti.gov.in/download-zip/'+fileName;
+            // const downloadUrl =  'http://localhost:3000/download-zip/'+fileName;
             const link = document.createElement('a');
             link.href = downloadUrl;
             link.setAttribute('download',fileName);
