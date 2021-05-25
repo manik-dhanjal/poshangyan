@@ -261,7 +261,7 @@ function update(type, val, new_val) {
                     })
                 break;
             case 'mimetype':
-                console.log("You can't cange theme mimetype🙁")
+                console.log("You can't cange theme mimetype")
                 break;
             case 'targetAudience':
                 Posts.find()
