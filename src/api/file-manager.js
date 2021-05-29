@@ -17,7 +17,7 @@ export const createDownloadLink = async (cartItemKeys,lastDownloaded,setLastDown
   }
  export  const initiatDownload = async (fileName) => {
      
-    const downloadUrl =  process.env.REACT_APP_API_URL+'download-zip/'+fileName;
+    const downloadUrl =  (process.env.REACT_APP_API_URL||'https://poshangyan-api.niti.gov.in/')+'download-zip/'+fileName;
     console.log(downloadUrl)
     const link = document.createElement('a');
     link.href = downloadUrl;
