@@ -1,31 +1,21 @@
-const express = require('express'),
-    app = express(),
-    mongoose = require('mongoose');
-
-const MONGODB_URI = "mongodb+srv://Anshaj:Anshaj123@poshangyan.w52ln.mongodb.net/poshangyan?retryWrites=true&w=majority"
-
+const express = require('express');
+const mongoose = require('mongoose');
 var bodyParser = require('body-parser');
-var multer = require('multer');
-var upload = multer();
-
-const Post = require('./schema/postSchema')
-
 const nodemailer = require("nodemailer");
-const cors = require('cors')
+const cors = require('cors');
+const multer = require("multer");
+var storage = multer.memoryStorage();
+var upload = multer({ storage: storage });
+const Post = require('./schema/postSchema');
+const connectDB = require("./config/db.config")();
+const auth =  require('./middleware/auth')
+
+const app = express();
 
 app.use(cors())
-// for parsing application/json
 app.use(bodyParser.json());
-
-// for parsing application/xwww-
 app.use(bodyParser.urlencoded({ extended: true }));
-//form-urlencoded
 app.use(express.static(__dirname + '/public'));
-
-// for parsing multipart/form-data
-// app.use(upload.array()); 
-// app.use(express.static('public'));
-
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*')
     res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PUT,PATCH,DELETE')
@@ -33,48 +23,49 @@ app.use((req, res, next) => {
     next()
 })
 
-// Way to use multer for "file" field in formdata
-app.get('/', upload.single('file'), (req, res) => {
+//routes
+
+app.get('/', (req, res) => {
     console.log(req.body)
     console.log(req.params)
-    console.log(req.file)
+
     return res.status(200).send({
         message: "All Ok"
     })
 })
-const {
-    getFilteredInfo, getThemeoftheMonth, getPolularVideos, addDownloadCount,setThemeOfTheMonth
-    //  update 
 
-}
-    = require('./handlers/info');
-const Auth = require('./Private/Auth')
+const { getFilteredInfo, getThemeoftheMonth, getMostDownloaded,setThemeOfTheMonth }= require('./handlers/info');
+const { uploadFile,deleteFile,addDownloadCount } = require('./handlers/s3.CRUD')
 
-const { uploadFile } = require('./handlers/upload')
-app.post('/upload', uploadFile)
+app.post('/upload-file', [auth,upload.single('file')],uploadFile)
+app.delete('/file/:key',[auth,upload.single('file')],deleteFile)
+app.post('/download-file', addDownloadCount)
 app.post('/getFilteredInfo', getFilteredInfo)
-app.get('/getPopolarVideos', getPolularVideos)
+app.get('/most-downloaded', getMostDownloaded)
 app.get('/getThemesOfTheMonth', getThemeoftheMonth)
-app.post('/addDownload', addDownloadCount)
-app.post('/set-theme-of-the-month',Auth,setThemeOfTheMonth)
+app.post('/set-theme-of-the-month',auth,setThemeOfTheMonth)
 
-const { getPostInfo, deletePost, updatePostInfo } = require('./handlers/Posts')
+const { getPostInfo, deletePost, updatePostInfo, addPost,script } = require('./handlers/Posts')
+
 app.get('/posts/:postID', getPostInfo)
-app.post('/posts/:postID', Auth, deletePost)
-app.put('/posts/:postID', Auth, updatePostInfo)
+app.delete('/posts/:postID', auth, deletePost)
+app.put('/posts/:postID', auth, updatePostInfo)
+app.post('/post',auth,addPost)
+app.get('/runScript',script)
 
 const { addSortingData, getSortingData, modifySortingData, delFromSortingData } = require('./handlers/sortingDataRoutes')
-// app.post('/addSortingData',Auth,addSortingData)
+
+app.post('/addSortingData',auth,addSortingData)
 app.get('/getSortingData', getSortingData)
-app.post('/modifySortingData', Auth, modifySortingData)      //TODO: Add Auth  // ADD + EDIT things
-app.post('/deleteFromSortingData', Auth, delFromSortingData) //TODO: Add Auth  // REMOVE things
+app.post('/modifySortingData', auth, modifySortingData)      //TODO: Add Auth  // ADD + EDIT things
+app.post('/deleteFromSortingData', auth, delFromSortingData) //TODO: Add Auth  // REMOVE things
 
 
 const { addAdmin, login , validAdmin} = require('./handlers/admin')
 
-app.post('/login', login)
-app.post('/isValidAdmin',Auth,validAdmin)
-
+// app.post('/login', login)
+// app.post('/isValidAdmin',Auth,validAdmin)
+app.post('/s3-upload',upload.single("file"))
 app.post('/contactUsFormSubmission', (req, res) => {
     // console.log(req.body)
     let data = req.body;
@@ -118,6 +109,7 @@ app.post('/contactUsFormSubmission', (req, res) => {
 const {createZip} = require('./utils/zipAndDownload')
 const {downloadZip} = require('./utils/zipAndDownload')
 const {checkZipFiles} = require('./utils/zipAndDownload')
+
 app.get('/download-zip/:name',downloadZip)
 app.post('/create-zip',createZip);
 app.get('/fetch-all-zips',checkZipFiles)
@@ -270,65 +262,8 @@ schedule.scheduleJob('30 00 19 * * 4', () => {
             console.log({ err: "Error in sending email.... 2" });
         })
 })
-// var a = require('./ASD.json')
-// const Post = require('./schema/postSchema')
-// console.log(a[1].label)
-// let mp = {};
-// var b = [];
-// console.log(a[0])
-// for(var i=0;i<a.length;i++)
-// {
-//     console.log(a[i]._id.$oid)
-//     update(a[i],a[i]._id.$oid)
-// }
 
-// function update(val,id){
-//     // console.log(val)
-//     Post.findById(id)
-//      .then(dat=>{
-//          dat.languages = val.languages
-//          console.log(dat)
-//          dat.save();
-//      })
-//      .catch(e=>{
-//          console.log(e);
-//      })
-// }
-
-
-// const accountSid = "AC5a24e2518c95be55417fabc6934ca0a7";
-// const authToken = "4bbba64ca48c860ec1412b6a3be0cd68";
-// const client = require('twilio')(accountSid, authToken);
-// app.post('/xx', async (req,res)=>{
-//   let abc=null ;
-//    try{
-//     abc =  await client.messages
-//   .create({
-//      body: 'New items has been added on poshangyan. HAve a look at https://www.poshangyan.com/search?Themes=Any&sort=date',
-//      from: '+12059531826',
-//      to: '+919540820596'
-//    })
-//   }catch(e){
-//     console.log(e);
-//   }
-//   console.log(abc)
-//   res.send(abc)
-// })
-
-// async  function  asd(){
-//   try{
-//     return await client.messages
-//   .create({
-//      body: 'This is the ship that made the Kessel Run in fourteen parsecs?',
-//      from: '+15017122661',
-//      to: '+15558675310'
-//    })
-//   }catch(e){
-//     console.log(e);
-//   }
-
-// } 
-
+app.use("/2626/", require("./handlers/admin"));
 
 app.use((error, req, res, next) => {
     console.log(error)
@@ -342,24 +277,8 @@ app.use((error, req, res, next) => {
 })
 
 
-
-mongoose.connect(
-    MONGODB_URI,
-    {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-        useFindAndModify: false,
-        useCreateIndex: true
-    }
-)
-    .then(result => {
-        const port = process.env.PORT || 3000;
-        app.listen(port, () => {
-            console.log('Server Started at port '+ port)
-        })
-    }).catch(err => {
-        console.log(err);
-        // next(err);
+    const PORT = process.env.PORT || 3000;
+    app.listen(PORT,()=>{
+        console.log(`${process.env.NODE_ENV || "Production"} server is listening on PORT ${PORT}`)
     })
-
 

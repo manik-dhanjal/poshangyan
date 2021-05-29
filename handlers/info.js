@@ -1,21 +1,8 @@
 
-// downloadsCount 
-// viewsCount
 const { update } = require('../schema/postSchema');
 const Post = require('../schema/postSchema')
 exports.getFilteredInfo = (req, res) => {
 
-  // var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
-  // var removed = arr.splice(2,1); //removes one element starting from 2
-  // themes: this.state.themes.toString(),
-  // languages: this.state.languages.toString(),
-  // label: this.state.label.toString(),
-  // source: this.state.source.toString(),
-  // mediaType: this.state.mediaType.toString(),
-  // dataAddedBy: this.state.name.toString(),
-  // targetAudience: this.state.targetAudience.toString(),
-
-  // console.log(req.body)
   let filter = {};
   if(req.body.themes && !(req.body.themes.toLowerCase().includes('any')||(req.body.themes.toLowerCase().includes('all')&&!req.body.themes.toLowerCase().includes('overall'))||req.body.themes=='')){
     filter.themes = req.body.themes;
@@ -35,8 +22,7 @@ exports.getFilteredInfo = (req, res) => {
   if(req.body.mimetype && !(req.body.mimetype.toLowerCase().includes('any')||req.body.mimetype.toLowerCase().includes('all')||req.body.mimetype=='')){
     filter.mimetype = req.body.mimetype;
   }
-  // console.log(req.body)
-  // res.send({Yup:'Yup'})
+
   Post.find()
     .sort({ downloadsCount: -1 })
     // .orderBy('viewsCount','desc')
@@ -101,9 +87,14 @@ exports.getFilteredInfo = (req, res) => {
           let filt = filter.mimetype.split(',');
           var c=0;
           for(var i=0;i<filt.length;i++)
-          {
-            if(currPost.mimetype.toLowerCase().includes(filt[i].toLowerCase())) c=1;
+          { 
+          
+            currPost.files.forEach((file)=>{
+              if(file._doc.mimetype === filt[i].toLowerCase()) c=1;
+            })
+            if(filt[i].toLowerCase().includes('other')&&currPost.link) c=1;
           }
+  
           if(c==1) ;
           else f=0;
         }
@@ -111,6 +102,7 @@ exports.getFilteredInfo = (req, res) => {
         if(f==1) posts.push(currPost)
 
       });
+      
       return res.json(posts);
     })
     .catch(err => {
@@ -130,11 +122,6 @@ exports.setThemeOfTheMonth = (req,res) =>{
 exports.getThemeoftheMonth = async (req, res) => {
   try{
     const data = await Post.find({ themes: new RegExp(process.env.themeofmonth) });
-    // console.log({
-    //   post:data,
-    //   theme:process.env.themeofmonth,
-    //   quote:process.env.quote
-    // })
     res.send({
       post:data,
       theme:process.env.themeofmonth,
@@ -149,84 +136,21 @@ exports.getThemeoftheMonth = async (req, res) => {
       quote:process.env.quote
     })
   }
-  // Post.find()
-  //   .sort({ downloadsCount: -1 })
-  //   // .orderBy('viewsCount','desc')
-  //   .then(dat=>{
-  //     let posts=[];
-  //     dat.forEach(function(doc) { 
-  //       // if(doc.themes.includes('themeName')) posts.push(doc); 
-  //       if(doc.mimetype.includes('image')) posts.push(doc); 
-  //     });
-  //     return res.json(posts);
-  //   })
-  //   .catch(err => {
-  //     console.error(err)
-  //     res.send({err:'Something Went Wrong!!'})
-  //   });
 }
-exports.getPolularVideos = (req, res) => {
-  Post.find()
-    .sort({ downloadsCount: -1 })
-    .then(dat=>{
-      let posts=[];
-      dat.forEach((doc)=> { 
-        if(doc.mimetype.includes('video'))  posts.push(doc); 
-      });
-      return res.json(posts);
-    })
-    .catch(err => {
-      console.error(err)
-      res.send({err:'Something Went Wrong!!'})
-    });
+exports.getMostDownloaded =async (req, res) => {
+  try{
+    const posts =await Post.find({link: { $ne: '' }})
+    const countOf = (item) => item.files.length?item.files.reduce((total,file) => {return total+file.downloadsCount},0):0;
+    const sortedPost = posts.sort((a,b)=> {
+          return countOf(b)-countOf(a)
+      } ).slice(0,12)
+    res.json(sortedPost)
+  }
+  catch(errir){
+          console.error(err)
+        res.send({err:'Something Went Wrong!!'})
+  }
 }
 
 
-exports.addDownloadCount = (req, res) => {
-  let currpost=[];
-  // console.log(req.body)
-   Post.findById(req.body._id)
-    .then((pos)=>{
-      pos.downloadsCount = pos.downloadsCount + 1;
-      currpos = pos;
-      // console.log(pos)
-      return pos.save();
-    })
-    .then(()=>{
-      res.status(200).send({message:'Success'})
-    })
-    .catch((err)=>{
-      console.error(err)
-      res.send({err:'Something Went Wrong!!'})
-    })
-}
 
-// exports.update = (req, res) => {
-//   Post.find()
-//     .sort({ downloadsCount: -1 })
-//     // .orderBy('viewsCount','desc')
-//     .limit(100)
-//     .then(dat=>{
-//       let posts=[];
-//       dat.forEach(function(doc) { 
-//         // if(doc.mimetype.includes('image')) posts.push(doc); 
-//         let ID=  doc.showFileName.toLowerCase().split(' ').join("-");
-//         posts.push(ID);
-//         upda(doc,ID);
-//       });
-//       return res.send(posts);
-//     })
-//     .catch(err => {
-//       console.error(err)
-//       res.send({err:'Something Went Wrong!!'})
-//     });
-// }
-
-// function upda(doc,ID)  {
-//   Post.findById(doc._id)
-//   .then((pos)=>{
-//     pos.postId = ID;
-//     console.log(pos)
-//     pos.save();
-//   })
-// }
