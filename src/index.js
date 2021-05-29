@@ -6,9 +6,8 @@ import 'video-react/dist/video-react.css';
 import './assets/fonts/Lato-Bold.ttf'	
 import './assets/fonts/Lato-Regular.ttf'
 import './assets/fonts/Lato-Light.ttf'
-
-axios.defaults.baseURL = "https://poshangyan-api.niti.gov.in/"
-// axios.defaults.baseURL = "http://localhost:3000";
+require('dotenv').config()
+axios.defaults.baseURL = process.env.REACT_APP_API_URL||'https://poshangyan-api.niti.gov.in';
 
 const styleLink = document.createElement("link");
 styleLink.rel = "stylesheet";

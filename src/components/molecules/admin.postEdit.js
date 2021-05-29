@@ -3,14 +3,8 @@ import { Button, Dropdown, Input } from "semantic-ui-react";
 import axios from "axios";
 import Snackbar from "@material-ui/core/Snackbar";
 import Alert from "@material-ui/lab/Alert";
-import { v4 as uuidv4 } from "uuid";
-import {  Progress } from 'semantic-ui-react'
 import {useCategories} from "../context/post.context"
 import { Dimmer, Loader, Image, Segment } from 'semantic-ui-react';
-// import entire SDK
-import AWS from "aws-sdk";
-// import individual service
-import S3 from "aws-sdk/clients/s3";
 import styled from 'styled-components'
 
 const Div = styled.div`
@@ -64,8 +58,8 @@ const PostEdit = ({post,handleBackbutton}) => {
         e.preventDefault()
         setUpdateStatus("pending")
         setEditPostData({...editPostData,postId:slug(editPostData.label)})
-        let key = localStorage.getItem('passkey');
-        axios.put(`/posts/${editPostData._id}`,{...editPostData,passkey:key})
+        let token = localStorage.getItem("auth-token");
+        axios.put(`/posts/${editPostData._id}`,{...editPostData},{headers: { "x-auth-token": token },})
         .then(res=>{
             setUpdateStatus("success")
         })
@@ -74,8 +68,6 @@ const PostEdit = ({post,handleBackbutton}) => {
             console.log(e)
         })
     }
-    const fileUpload = useRef(null)
-    const thumbUpload = useRef(null)
     const sortMenuTab = (options) =>{
         var any = false;
         var other = false;
@@ -118,18 +110,6 @@ const PostEdit = ({post,handleBackbutton}) => {
             <Button onClick={handleBackbutton} className=''>Back</Button>
               
             <div className='form'>
-{/* 
-                    <form id="formData" className='custom-input'>
-                        <input type="file" id="file" ref={fileUpload} />
-                    </form>
-                    
-                    <form id="formData2" className='custom-input'>
-                        <input type="file" id="file2" ref={thumbUpload} />
-                    </form> */}
-
-            {/* {  (per && !((per==0) || (per==100))) ?   <Progress style={{width:'100%'}} 
-            percent={this.state.percentCompleted} indicating progress /> : (null) } */}
-          
                 <Input onChange={handleInputChange} placeholder="Name" name='label'className='custom-input' value={editPostData.label} required/>
                  {dropData.map( ( menu ,i) =>{
                 return  (

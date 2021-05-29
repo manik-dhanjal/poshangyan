@@ -29,13 +29,12 @@ const ThemeOfMonth = () => {
         e.preventDefault();
         try{
             await setData({...data,status:'pending'})
-    let key = localStorage.getItem('passkey');
+            let token = localStorage.getItem("auth-token");
 
             const dat = await axios.post('/set-theme-of-the-month',{
                 theme:data.theme,
                 quote:data.quote,
-                passkey:key
-            })
+            },{headers: { "x-auth-token": token },})
             await setData({...data,status:'success'})
         }
         catch(e){
@@ -52,10 +51,8 @@ const ThemeOfMonth = () => {
     useEffect( ()=>{
         (async () => {
             try{
-            let key = localStorage.getItem('passkey');
-            const res = await axios.post('/set-theme-of-the-month',{
-                passkey: key 
-            }) 
+            let token = localStorage.getItem("auth-token");
+            const res = await axios.post('/set-theme-of-the-month',null,{headers: { "x-auth-token": token },}) 
             setData({
                 status:'success',
                 theme:res.data.theme,
@@ -115,7 +112,7 @@ const ThemeOfMonth = () => {
                                             className='custom-input'
                                         />
                                 </div>
-                                <TextArea  onChange={handleChange} placeholder="Quote" name='quote'className='custom-input' value={data.quote} required/>
+                                <TextArea  onChange={handleChange} placeholder="Quote" name='quote'className='custom-input' value={data.quote}/>
                                 <div className='submit-cont'>
                                     <Button inverted color="green"  type='submit'>
                                         Update  

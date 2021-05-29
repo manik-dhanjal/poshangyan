@@ -3,12 +3,9 @@ import React ,{useEffect,useState}from 'react'
 import styled from "styled-components"
 import {Link} from "react-router-dom"
 import {useCart,useDeleteCart} from '../context/cart.context'
-import handleDownload from "../../api/aws-handle-download"
 import logo from '../../assets/Images/logo.png'
-import CartDrop from '../atom/cart'
-import { Button, Icon } from 'semantic-ui-react'
-import axios from 'axios'
-import { v4 as uuidv4 } from 'uuid';
+import CartDrop from '../atom/cart.drop-down/cart.components'
+import AuthOptions from "../auth/authOptions"
 const Nav = styled.nav`
 padding:${({location})=>(
                 location==='/'?'15px 0':'0px 0')};
@@ -249,6 +246,9 @@ const Header = () => {
                                     <a href='https://docs.google.com/forms/d/e/1FAIpQLSciK2SDLtVkMhjH_TUqjmVOJv1ZlhbGMaLg8di0dymvf4axpg/viewform?usp=sf_link' target="_blank">
                                         <span>Add Content</span>
                                     </a>
+                                </li>
+                                <li>
+                                    <AuthOptions/>
                                 </li>
                             </ul>
                             {/* <ul className='menu-icons'>

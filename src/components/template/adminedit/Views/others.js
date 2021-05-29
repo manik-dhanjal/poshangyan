@@ -94,8 +94,8 @@ export class Others extends Component {
         }, 2000)
     }
     modifyData = async (type, val, new_val) => {
-        let passkey = localStorage.getItem('passkey')
-        axios.post('./modifySortingData', { type, val, new_val, passkey })
+        let token = localStorage.getItem("auth-token");
+        axios.post('./modifySortingData', { type, val, new_val},{headers: { "x-auth-token": token },})
             .then((res) => {
                 let dat = res.data;
                 if (res.data.message !== 'not authorised!!') {
@@ -126,8 +126,8 @@ export class Others extends Component {
             })
     }
     deleteItem = (type, val) => {
-        let passkey = localStorage.getItem('passkey')
-        axios.post('./deleteFromSortingData', { type, val, passkey })
+        let token = localStorage.getItem("auth-token");
+        axios.post('./deleteFromSortingData', { type, val},{headers: { "x-auth-token": token },})
             .then((res) => {
                 let dat = res.data;
                 if (res.data.message !== 'not authorised!!') {

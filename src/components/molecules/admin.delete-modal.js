@@ -9,8 +9,8 @@ const Div = styled.div`
 const DeleteModal = ({setOpen,open,setSnackState,handleDelete}) => {
     const post = open.post;
      const handleDeleteClick = () => {
-        let passkey = localStorage.getItem('passkey')
-        axios.post(`/posts/${post._id}`,{passkey})
+      let token = localStorage.getItem("auth-token");
+        axios.delete(`/posts/${post._id}`,{headers: { "x-auth-token": token },})
           .then((res)=>{
             setOpen({...open,status:false})
             setSnackState(1)

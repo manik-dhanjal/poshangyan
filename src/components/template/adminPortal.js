@@ -1,34 +1,27 @@
-import React, { Component } from 'react'
+import React, { useEffect, useContext,Component,useState } from 'react';
+import { useHistory, Link } from 'react-router-dom';
+import UserContext from '../context/userContext';
 import { Container, Grid, Menu, Segment } from 'semantic-ui-react'
 import EditMain from './adminedit/editMain'
-import DataFeeder from './feed'
+import AddPost from './add-post.admin/add-post.components'
 import ThemeOfMonth from './adminedit/theme-of-month'
-import axios from 'axios'
 
-export default class MenuExampleTabularOnLeft extends Component {
-  state = { activeItem: 'Data Feeder' }
+const  MenuExampleTabularOnLeft = () => {
+  const [activeItem,setActiveItem] = useState('Data Feeder')
+  const {userData} = useContext(UserContext);
+  const history = useHistory();
+  useEffect(() => {
+    if(!userData.user)
+      history.push("/");
+  }, []);
+  const handleItemClick = (e, { name }) => { setActiveItem(name) }
 
-  handleItemClick = (e, { name }) => this.setState({ activeItem: name })
-
-  componentDidMount() {
-    let key = localStorage.getItem('passkey');
-    axios.post('/isValidAdmin', { passkey: key })
-      .then((res) => {
-      })
-      .catch((e) => {
-        console.log(e)
-        this.props.history.push('/admin');
-      })
-  }
-
-  render() {
-    const { activeItem } = this.state
 
     let activeView = null;
 
     switch (activeItem) {
       case 'Data Feeder':
-        activeView = <DataFeeder />
+        activeView = <AddPost />
         break;
       case 'Update':
         activeView = <EditMain />
@@ -47,17 +40,17 @@ export default class MenuExampleTabularOnLeft extends Component {
               <Menu.Item
                 name='Data Feeder'
                 active={activeItem === 'Data Feeder'}
-                onClick={this.handleItemClick}
+                onClick={handleItemClick}
               />
               <Menu.Item
                 name='Update'
                 active={activeItem === 'Update'}
-                onClick={this.handleItemClick}
+                onClick={handleItemClick}
               />
               <Menu.Item
                 name='Theme of the month'
                 active={activeItem === 'Theme of the month'}
-                onClick={this.handleItemClick}
+                onClick={handleItemClick}
               />
             </Menu>
           </Grid.Column>
@@ -71,4 +64,5 @@ export default class MenuExampleTabularOnLeft extends Component {
       </Container>
     )
   }
-}
+
+  export default MenuExampleTabularOnLeft;

@@ -11,12 +11,14 @@ flex:1;
     }
 }
 `
-const CreativeImage = ({location,thumbnail,mime}) => {
-
+const CreativeImage = ({file,thumbnail,link}) => {
     return (
         <Div>
             <div className="show-image">
-                   { mime && (mime.includes("video") || mime.includes("audio")) ? <Video location={location} thumbnail={thumbnail||audioThumb}/> : <img src={thumbnail||location} /> }
+                   {    link?
+                       <iframe style={{width:'100%',height:'55vh'}} src={"https://www.youtube.com/embed/"+link.substr(link.lastIndexOf('/')+1,link.length)} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                       :file.mimetype=="video" || file.mimetype=="audio" ? <Video location={file.location} thumbnail={thumbnail||audioThumb}/> : <img src={thumbnail} />
+                   }
             </div>
         </Div>
     )

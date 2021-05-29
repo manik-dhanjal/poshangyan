@@ -1,48 +1,15 @@
 import React from 'react'
 import styled from "styled-components"
-import AWS from "aws-sdk";
-import axios from 'axios';
-import { Button, Icon } from 'semantic-ui-react'
 import{ Link }from "react-router-dom"
-import handleDownload from "../../api/aws-handle-download"
+import DownloadCard from "../atom/download-card.creative/download-card.component"
+
 const Div = styled.div`
 flex:1;
 h4{
     margin:0;
     margin-bottom:50px;
 }
-.download-card{
-    background:white;
-    border-radius:15px;
-    padding:20px 30px;
-    display:grid;
-    align-items:center;
-    grid-template-columns:70px 1fr 1fr;
-    .mp4-logo{
-        width:60px;
-    }
-    .heads{
-        padding:0 20px;
-    }
-}
-.downloaded{
-    font-size:1.2em;
-    white-space:nowrap;
-    .count{
-        color:rgb(340,66,94);
-        font-weight:600;
-    }
-}
-.download-btn button{
-    background:rgb(340,66,94);
-    color:white;
-    font-size:1.3em;
-    padding:10px 20px;
-    &:hover{
-        background:rgb(340,66,94);
-        color:white;
-    }
-}
+
 .social-share{
     display:flex;
     gap:20px;
@@ -85,24 +52,6 @@ h4{
     h1,h2,h4{
         text-align:center;
     }
-    .download-card{
-        margin-bottom:50px;
-        grid-template-rows: 100px 60px;
-        grid-template-columns: 1fr 1fr;
-    }
-    .heads{
-        grid-column:1/3;
-        grid-row:1/2;
-        text-align:center;
-    }
-    .download-btn{
-        grid-column:1/3;
-        grid-row:2/3;
-        justify-self:center;
-    }
-    .mp4-logo{
-        display:none;
-    }
     .details-table{
         margin:30px auto;
         margin-bottom:60px;
@@ -119,53 +68,17 @@ h4{
     }
 }
 `
-const CreativeDetails = ({label,showFileName,themes,source,Key,_id,downloadsCount,mimetype,targetAudience,languages,Location}) => {
-    
-    // const downloadImage = (filename) => {
-    //     const s3 = new AWS.S3({
-    //      accessKeyId: process.env.REACT_APP_ACCESS_ID,
-    //      secretAccessKey: process.env.REACT_APP_ACCESS_KEY,
-    //      signatureVersion: 'v4',
-    //      region: 'ap-south-1'
-    //    });
-    //   let url = s3.getSignedUrl('getObject', {
-    //     Bucket: process.env.REACT_APP_BUCKET_NAME , Key: filename,
-    //     Expires: 300,
-    //     ResponseContentDisposition :  `attachment; filename=${filename}`
-    //   })
-    //     let link = document.createElement("a");
-    //         link.href = url;
-    //         link.setAttribute('download', filename);
-    //         link.click(); 
-    // } 
-    // const  addDownloadCount = () => {
-    //     axios.post("/adddownload",{
-    //         "_id":_id
-    //       })
-    //       .then((res) => {
-    //         // console.log(res.data);
-    //       })
-          
-    //   } 
-    //   const  handleDownload = () => {
-    //     let url=Location
-    //     let filename= Key
-    //     addDownloadCount();
-    //     const link = document.createElement('a');
-    //     link.href = url;
-    //     link.setAttribute('download', filename);
-    //     downloadImage(filename)
-    //   }
+const CreativeDetails = ({label,themes,source,_id,targetAudience,languages,files,link}) => {
+    const mimeString = (files) => {
+        const arr = files.reduce((result,file) => {
+           return result.find((item) => item === file.mimetype)?result:[...result,file.mimetype];
+        },[])
+        return `${arr}`
+    } 
+  
     return (
         <Div>
             <h1>{label}</h1>
-            {/* <div className="details-table">
-                    <div className="label">Themes</div><div className="value">{themes}</div>
-                    <div className="label">Media Type</div><div className="value">{mediaType}</div>
-                    <div className="label">Source</div><div className="value">{source}</div>
-                    <div className="label">Languages</div><div className="value">{languages}</div>
-                    <div className="label">Target Audience</div><div className="value">{targetAudience}</div>
-            </div> */}
             <table className="details-table">
                 <tbody>
                     <tr>
@@ -174,7 +87,7 @@ const CreativeDetails = ({label,showFileName,themes,source,Key,_id,downloadsCoun
                     </tr>
                     <tr>
                         <td className="label">Media Type </td>
-                        <td className="value">{mimetype} </td>
+                        <td className="value">{link?'Others':mimeString(files)} </td>
                     </tr>
                     <tr>
                         <td className="label">Source </td>
@@ -190,27 +103,14 @@ const CreativeDetails = ({label,showFileName,themes,source,Key,_id,downloadsCoun
                     </tr>
                 </tbody>
             </table>
-            <div className="download-card">
-                <div className="mp4-logo">
-                    {
-                        mimetype && (mimetype.includes("video")||mimetype.includes("audio"))?
-                        <img src="https://indiafightscovid.com/wp-content/plugins/download-manager/assets/file-type-icons/mp4.svg"/>
-                        :<img src="https://indiafightscovid.com/wp-content/plugins/download-manager/assets/file-type-icons/jpg.svg"/>
-                    }
-                </div>
-                <div className="heads">
-                    <h3>{label}</h3>
-                    <p className="downloaded"> <span className="count"> {downloadsCount}</span> Downloads   </p>
-                </div>
-                <div className="download-btn">
-                    <Button onClick={() => handleDownload(Location,Key,_id)} animated >
-                        <Button.Content visible >Download</Button.Content>
-                        <Button.Content hidden>
-                            <Icon name='download' inverted />
-                        </Button.Content>
-                    </Button>
-                </div>
-            </div>
+            {
+                !link?files.map((file,index)=> (
+                   <DownloadCard key={index+'download-card'} file={file} _id={_id}/>
+                        )
+                ):null
+
+            }
+            
             <h2>Share With Others</h2>
             <div className="social-share">
                 <a className="facebook" href={'https://www.facebook.com/share.php?u='+encodeURIComponent(window.location.href)} target='_blank'><i className="facebook f icon"></i></a>

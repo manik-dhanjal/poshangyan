@@ -3,9 +3,9 @@ import styled from 'styled-components'
 import { Button, Icon } from 'semantic-ui-react'
 import play from '../../assets/Images/play.png' 
 import{ Link }from "react-router-dom"
-import handleDownload from "../../api/aws-handle-download"
 import audioThumb from "../../assets/Images/audio-thumbnail.png"
 import {useAddCart,useCheckItemInCart} from '../context/cart.context'
+import {createDownloadLink,initiatDownload,handleDownload} from "../../api/file-manager"
 const Div = styled.div`
 max-width:280px;
 width:100%;
@@ -76,6 +76,7 @@ align-items:center;
        
 `
 const slugCreater = (str) =>{
+
         const a = 'àáâäæãåāăąçćčđďèéêëēėęěğǵḧîïíīįìłḿñńǹňôöòóœøōõőṕŕřßśšşșťțûüùúūǘůűųẃẍÿýžźż·/_,:;'
         const b = 'aaaaaaaaaacccddeeeeeeeegghiiiiiilmnnnnoooooooooprrsssssttuuuuuuuuuwxyyzzz------'
         const p = new RegExp(a.split('').join('|'), 'g')
@@ -101,41 +102,95 @@ else color = "rgb(239,82,135)";
 }
 
 
-
 const Cards = ({post}) => {
-    const {label,Location,thumbLocation,mimetype,Key,_id,themes} = post;
+    const {label,images,files,_id,themes,link} = post;
+    const [lastDownloaded,setLastDownloaded] = useState({
+          id:'',
+          items:[],
+          status:''
+    });
     const addToCart = useAddCart()
     const isItemInCart = useCheckItemInCart()(post._id);
+    const thumbnail = !link&&files[0].mimetype=="audio"?audioThumb:images[0].location
+    const youtubeLink = link?link.includes('youtu.be'):false;
+    const handleCardDownload =async (file,_id) => {
+        if(file.length===1){
+          setLastDownloaded({...lastDownloaded,status:'pending'});
+          try{
+            const url = await handleDownload(file[0].key,_id)
+            setLastDownloaded({...lastDownloaded,status:'success'});
+          }catch(e){
+            setLastDownloaded({...lastDownloaded,status:'failed'})
+          }
+          return 0;
+        }
+        if(lastDownloaded.status==='success'){  
+          initiatDownload( lastDownloaded.id ); 
+          return 0;
+        }
+
+      const listOfKeys = files.map(file=> file.key)
+      createDownloadLink(listOfKeys,lastDownloaded,setLastDownloaded)
+    }
+    
     return (
         <Div tagColor={tagColor(themes)}>
-                <Link to={`${slugCreater(post.themes)}/${post.postId}`} className="link">
+          {
+            link&&!youtubeLink?(
+              <a href={link} target='_blank' className="link">
 
-                  <div className="card-thumbnail" style={{background:`center / cover no-repeat url(${mimetype.includes("audio")?audioThumb:(thumbLocation||Location)})`}}>
+                  <div className="card-thumbnail" style={{background:`center / cover no-repeat url(${thumbnail})`}}>
                       <div className="theme-tag">{themes}</div>
-                    { mimetype.includes("video")? <img src={play} className="play-btn"/> :null }
                   </div>
-
                    <div className="label"> {label} </div> 
-                </Link>
-                <div className='button'>
-                  <Button onClick={() => handleDownload(Location,Key,_id)} animated >
-                      <Button.Content visible >Download</Button.Content>
-                      <Button.Content hidden>
-                          <Icon name='download' inverted />
-                      </Button.Content>
-                  </Button>
-                  <Button onClick={() => addToCart(post)} animated disabled = {isItemInCart} className='add-to-cart-btn'>
-                      <Button.Content visible > {!isItemInCart?'Add To Cart':'Added'}</Button.Content>
-                   
-                        <Button.Content hidden>
-                        { !isItemInCart? 
-                            <i className="shopping cart icon"></i>
-                            :<i className="check icon"></i>
-                        }    
-                        </Button.Content>
+                </a>
+            )
+            :(
+              <Link to={slugCreater(post.themes)+'/'+post.postId} className="link">
 
-                  </Button>
+                <div className="card-thumbnail" style={{background:`center / cover no-repeat url(${thumbnail})`}}>
+                    <div className="theme-tag">{themes}</div>
+                  { youtubeLink||files[0].mimetype=="video"? <img src={play} className="play-btn"/> :null }
                 </div>
+                <div className="label"> {label} </div> 
+              </Link>
+            )
+          }
+                {
+                  !link?<div className='button'>
+                        <Button 
+                          onClick={() =>handleCardDownload(files,_id)} 
+                          animated 
+                          disabled={lastDownloaded.status==='pending'} 
+                          loading={lastDownloaded.status==='pending'}
+                        >
+                             <Button.Content visible>
+                                  {lastDownloaded.status!=='failed'?'Download':'Try again'}
+                              </Button.Content>
+                            {
+                              lastDownloaded.status!=='pending'?
+                              
+                              <Button.Content hidden>
+                                  <Icon name='download' inverted />
+                              </Button.Content>:
+                              null
+                            }
+                        </Button>
+                        <Button onClick={() => addToCart(post)} animated disabled = {isItemInCart} className='add-to-cart-btn'>
+                            <Button.Content visible > {!isItemInCart?'Add To Cart':'Added'}</Button.Content>
+                        
+                              <Button.Content hidden>
+                              { !isItemInCart? 
+                                  <i className="shopping cart icon"></i>
+                                  :<i className="check icon"></i>
+                              }    
+                              </Button.Content>
+
+                        </Button>
+                      </div>
+                      :null
+                }
+                
         </Div>
     )
 }

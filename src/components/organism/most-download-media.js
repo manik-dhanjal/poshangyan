@@ -2,13 +2,11 @@ import React, {useEffect,useState,useMemo} from 'react'
 import styled from "styled-components"
 import {Container} from "@material-ui/core"
 import Cards from "../molecules/cards-sm"
-import downloadedMediaApi from "../../api/allData.api"
-import ViewAllBtn from "../atom/view-all-btn"
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import PreSearchPost from "../molecules/searching-post"
-
+import axios from "axios"
 const Div = styled.div`
 
 background:white;
@@ -123,8 +121,32 @@ const PrevArrow = ({ onClick,className }) => {
     </div>  
   );
 }
-const MostDownloadMedia = ({post}) => {
+const MostDownloadMedia = () => {
+  const [post,setPost] = useState({
+    status:'',
+    data:[]
+  })
     const slicedData = post.data.sort((a,b)=> b.downloadsCount-a.downloadsCount).slice(0,12)
+  useEffect(()=>{
+    setPost({
+      status:'pending',
+      data:[]
+    })
+    axios.get('/most-downloaded')
+    .then(response => {
+      setPost({
+        status:'success',
+        data:response.data
+      })
+    })
+    .catch(error => {
+      console.log(error)
+      setPost({
+        status:'failed',
+        data:[]
+      })
+    })
+  },[])
     var settings = {
         dots: false,
         infinite: true,
@@ -163,7 +185,7 @@ const MostDownloadMedia = ({post}) => {
                        :(
                            post.status==="success"?
                             <Slider {...settings}>
-                                { slicedData.map((a,i)=> <Cards post={a} key={i}/>) }
+                                { post.data.map((a,i)=> <Cards post={a} key={i}/>) }
                             </Slider>
                             :<h3 className="message">Unable to find Your Data ...</h3>
                        ) 
