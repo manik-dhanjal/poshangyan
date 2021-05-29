@@ -47,7 +47,6 @@ const App = () => {
                                     <Route exact path='/' component={Home} />
                                     <Route exact path='/search' component={Search} />
                                     <Route exact path='/2626/login' component={Login} />
-                                    <Route exact path="/2626/register" component={Register} />
                                     <Route exact path='/2626/dashboard' component={AdminPortal} />
                                     <Route exact path='/:theme/:title' component={SingleCreative} />
                                     <Route exact path='/about-us' component={About} />
