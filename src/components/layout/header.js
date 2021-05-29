@@ -270,7 +270,7 @@ const Header = () => {
                         </div>
                     </div>
                     
-                    <CartDrop state={IsCartDropOpen} cart={cart} deleteFromCart={ChangeCart}/>
+                    <CartDrop state={IsCartDropOpen} setCartDropOpen={setCartDropOpen} cart={cart} deleteFromCart={ChangeCart}/>
             </Nav>
             
         </Container>

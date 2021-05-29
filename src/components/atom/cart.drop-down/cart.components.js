@@ -7,9 +7,9 @@ import { Button, Icon } from 'semantic-ui-react'
 import { v4 as uuidv4 } from 'uuid';
 import { Dimmer, Loader, Image, Segment } from 'semantic-ui-react';
 import Styles from "./cart.styles"
-import {createDownloadLink} from "../../../api/file-manager"
+import {createDownloadLink,initiatDownload} from "../../../api/file-manager"
 
- const CartDrop = ({state,cart,deleteFromCart}) =>{
+ const CartDrop = ({state,cart,deleteFromCart,setCartDropOpen}) =>{
     const [lastDownloaded,setLastDownloaded] = useState({
          id:'',
          items:[],
@@ -17,7 +17,7 @@ import {createDownloadLink} from "../../../api/file-manager"
     });
     const currentCartItems = useCart()
   
-    function downloadAll()  {
+const  downloadAll = async () => {
 
         const cartItemsKey = []
        if(currentCartItems<=0) return 0;
@@ -25,18 +25,22 @@ import {createDownloadLink} from "../../../api/file-manager"
             item.files.forEach(file => cartItemsKey.push(file.key))
         })
             if( JSON.stringify( cartItemsKey) !== JSON.stringify( lastDownloaded.items )){
-                    createDownloadLink( cartItemsKey,setLastDownloaded,lastDownloaded );
+                   await createDownloadLink( cartItemsKey,lastDownloaded,setLastDownloaded );
             }
             else{
                 initiatDownload( lastDownloaded.id );
             }
-            
+            setCartDropOpen(false);
+    }
+    const handleClearBtn = () => {
+        deleteFromCart('','DeleteAll');
+        setCartDropOpen(false);
     }
      return(
         <Styles state = {state}>
             <div className='head'>
                 <h4>Cart</h4>
-                <span className='clear' onClick={() => deleteFromCart('','DeleteAll')}>Clear All</span>
+                <span className='clear' onClick={handleClearBtn}>Clear All</span>
             </div>
             <hr/>
                 {lastDownloaded.status==='failed'?<p className='failed-message'>Try Again</p>:null}

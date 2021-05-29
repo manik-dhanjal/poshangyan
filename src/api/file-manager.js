@@ -8,6 +8,7 @@ export const createDownloadLink = async (cartItemKeys,lastDownloaded,setLastDown
             const response = await axios.post('/create-zip',{list:cartItemKeys});
             setLastDownloaded({id:response.data,items:cartItemKeys,status:'success'});
             initiatDownload( response.data );
+            return response
     }
     catch(e){
         setLastDownloaded({...lastDownloaded,status:'failed'})
