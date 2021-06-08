@@ -53,7 +53,7 @@ app.get('/posts/:postID', getPostInfo)
 app.delete('/posts/:postID', auth, deletePost)
 app.put('/posts/:postID', auth, updatePostInfo)
 app.post('/post',auth,addPost)
-app.get('/runScript',script)
+// app.get('runScript',auth,script)
 
 const { addSortingData, getSortingData, modifySortingData, delFromSortingData } = require('./handlers/sortingDataRoutes')
 
@@ -63,7 +63,7 @@ app.post('/modifySortingData', auth, modifySortingData)      //TODO: Add Auth  /
 app.post('/deleteFromSortingData', auth, delFromSortingData) //TODO: Add Auth  // REMOVE things
 
 
-const { addAdmin, login , validAdmin} = require('./handlers/admin')
+const { addAdmin, login , validAdmin, post} = require('./handlers/admin')
 
 // app.post('/login', login)
 // app.post('/isValidAdmin',Auth,validAdmin)
@@ -264,7 +264,45 @@ schedule.scheduleJob('30 00 19 * * 4', () => {
             console.log({ err: "Error in sending email.... 2" });
         })
 })
+// app.get('/find-now',async(req,res)=>{
+//     try{
+//         const posts =await Post.find();
+//         const themeObject = {}
+//         posts.forEach(item => {
+//             const themeStr = item.themes;
+//             themeStr.split(',').map(themeRaw => {
+//                 const theme = themeRaw.trim().toLowerCase();
+//                 if(!themeObject[theme])  themeObject[theme] = 0;
+//                 const count = item.files.reduce((total,file) => total+file.downloadsCount,0)
+//                 themeObject[theme] = themeObject[theme] + count;
+//             })
+//         })
+//         console.log(themeObject.)
+//         res.send(themeObject)
+//     }
+//     catch(err){
+//         console.log(Err)
+//         res.send(err)
+//     }
+// })
+app.get('/fill-empty',async (req,res)=>{
+    try{
+        const posts =await Post.find();
+        posts.forEach(item => {
+            if(!item.files.length)
+                item.files = [...item.images]
 
+            if(!item.images.length)
+                console.log(item)
+                
+            item.save();
+        })    
+        res.send(posts)
+    }
+    catch(err){
+        console.log(err)
+    }
+})
 app.use("/2626/", require("./handlers/admin"));
 
 app.use((error, req, res, next) => {

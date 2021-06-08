@@ -24,7 +24,6 @@ const mimetype = (key) => {
 }
 
 exports.uploadFile = async (req, res) => { 
-
   const file = req.file;
   
   var params = {
@@ -39,13 +38,13 @@ exports.uploadFile = async (req, res) => {
       res.status(500).json({ error: true, Message: err });
     } else {
       console.log(data)
-      const fileName = data.key.substr(0,data.key.lastIndexOf('.')) 
+      const fileName = data.Key.substr(0,data.Key.lastIndexOf('.')) 
                           
       res.status(200).json({
-        key: data.key,
+        key: data.Key,
         location:data.Location,
         name:fileName,
-        mimetype:mimetype(data.key)
+        mimetype:mimetype(data.Key)
      });
     }
   });

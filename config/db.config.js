@@ -4,8 +4,9 @@ require("dotenv").config()
 
 const connectDB = async () => {
     try{
-        const isNodeEnvDevelopment = process.env.NODE_ENV === 'Development'
-        const mongoDbURI =  process.env.MONGODB_URI;
+        // const isNodeEnvDevelopment = process.env.NODE_ENV === 'Development'
+        // const mongoDbURI =  process.env.MONGODB_URI;
+        const mongoDbURI =  'mongodb://localhost:27017/poshan-gyan'
         const db = await mongoose.connect(mongoDbURI,{
                     useNewUrlParser: true, 
                     useUnifiedTopology: true
