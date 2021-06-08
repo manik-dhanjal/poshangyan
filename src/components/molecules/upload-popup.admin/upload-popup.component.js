@@ -44,7 +44,6 @@ const UploadPopup = ({children,images=false,uploadedFiles,setUploadedFiles}) => 
             name:''
         })
         const uploadedFileUrl =[]
-        let totalPercentageUpload = 0;
         for(var i=0;i<selectedFiles.length;i++){
             const data = new FormData();
             data.append("file",selectedFiles[i]);
@@ -53,10 +52,9 @@ const UploadPopup = ({children,images=false,uploadedFiles,setUploadedFiles}) => 
                 const fileUrl = await axios.post('/upload-file',data,{headers: { "x-auth-token": token },
                         onUploadProgress: (progressEvent) => {
                             const uploadPercentage = Math.floor((progressEvent.loaded / progressEvent.total) * 100);
-                            totalPercentageUpload += uploadPercentage / selectedFiles.length
                             setIsUploading({
                                 status:true,
-                                percentage:totalPercentageUpload,
+                                percentage:uploadPercentage,
                                 fileName:selectedFiles[i].name
                             })
                     }
@@ -67,23 +65,25 @@ const UploadPopup = ({children,images=false,uploadedFiles,setUploadedFiles}) => 
             catch(error){
                 console.log(error,'error while uploading')
                 setDropedFiles(prevFiles => {
-                    const errorFile = prevFiles.shift()
+                    const errorFile = selectedFiles[i].name
                     setErrorInUpload((prevErr)=>{
-                        return { message:'error while uploading file', file:[...prevErr.file,errorFile.name]}
+                        return { message:'error while uploading file', files:[...prevErr.files,errorFile.name]}
                     })
-                    return prevFiles;
+                        return prevFiles.filter(file => file.name!==selectedFiles[i].name)
                 })
                
             }
         }
-        setDropedFiles([]);
-        setUploadedFiles(prevFiles => [...prevFiles,...uploadedFileUrl])
-        setIsUploading({
-            status:false,
-            percentage:0,
-            fileName:''
-        })
-        setOpen(false)
+        if(!errorInUpload.message){
+            setDropedFiles([]);
+            setUploadedFiles(prevFiles => [...prevFiles,...uploadedFileUrl])
+            setIsUploading({
+                status:false,
+                percentage:0,
+                fileName:''
+            })
+            setOpen(false)
+        }
     }
     return (
         <Modal
@@ -102,7 +102,7 @@ const UploadPopup = ({children,images=false,uploadedFiles,setUploadedFiles}) => 
             <Modal.Content>
                 <Styles>
                     <Tab panes={panes} />
-                    {isUploading.status?<ProgressBarModal errorInUpload = {errorInUpload} percentage={isUploading.percentage} fileName={isUploading.fileName}/>:null}
+                    {isUploading.status?<ProgressBarModal errorObj = {errorInUpload} setErrorObj = {setErrorInUpload}isUploading={isUploading} setIsUploading={setIsUploading}/>:null}
                     {
                         errorObj?
                         <Alert onClose={() => setErrorObj(null)} severity="error">

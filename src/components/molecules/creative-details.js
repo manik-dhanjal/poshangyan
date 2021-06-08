@@ -105,7 +105,7 @@ const CreativeDetails = ({label,themes,source,_id,targetAudience,languages,files
             </table>
             {
                 !link?files.map((file,index)=> (
-                   <DownloadCard key={index+'download-card'} file={file} _id={_id}/>
+                   <DownloadCard key={index+'download-card'} file={file} _id={_id} themes={themes}/>
                         )
                 ):null
 

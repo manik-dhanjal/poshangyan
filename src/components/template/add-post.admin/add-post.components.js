@@ -5,7 +5,7 @@ import Snackbar from "@material-ui/core/Snackbar";
 import Alert from "@material-ui/lab/Alert";
 import UploadPopup from "../../molecules/upload-popup.admin/upload-popup.component"
 import AddPostForm from "../../molecules/add-post-form.admin/add-post-form.component"
-import {useCategories} from "../../context/post.context"
+import {useFetchPostAgain} from "../../context/post.context"
 import Styles from "./add-post.styles"
 
 
@@ -21,7 +21,7 @@ const AddPost = () => {
       selected:false,
       value:''
   })
-
+  const fetchPostAgain = useFetchPostAgain()
 
 
   const handleRadioBtn = (e) => {
@@ -67,7 +67,7 @@ const AddPost = () => {
     }   
     return true
   }
-  const handleSubmit = async (postData) =>{
+  const handleSubmit = async (postData,setAddPostData) =>{
       setUpdateStatus({
           status:"pending",
           message:'request is in process'
@@ -83,6 +83,19 @@ const AddPost = () => {
       try{
         let token = localStorage.getItem("auth-token");
         const response = await axios.post(`/post`,{postData:newPostData},{headers: { "x-auth-token": token },})
+        setUploadedFiles([])
+        setUploadedImages([])
+        setAddPostData({
+            label:'',
+            themes:'',
+            languages:'',
+            targetAudience:'',
+            source:''
+        })
+        setPostLink({
+            selected:false,
+            value:''
+        })
         setUpdateStatus({
             status:"success",
             message:'Post is created successfully'
@@ -95,6 +108,7 @@ const AddPost = () => {
             message:e.message
         })
       }
+      fetchPostAgain();
   }
 
 
@@ -146,7 +160,7 @@ const AddPost = () => {
             {
                 updateStatus==='pending'?
                     <Dimmer active inverted>
-                        <Loader inverted>Loading</Loader>
+                        <Loader inverted>Uploading</Loader>
                     </Dimmer> 
                     :null
             }       

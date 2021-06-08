@@ -1,17 +1,37 @@
 import React,{useRef} from 'react'
 import Styles from './progress-bar.styles'
 
-const ProgressBarModal = ({percentage,fileName,errorObj}) => {
-
-
-
+const ProgressBarModal = ({errorObj,isUploading,setIsUploading,setErrorObj}) => {
+console.log(errorObj,isUploading)
+const closeModal = () =>{
+    setIsUploading({
+        status:false,
+        percentage:0,
+        fileName:''
+    })
+    setErrorObj({
+        message:'',
+        files:[]
+    })
+}
     return (
-        <Styles percentage={percentage}>
+        <Styles percentage={isUploading.percentage} objMsg={errorObj.message}>
                 <div className="overlay"></div>
-                {/* <div className="close" onClick={(() => closeUploadModal())}>X</div> */}
+                    
+
                 <div className="progress-container">
-                    {/* <span ref={uploadRef}></span> */}
-                    <span className='file-name'>{fileName}</span>
+                    {
+                        errorObj.message?
+                        <div className="close" onClick={closeModal}> &#10005;</div>
+                        :null
+                    }
+                    <span className='file-name'>{isUploading.fileName}</span>
+                    {
+                        errorObj.message?
+                        <span className='error'>{errorObj.message}</span>
+                        :null
+                    }
+
                     <div className="progress">
                         <div className="progress-bar"></div>
                     </div>

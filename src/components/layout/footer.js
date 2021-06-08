@@ -49,20 +49,49 @@ font-size:0.9em;
 .bottom-footer{
     padding-top:15px;
     padding-bottom:15px;
+    display:flex;
+    flex-direction:row-reverse;
+    .left-cont{
+        flex:1;
+    }
+    .right-cont{
+        min-width:200px;
+        text-align:right;
+    }
+}
+.visitor-counter{
+    font-size: 16px;
+    margin-bottom: 10px;
+    color:grey;
+    span{
+        font-weight:600;
+        margin-left:5px;
+        font-size:1.3em;
+        color:#ff425e;
+    }
 }
 @media screen and (max-width:768px){
     text-align:center;
-    .credits{
-        
-    }
+   .bottom-footer{
+       flex-direction:column;
+       .right-cont{
+           text-align:center;
+       }
+   }
 }
 `
-const Footer = () => {
+const Footer = ({visitCount}) => {
     return (
         <SFooter>
                 <Container className='bottom-footer'>
-                    <div className="copyright">NITI Aayog <span>© 2020.All rights reserved.</span></div>
-                    <div className='disclaimer'>The resource materials provided on the site are for reference purposes only and do not constitute government endorsement or approval unless stated otherwise.</div>
+                    <div className='right-cont'>
+                        <div className='visitor-counter'>Visitors: <span>{visitCount}</span></div>
+                        <div className='last-updated'></div>
+                    </div>
+                    <div className='left-cont'>
+                        <div className="copyright">NITI Aayog <span>© 2020.All rights reserved.</span></div>
+                        <div className='disclaimer'>The resource materials provided on the site are for reference purposes only and do not constitute government endorsement or approval unless stated otherwise.</div>
+                    </div>
                 </Container>
         </SFooter>
     )

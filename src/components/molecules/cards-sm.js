@@ -6,6 +6,7 @@ import{ Link }from "react-router-dom"
 import audioThumb from "../../assets/Images/audio-thumbnail.png"
 import {useAddCart,useCheckItemInCart} from '../context/cart.context'
 import {createDownloadLink,initiatDownload,handleDownload} from "../../api/file-manager"
+import ReactGA from "react-ga"
 const Div = styled.div`
 max-width:280px;
 width:100%;
@@ -119,6 +120,10 @@ const Cards = ({post}) => {
           try{
             const url = await handleDownload(file[0].key,_id)
             setLastDownloaded({...lastDownloaded,status:'success'});
+            ReactGA.event({
+              category: 'Creative Downloaded',
+              action: `creative with ${themes} theme downloaded`,
+            });
           }catch(e){
             setLastDownloaded({...lastDownloaded,status:'failed'})
           }

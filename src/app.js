@@ -14,6 +14,7 @@ import { CartProvider } from "./components/context/cart.context"
 import { PostProvider } from "./components/context/post.context"
 import UserContext from './components/context/userContext';
 import axios from 'axios';
+import ReactGA from 'react-ga';
 import './App.css'
 
 const App = () => {
@@ -35,15 +36,18 @@ const App = () => {
             }}
 
             checkLoggedIn();
+            ReactGA.initialize('G-7FMF93FGNS',{
+                debug: true,
+            })
+            ReactGA.pageview('/');
         }, []);
     return (
         <UserContext.Provider value={{ userData, setUserData }}>
             <CartProvider>
                 <PostProvider>
                     <Router>
-                        <Switch>
-                            <Layout>
-                                <Switch>
+                        <Layout>
+                            <Switch>
                                     <Route exact path='/' component={Home} />
                                     <Route exact path='/search' component={Search} />
                                     <Route exact path='/2626/login' component={Login} />
@@ -53,8 +57,7 @@ const App = () => {
                                     <Route exact path='/important-links' component={ImportantLinks} />
                                     <Route component={NotFound}/>
                                 </Switch>
-                            </Layout>
-                        </Switch>
+                        </Layout>
                     </Router>
                 </PostProvider>
             </CartProvider>

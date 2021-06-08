@@ -28,7 +28,13 @@ export default styled.div`
     transform: translate(-50%,-50%);
     overflow: hidden;
 }
-
+.close{
+    text-align:right;
+    padding-top:10px;
+    padding-right:10px;
+    cursor:pointer;
+    font-size:20px;
+}
 .progress-container span {
     display: flex;
     justify-content: center;
@@ -57,6 +63,7 @@ export default styled.div`
     font-weight: bold;
     width:${({percentage})=> percentage}%;
     transition:ease 0.1s;
+    max-width:100%;
 }
 
 .error {

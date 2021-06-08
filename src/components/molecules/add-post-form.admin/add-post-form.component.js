@@ -14,6 +14,7 @@ const AddPostForm = ({handleSubmit}) => {
     const rawCategories = useCategories();
     const handleInputChange = (e) =>{
         setAddPostData({...addPostData,[e.target.name]:e.target.value})
+        console.log(addPostData)
     }
     const handleDropChange = (e,data) =>{
         setAddPostData({...addPostData,[data.name]:data.value.toString()})
@@ -55,6 +56,12 @@ const AddPostForm = ({handleSubmit}) => {
             options: rawCategories.status==="success"?sortMenuTab(rawCategories.data.sources):[]
         }
     ]
+    const handleLocalSubmit = () => {
+        handleSubmit(addPostData,setAddPostData)
+    }
+    const setDefaultValue = (e) =>{
+        return addPostData[e]?addPostData[e].split(','):[]
+    }
     return (
         <Styles>
                 <Input onChange={handleInputChange} placeholder="Name" name='label'className='custom-input' value={addPostData.label} required/>
@@ -68,6 +75,7 @@ const AddPostForm = ({handleSubmit}) => {
                                 search 
                                 selection 
                                 options={menu.options} 
+                                value={setDefaultValue(menu.name)} 
                                 onChange={handleDropChange} 
                                 name={menu.name}
                                 className='custom-input'
@@ -76,7 +84,7 @@ const AddPostForm = ({handleSubmit}) => {
                 )
                 })}
                 <div className='submit-cont'>
-                    <Button inverted color="green"  onClick={() => handleSubmit(addPostData)}>
+                    <Button inverted color="green"  onClick={() => handleLocalSubmit()}>
                         Add Post
                     </Button>
                 </div>

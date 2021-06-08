@@ -95,7 +95,7 @@ const BannerMenu = ({query={}}) => {
      setUrl(temp)
    }, [params])
    const sortMenuTab = (options) =>{
-        
+        if(!options) return [];
     var any, other;
     var temp = [];  
      options.forEach(e=>{
