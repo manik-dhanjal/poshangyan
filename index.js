@@ -36,7 +36,7 @@ app.get('/', (req, res) => {
     })
 })
 
-const { getFilteredInfo, getThemeoftheMonth, getMostDownloaded,setThemeOfTheMonth }= require('./handlers/info');
+const { getFilteredInfo, getThemeoftheMonth, getMostDownloaded,setThemeOfTheMonth,getVisitorAnalytics }= require('./handlers/info');
 const { uploadFile,deleteFile,addDownloadCount } = require('./handlers/s3.CRUD')
 
 app.post('/upload-file', [auth,upload.single('file')],uploadFile)
@@ -46,6 +46,7 @@ app.post('/getFilteredInfo', getFilteredInfo)
 app.get('/most-downloaded', getMostDownloaded)
 app.get('/getThemesOfTheMonth', getThemeoftheMonth)
 app.post('/set-theme-of-the-month',auth,setThemeOfTheMonth)
+app.post('/visitors-analytics',getVisitorAnalytics)
 
 const { getPostInfo, deletePost, updatePostInfo, addPost,script } = require('./handlers/Posts')
 
@@ -294,7 +295,7 @@ app.get('/fill-empty',async (req,res)=>{
 
             if(!item.images.length)
                 console.log(item)
-                
+
             item.save();
         })    
         res.send(posts)
@@ -303,6 +304,7 @@ app.get('/fill-empty',async (req,res)=>{
         console.log(err)
     }
 })
+
 app.use("/2626/", require("./handlers/admin"));
 
 app.use((error, req, res, next) => {

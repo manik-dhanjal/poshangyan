@@ -1,6 +1,7 @@
 
 const { update } = require('../schema/postSchema');
 const Post = require('../schema/postSchema')
+const userAnalyticsModel = require('../schema/userAnalytics.schema')
 exports.getFilteredInfo = (req, res) => {
 
   let filter = {};
@@ -149,6 +150,34 @@ exports.getMostDownloaded =async (req, res) => {
   catch(errir){
           console.error(err)
         res.send({err:'Something Went Wrong!!'})
+  }
+}
+
+exports.getVisitorAnalytics = async (req,res) => {
+  try{
+      var uniqueId = req.body.userID;
+      const existingUser = await userAnalyticsModel.findById(uniqueId)
+      if(existingUser||uniqueId){
+        existingUser.visits = existingUser.visits+1;
+        await existingUser.save();
+      }
+      else{
+        const userAnalytics = new userAnalyticsModel({
+          visits:1
+        })
+        await userAnalytics.save();
+        uniqueId = userAnalytics._id;
+      }
+      const uniqueUsersNum = await userAnalyticsModel.find();
+
+      res.send({
+        userID:uniqueId,
+        uniquieVisits:uniqueUsersNum.length+3503
+      })
+  }
+  catch(err){
+    console.log(err,'while adding user analytics');
+    res.status(500).send(err)
   }
 }
 
