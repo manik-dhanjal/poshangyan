@@ -36,9 +36,7 @@ const App = () => {
             }}
 
             checkLoggedIn();
-            ReactGA.initialize('G-7FMF93FGNS',{
-                debug: true,
-            })
+            ReactGA.initialize('G-7FMF93FGNS')
             ReactGA.pageview('/');
         }, []);
     return (

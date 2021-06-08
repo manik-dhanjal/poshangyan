@@ -24,11 +24,9 @@ const Layout = ({children,history,location}) => {
     }
     useEffect(()=>{
         ReactGA.pageview(location.pathname); 
-        console.log('first Load',history.pathname)
         history.listen((location) => {
             ReactGA.set({ page: location.pathname });
             ReactGA.pageview(location.pathname)
-            console.log('neutral load',location.pathname)
           }
         );
         fetchAnalyticsData();
