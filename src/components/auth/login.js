@@ -17,8 +17,9 @@ function Login () {
             const loginUser = {email, password};
             const loginResponse = await axios.post("/2626/login", loginUser);
             setUserData({
+                status:"success",
                 token: loginResponse.data.token,
-                user: loginResponse.data.user
+                user: loginResponse.data.admin.displayName
             });
             localStorage.setItem("auth-token", loginResponse.data.token);
             history.push("/2626/dashboard");

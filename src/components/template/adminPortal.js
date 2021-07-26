@@ -5,15 +5,17 @@ import { Container, Grid, Menu, Segment } from 'semantic-ui-react'
 import EditMain from './adminedit/editMain'
 import AddPost from './add-post.admin/add-post.components'
 import ThemeOfMonth from './adminedit/theme-of-month'
+import { Dimmer, Loader } from 'semantic-ui-react';
 
 const  MenuExampleTabularOnLeft = () => {
   const [activeItem,setActiveItem] = useState('Data Feeder')
   const {userData} = useContext(UserContext);
   const history = useHistory();
   useEffect(() => {
-    if(!userData.user)
+    console.log(userData)
+    if(userData.status==="failed")
       history.push("/");
-  }, []);
+  }, [userData.status]);
   const handleItemClick = (e, { name }) => { setActiveItem(name) }
 
 
@@ -33,35 +35,44 @@ const  MenuExampleTabularOnLeft = () => {
 
 
     return (
-      <Container style={{ marginTop: 50 }}>
-        <Grid>
-          <Grid.Column width={4}>
-            <Menu fluid vertical tabular>
-              <Menu.Item
-                name='Data Feeder'
-                active={activeItem === 'Data Feeder'}
-                onClick={handleItemClick}
-              />
-              <Menu.Item
-                name='Update'
-                active={activeItem === 'Update'}
-                onClick={handleItemClick}
-              />
-              <Menu.Item
-                name='Theme of the month'
-                active={activeItem === 'Theme of the month'}
-                onClick={handleItemClick}
-              />
-            </Menu>
-          </Grid.Column>
+        <Container style={{ marginTop: 50 }}>
+          {
+            userData.status==="success"?
+              <Grid>
+              <Grid.Column width={4}>
+                <Menu fluid vertical tabular>
+                  <Menu.Item
+                    name='Data Feeder'
+                    active={activeItem === 'Data Feeder'}
+                    onClick={handleItemClick}
+                  />
+                  <Menu.Item
+                    name='Update'
+                    active={activeItem === 'Update'}
+                    onClick={handleItemClick}
+                  />
+                  <Menu.Item
+                    name='Theme of the month'
+                    active={activeItem === 'Theme of the month'}
+                    onClick={handleItemClick}
+                  />
+                </Menu>
+              </Grid.Column>
 
-          <Grid.Column stretched width={12} >
-            <Segment>
-              {activeView}
-            </Segment>
-          </Grid.Column>
-        </Grid>
-      </Container>
+              <Grid.Column stretched width={12} >
+                <Segment>
+                  {activeView}
+                </Segment>
+              </Grid.Column>
+            </Grid>
+            :userData.status==="pending"?
+               <Dimmer active inverted>
+                  <Loader inverted>Loading</Loader>
+               </Dimmer>
+              :<h1>Failed</h1>
+          }
+          
+        </Container>
     )
   }
 

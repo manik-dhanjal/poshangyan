@@ -11,7 +11,8 @@ function AuthOptions () {
     const logout = () => {
         setUserData({
             token: undefined,
-            user: undefined
+            user: undefined,
+            status:"failed"
         })
         localStorage.setItem("auth-token","");
     };

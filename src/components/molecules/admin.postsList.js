@@ -131,7 +131,7 @@ const PostsList = ({allPost,handleEditClick,setAllPost}) => {
                     <>
                     <div className="grid-search">
                         { 
-                           filteredPost.post.slice((filteredPost.pageno-1)*10,filteredPost.pageno*10).map(post=> (
+                           filteredPost.post.sort((a,b)=> new Date(b.createdAt)-new Date(a.createdAt)).slice((filteredPost.pageno-1)*10,filteredPost.pageno*10).map(post=> (
                             <PostCards 
                                 post={post} 
                                 key={post.postId} 

@@ -19,9 +19,15 @@ import './App.css'
 
 const App = () => {
     const [ userData, setUserData] = useState({
+        status:"pending",
         token: undefined,
         user: undefined
     });
+    useEffect(() => {
+        ReactGA.initialize("G-F47Q9N3TFQ")
+        ReactGA.pageview(window.location.pathname + window.location.search); 
+    },[])
+    
     useEffect(() => {
         const checkLoggedIn = async () => {
             let token = localStorage.getItem("auth-token");
@@ -32,12 +38,14 @@ const App = () => {
             const tokenResponse = await axios.post('/2626/tokenIsValid', null, {headers: {"x-auth-token": token}});
             if (tokenResponse.data) {
                 const userRes = await axios.get("/2626/", {headers: { "x-auth-token": token },});
-                setUserData({token:token,user: userRes.data,});
-            }}
-
+                setUserData({token:token,user: userRes.data,status:"success"});
+            }
+            else{
+                setUserData({token:null,user: null,status:"failed"});
+            }
+        }
             checkLoggedIn();
-            ReactGA.initialize('G-7FMF93FGNS')
-            ReactGA.pageview('/');
+   
         }, []);
     return (
         <UserContext.Provider value={{ userData, setUserData }}>
