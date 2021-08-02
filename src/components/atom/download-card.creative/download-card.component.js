@@ -3,18 +3,16 @@ import { handleDownload } from '../../../api/file-manager'
 import { Button, Icon } from 'semantic-ui-react'
 import Styles from "./download-card.styles"
 import genericImg from "../../../assets/Images/generic.png"
-import ReactGA from "react-ga"
-const DownloadCard = ({file,_id,themes}) => {
+import downloadGA from "../../../api/GA/content-downloaded.GA"
+const DownloadCard = (props) => {
+    const {file,_id} = props;
     const [downloadStatus,setDownloadStatus] = useState('')
     const handleCardDownload = async (key,_id) => {
         setDownloadStatus('pending')
+        downloadGA(props);
         try{
             const url = await handleDownload(key,_id);
             setDownloadStatus('success')
-                ReactGA.event({
-                    category: 'Creative Downloaded',
-                    action: `creative with ${themes} theme downloaded`,
-                  });
         }catch(e){
             console.log(e.message)
             setDownloadStatus('failed')

@@ -7,6 +7,7 @@ import audioThumb from "../../assets/Images/audio-thumbnail.png"
 import {useAddCart,useCheckItemInCart} from '../context/cart.context'
 import {createDownloadLink,initiatDownload,handleDownload} from "../../api/file-manager"
 import ReactGA from "react-ga"
+import downloadGA from "../../api/GA/content-downloaded.GA"
 const Div = styled.div`
 max-width:280px;
 width:100%;
@@ -115,6 +116,7 @@ const Cards = ({post}) => {
     const thumbnail = !link&&files[0].mimetype=="audio"?audioThumb:images[0].location
     const youtubeLink = link?link.includes('youtu.be'):false;
     const handleCardDownload =async (file,_id) => {
+      downloadGA(post)
         if(file.length===1){
           setLastDownloaded({...lastDownloaded,status:'pending'});
           try{
@@ -133,7 +135,7 @@ const Cards = ({post}) => {
           initiatDownload( lastDownloaded.id ); 
           return 0;
         }
-
+    
       const listOfKeys = files.map(file=> file.key)
       createDownloadLink(listOfKeys,lastDownloaded,setLastDownloaded)
     }

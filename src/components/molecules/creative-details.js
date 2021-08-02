@@ -68,14 +68,15 @@ h4{
     }
 }
 `
-const CreativeDetails = ({label,themes,source,_id,targetAudience,languages,files,link}) => {
+const CreativeDetails = (props) => {
+    const {label,themes,source,_id,targetAudience,languages,files,link} = props
     const mimeString = (files) => {
         const arr = files.reduce((result,file) => {
            return result.find((item) => item === file.mimetype)?result:[...result,file.mimetype];
         },[])
         return `${arr}`
     } 
-  
+   
     return (
         <Div>
             <h1>{label}</h1>
@@ -105,7 +106,7 @@ const CreativeDetails = ({label,themes,source,_id,targetAudience,languages,files
             </table>
             {
                 !link?files.map((file,index)=> (
-                   <DownloadCard key={index+'download-card'} file={file} _id={_id} themes={themes}/>
+                   <DownloadCard key={index+'download-card'} file = {file} {...props}/>
                         )
                 ):null
 

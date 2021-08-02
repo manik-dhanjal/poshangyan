@@ -12,7 +12,6 @@ const  MenuExampleTabularOnLeft = () => {
   const {userData} = useContext(UserContext);
   const history = useHistory();
   useEffect(() => {
-    console.log(userData)
     if(userData.status==="failed")
       history.push("/");
   }, [userData.status]);

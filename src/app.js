@@ -23,10 +23,8 @@ const App = () => {
         token: undefined,
         user: undefined
     });
-    useEffect(() => {
-        ReactGA.initialize("G-F47Q9N3TFQ")
-        ReactGA.pageview(window.location.pathname + window.location.search); 
-    },[])
+ 
+
     
     useEffect(() => {
         const checkLoggedIn = async () => {

@@ -8,6 +8,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { Dimmer, Loader, Image, Segment } from 'semantic-ui-react';
 import Styles from "./cart.styles"
 import {createDownloadLink,initiatDownload} from "../../../api/file-manager"
+import downloadGA from "../../../api/GA/content-downloaded.GA"
 
  const CartDrop = ({state,cart,deleteFromCart,setCartDropOpen}) =>{
     const [lastDownloaded,setLastDownloaded] = useState({
@@ -18,10 +19,10 @@ import {createDownloadLink,initiatDownload} from "../../../api/file-manager"
     const currentCartItems = useCart()
   
 const  downloadAll = async () => {
-
         const cartItemsKey = []
        if(currentCartItems<=0) return 0;
         currentCartItems.forEach((item)=>{
+            downloadGA(item)
             item.files.forEach(file => cartItemsKey.push(file.key))
         })
             if( JSON.stringify( cartItemsKey) !== JSON.stringify( lastDownloaded.items )){

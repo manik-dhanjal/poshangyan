@@ -22,12 +22,16 @@ const Layout = ({children,history,location}) => {
             console.log(e)
         }
     }
+    history.listen((location) => {
+        window.gtag("config", "UA-189608250-1",{
+            page_title:location.pathname+ location.search,
+            page_path:location.pathname+ location.search
+        })
+        // ReactGA.set({ page: location.pathname+ location.search });
+        // ReactGA.pageview(location.pathname+ location.search)
+      }
+    );
     useEffect(()=>{
-        history.listen((location) => {
-            ReactGA.set({ page: location.pathname+ location.search });
-            ReactGA.pageview(location.pathname+ location.search)
-          }
-        );
         fetchAnalyticsData();
     },[])
     return (
