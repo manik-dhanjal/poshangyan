@@ -30,6 +30,10 @@ const PostSchema = new Schema({
     required: 'postId is required',
     unique:true
   },
+  totalDownloads:{
+    type:Number,
+    default:0
+  },
   images:[{
     name:String,
     location:String,
@@ -51,7 +55,8 @@ const PostSchema = new Schema({
     },
     downloadsCount:{
       type: Number,
-      default:0
+      default:0,
+      index: true
     }
   }],
   link:String,

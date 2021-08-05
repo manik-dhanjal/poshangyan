@@ -90,7 +90,7 @@ exports.addDownloadCount = async (req, res) => {
       ResponseContentDisposition :  `attachment; filename=${key}`
     })
     const post =await Post.findById(_id);
-    console.log(post)
+    post.totalDownloads = post.totalDownloads+1
     post.files = post.files.map((file)=>{
           if(file.key===key)
               file.downloadsCount=file.downloadsCount+1;

@@ -36,13 +36,14 @@ app.get('/', (req, res) => {
     })
 })
 
-const { getFilteredInfo, getThemeoftheMonth, getMostDownloaded,setThemeOfTheMonth,getVisitorAnalytics }= require('./handlers/info');
+const { getFilteredInfo, getThemeoftheMonth, getMostDownloaded,setThemeOfTheMonth,getVisitorAnalytics,getFilteredInfoV2 }= require('./handlers/info');
 const { uploadFile,deleteFile,addDownloadCount } = require('./handlers/s3.CRUD')
 
 app.post('/upload-file', [auth,upload.single('file')],uploadFile)
 app.delete('/file/:key',[auth,upload.single('file')],deleteFile)
 app.post('/download-file', addDownloadCount)
-app.post('/getFilteredInfo', getFilteredInfo)
+app.post('/getFilteredInfo', getFilteredInfoV2)
+// app.post('/getFilteredInfoV2', getFilteredInfoV2)
 app.get('/most-downloaded', getMostDownloaded)
 app.get('/getThemesOfTheMonth', getThemeoftheMonth)
 app.post('/set-theme-of-the-month',auth,setThemeOfTheMonth)
@@ -305,13 +306,21 @@ schedule.scheduleJob('30 00 19 * * 4', () => {
 //     try{
 //         const posts =await Post.find();
 //         posts.forEach(item => {
-//             if(!item.files.length)
-//                 item.files = [...item.images]
+//             // if(!item.files.length)
+//             //     item.files = [...item.images]
 
-//             if(!item.images.length)
-//                 console.log(item)
-
-//             item.save();
+//             // if(!item.images.length)
+//                 // console.log(item)
+//                 if(item.files.length){
+//                     const total = item.files.reduce((total,current)=>{
+//                         return current.downloadsCount+total
+//                       },0)
+//                       item.totalDownloads = total;
+//                     item.save();
+//                 }
+           
+//             //     await post.save();
+           
 //         })    
 //         res.send(posts)
 //     }
