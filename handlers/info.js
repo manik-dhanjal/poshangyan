@@ -2,6 +2,7 @@
 const { update } = require('../schema/postSchema');
 const Post = require('../schema/postSchema')
 const userAnalyticsModel = require('../schema/userAnalytics.schema')
+
 exports.getFilteredInfo = (req, res) => {
 
   let filter = {};
@@ -26,6 +27,7 @@ exports.getFilteredInfo = (req, res) => {
 
   Post.find()
     .sort({ downloadsCount: -1 })
+    .limit(100)
     // .orderBy('viewsCount','desc')
     .then(dat=>{
       let posts=[];
@@ -122,7 +124,7 @@ exports.setThemeOfTheMonth = (req,res) =>{
  }
 exports.getThemeoftheMonth = async (req, res) => {
   try{
-    const data = await Post.find({ themes: new RegExp(process.env.themeofmonth) });
+    const data = await Post.find({ themes: new RegExp(process.env.themeofmonth) }).limit(4);
     res.send({
       post:data,
       theme:process.env.themeofmonth,
@@ -140,7 +142,7 @@ exports.getThemeoftheMonth = async (req, res) => {
 }
 exports.getMostDownloaded =async (req, res) => {
   try{
-    const posts =await Post.find({link: { $ne: '' }})
+    const posts =await Post.find({link: { $ne: '' }}).limit(100)
     const countOf = (item) => item.files.length?item.files.reduce((total,file) => {return total+file.downloadsCount},0):0;
     const sortedPost = posts.sort((a,b)=> {
           return countOf(b)-countOf(a)

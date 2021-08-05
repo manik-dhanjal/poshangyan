@@ -1,12 +1,14 @@
 require("dotenv").config();
 var AWS = require("aws-sdk");
 const Post = require('../schema/postSchema')
+const uuidv4 = require('uuid').v4;
 
 let s3bucket = new AWS.S3({
   accessKeyId: process.env.AWS_ACCESS_KEY_ID,
   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
   region: process.env.AWS_REGION
 });
+
 const mimetype = (key) => {
   const extention = key.substr(key.lastIndexOf('.')+1,key.length)
   const formats ={
@@ -25,10 +27,11 @@ const mimetype = (key) => {
 
 exports.uploadFile = async (req, res) => { 
   const file = req.file;
-  
+  const uuid = uuidv4();
+  const fileType = file.originalname.substr(file.originalname.lastIndexOf('.'),file.originalname.length)
   var params = {
     Bucket: process.env.AWS_BUCKET_NAME,
-    Key: file.originalname,
+    Key: `${uuid+fileType}`,
     Body: file.buffer,
     ContentType: file.mimetype,
     ACL: "public-read"

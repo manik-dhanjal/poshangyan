@@ -269,41 +269,56 @@ schedule.scheduleJob('30 00 19 * * 4', () => {
 //     try{
 //         const posts =await Post.find();
 //         const themeObject = {}
-//         posts.forEach(item => {
-//             const themeStr = item.themes;
-//             themeStr.split(',').map(themeRaw => {
-//                 const theme = themeRaw.trim().toLowerCase();
-//                 if(!themeObject[theme])  themeObject[theme] = 0;
-//                 const count = item.files.reduce((total,file) => total+file.downloadsCount,0)
-//                 themeObject[theme] = themeObject[theme] + count;
-//             })
-//         })
-//         console.log(themeObject.)
-//         res.send(themeObject)
+//         //  posts.forEach(item => {
+//         //     const themeStr = item.themes;    
+//         //     themeStr.split(',').map(themeRaw => {
+//         //         const theme = themeRaw.trim().toLowerCase();
+//         //         if(!themeObject[theme])  themeObject[theme] = 0;
+//         //         const count = item.files.reduce((total,file) => total+file.downloadsCount,0)
+//         //         themeObject[theme] = themeObject[theme] + count;
+//         //     })
+//         // })
+//         // res.send(themeObject)
+//         // posts.forEach(item => {
+//         //     const themeStr = item.languages;    
+//         //     themeStr.split(',').map(themeRaw => {
+//         //         const theme = themeRaw.trim().toLowerCase();
+//         //         if(!themeObject[theme])  themeObject[theme] = 0;
+//         //         const count = item.files.reduce((total,file) => total+file.downloadsCount,0)
+//         //         themeObject[theme] = themeObject[theme] + count;
+//         //     })
+//         // })
+//         // res.send(themeObject)
+//         const sortedPost = posts.map(item => {
+//                 return{
+//                     name:item.label,
+//                     count:item.files.reduce((total,file) => total+file.downloadsCount,0)
+//                 }
+//             }).sort((a,b) => b.count-a.count);
+//         res.send(sortedPost)
 //     }
 //     catch(err){
-//         console.log(Err)
 //         res.send(err)
 //     }
 // })
-app.get('/fill-empty',async (req,res)=>{
-    try{
-        const posts =await Post.find();
-        posts.forEach(item => {
-            if(!item.files.length)
-                item.files = [...item.images]
+// app.get('/fill-empty',async (req,res)=>{
+//     try{
+//         const posts =await Post.find();
+//         posts.forEach(item => {
+//             if(!item.files.length)
+//                 item.files = [...item.images]
 
-            if(!item.images.length)
-                console.log(item)
+//             if(!item.images.length)
+//                 console.log(item)
 
-            item.save();
-        })    
-        res.send(posts)
-    }
-    catch(err){
-        console.log(err)
-    }
-})
+//             item.save();
+//         })    
+//         res.send(posts)
+//     }
+//     catch(err){
+//         console.log(err)
+//     }
+// })
 
 app.use("/2626/", require("./handlers/admin"));
 
