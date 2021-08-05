@@ -29,7 +29,7 @@ exports.getFilteredInfoV2 = async (req,res) => {
         "$options":"i"
       }
     }
-    if(req.body.filter.source && !(req.body.filter.source.toLowerCase().includes('any')||req.body.source.filter.toLowerCase().includes('all')||req.body.filter.source=='')){
+    if(req.body.filter.source && !(req.body.filter.source.toLowerCase().includes('any')||req.body.filter.source.toLowerCase().includes('all')||req.body.filter.source=='')){
       let sourceRegex = new RegExp(req.body.filter.source.split(",").join('|'));
       filter.source = {
         "$regex": sourceRegex,
