@@ -21,12 +21,14 @@ useEffect(() => {
         const [data,behavData] = await axios.all([
             axios.post(`/getFilteredInfo`), 
             axios.post(`/getFilteredInfo`, {
-              themes:"Behavioural Insights"
+              filter:{
+                themes:"Behavioural Insights"
+              }
             })
           ])
           setPost({
-                data:data.data,
-                behavData:behavData.data,
+                data:data.data.post,
+                behavData:behavData.data.post,
                 status:"success"
           })
       }

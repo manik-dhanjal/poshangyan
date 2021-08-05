@@ -71,10 +71,12 @@ const SearchResults = ({query}) => {
         post:[],
         pageno:1,
         totalpage:1, 
-        status:"pending"
+        totalPost:0,
+        status:"pending",
     })
     const handlePageChange = (e,i) =>{
-      setData({...data,pageno:i.activePage}) 
+      fetchPage(query,i.activePage)
+    //   setData({...data,pageno:i.activePage}) 
     }
     const AllToAnyHandler = (query) =>{
         const newQuery = {};
@@ -94,66 +96,50 @@ const SearchResults = ({query}) => {
         }
         return newQuery;
     }
-    useEffect(()=>{
-        
-        (async ()=>{
-            const newQuery = await AllToAnyHandler(query);
-            var FilterData = {
-                themes:         newQuery.Themes?newQuery.Themes.toString():null,
-                languages:      newQuery.Languages?newQuery.Languages.toString():null,
-                targetAudience: newQuery.TargetAudiences?newQuery.TargetAudiences.toString():null,
-                mimetype:       newQuery.MediaType? newQuery.MediaType.toString():null,
-                source:         newQuery.Sources?newQuery.Sources.toString():null,
-              }
-              try{
-                setData({
-                    post:[],
-                    pageno:1,
-                    totalpage:1, 
-                    status:"pending"
-                 })
+    const fetchPage = async (rawQuery,pageNo=1) =>{
 
-                const res = await axios.post("/getFilteredInfo", FilterData)
-                  
-                var l = res.data.length;
-                var ans=0;
-                if(l%12) ans++;
-                ans+=Math.floor(l/12);
-                var sortedRes;
-                switch(query.sort?query.sort[0]:""){
-                  case "download":{
-                      sortedRes = res.data.sort((a,b)=> b.downloadsCount-a.downloadsCount)
-                      break;
-                  }
-                  case "date":{
-                      sortedRes = res.data.sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt) )
-                      break;
-                  }
-                  default:{
-                      sortedRes = res.data.sort((a,b)=> b.downloadsCount-a.downloadsCount)
-                  }
-                }
-                  setData({
-                     post:sortedRes,
-                     pageno:1,
-                     totalpage:ans, 
-                     status:"success"
-                  })
-              }
-              catch{
-                  setData({
-                      status:"fail",
-                      post:[],
-                      pageno:1,
-                      totalpage:1, 
-                  })
-              }
-        })()
+        const newQuery = AllToAnyHandler(rawQuery);
+        var FilterData = {
+            themes:         newQuery.Themes?newQuery.Themes.toString():null,
+            languages:      newQuery.Languages?newQuery.Languages.toString():null,
+            targetAudience: newQuery.TargetAudiences?newQuery.TargetAudiences.toString():null,
+            mimetype:       newQuery.MediaType? newQuery.MediaType.toString():null,
+            source:         newQuery.Sources?newQuery.Sources.toString():null,
+          }
+          try{
+            setData({
+                post:[],
+                pageno:pageNo,
+                totalpage:data.totalpage, 
+                totalPost:data.totalPost,
+                status:"pending"
+             })
+
+            const res = await axios.post("/getFilteredInfo", {filter:FilterData,page:pageNo,sort:rawQuery.sort})
+              
+              setData({
+                 post:res.data.post,
+                 pageno:res.data.currentPage,
+                 totalpage:res.data.totalPage, 
+                 totalPost:res.data.totalPost,
+                 status:"success"
+              })
+            }
+            catch{
+                setData({
+                    status:"fail",
+                    ...data,
+                })
+            }
+        }
+
+    useEffect(()=>{ 
+        fetchPage(query)
     },[query])  
     return (
         <Div>
             <Container>
-                <ShowSearchResult query={query} postNo={data.post.length}/>
+                <ShowSearchResult query={query} postNo={data.totalPost}/>
                     {
                         
                         data.status==="pending"?
@@ -162,7 +148,7 @@ const SearchResults = ({query}) => {
                           (data.status==="success"&&data.post.length)?
                           <>
                             <div className="grid-search">
-                            { data.post.slice((data.pageno-1)*12,data.pageno*12).map(post=> <Cards post={post} key={post.postId} fromPos={true}/>)}
+                            { data.post.map(post => <Cards post={post} key={post.postId} fromPos={true} />)}
                             </div>  
                             <div className="pagination-custom">
                                 <Pagination
