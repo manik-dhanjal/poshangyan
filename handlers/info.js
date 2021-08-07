@@ -69,7 +69,11 @@ exports.getFilteredInfoV2 = async (req,res) => {
     const numberOfPost = await Post.find(filter).countDocuments();
 
     const totalPages =  Math.floor(numberOfPost/postCount)+(numberOfPost%postCount?1:0);
-    if(totalPages<currentPage) throw new Error("Page Not Found");
+    if(totalPages<currentPage) {
+      return res.status(404).json({
+        message:"Post not found"
+      })
+    }
 
     const response = await Post.find(filter).sort(sort).skip((currentPage-1)*postCount).limit(postCount);
 
