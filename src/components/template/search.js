@@ -21,16 +21,27 @@ const searchTreat = (queryString) =>{
 }
 
 const Search = (props) => {
-    const [query,setQuery] = useState(searchTreat(props.location.search))
+    const [query,setQuery] = useState({
+        status:false,
+        data:null
+    })
     useEffect(()=>{
-        setQuery(searchTreat(props.location.search))
-        
+        setQuery({
+            status:true,
+            data:searchTreat(props.location.search)
+        })
     },[props.location.search])
-    
     return (
         <Div>
-            <Banner query={query}><h1>{query.Themes && query.Themes.length==1?query.Themes:"SEARCH RESULTS"}</h1></Banner>
-            <SearchResult query={query}/>
+            {
+                query.status?
+                <>
+                    <Banner query={query.data}><h1>{query.data.Themes && query.data.Themes.length==1?query.data.Themes:"SEARCH RESULTS"}</h1></Banner>
+                    <SearchResult query={query.data}/>
+                </>
+                :null
+            }
+
         </Div>
     )
 }

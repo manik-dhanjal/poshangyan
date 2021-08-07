@@ -125,15 +125,18 @@ const SearchResults = ({query}) => {
                  status:"success"
               })
             }
-            catch{
+            catch(error){
+                console.log(error)
                 setData({
-                    status:"fail",
-                    ...data,
+                    status:"failed",
                 })
             }
         }
-
+        useEffect(()=>{
+            console.log(data)
+        },[data])
     useEffect(()=>{ 
+        console.log("trigered",query)
         fetchPage(query)
     },[query])  
     return (
