@@ -2,7 +2,7 @@ import React,{useRef} from 'react'
 import Styles from './progress-bar.styles'
 
 const ProgressBarModal = ({errorObj,isUploading,setIsUploading,setErrorObj}) => {
-console.log(errorObj,isUploading)
+
 const closeModal = () =>{
     setIsUploading({
         status:false,

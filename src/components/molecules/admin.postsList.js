@@ -5,9 +5,13 @@ import { Icon,Pagination} from "semantic-ui-react"
 import DeleteModal from "./admin.delete-modal"
 import Snackbar from "@material-ui/core/Snackbar";
 import Alert from "@material-ui/lab/Alert";
+import paginatedContent from '../HOC/pagginated-content.hoc'
+import { Dimmer, Loader, Image, Segment } from 'semantic-ui-react';
 const Div = styled.div`
+min-height:60vh;
 .show-post{
   padding:20px 0px;
+  padding-top:50px;
 }
 .search-cont{
   border:1px solid #bbb;
@@ -50,21 +54,19 @@ const Div = styled.div`
   }
 `
 
-const PostsList = ({allPost,handleEditClick,setAllPost}) => {
-    const [searchVal,setSearchVal] = useState('');
+export const PostsList = ({data,handleEditClick,handlePageChange,reload}) => {
+    // const [searchVal,setSearchVal] = useState('');
     const [deletePopup,setDeletePopup] = useState({
       state:false,
       post:{}
     })
-    const [filteredPost,setFilteredPost] = useState( {
-        post:[],
-        pageno:1,
-        totalpage:1, 
-        status:"pending"
-      });
+    // const [filteredPost,setFilteredPost] = useState( {
+    //     post:[],
+    //     pageno:1,
+    //     totalpage:1, 
+    //     status:"pending"
+    //   });
       const [snackState,setSnackState] = useState(0);
-
-
 
       const handleDeleteClick = (post) => {
         setDeletePopup({
@@ -72,66 +74,69 @@ const PostsList = ({allPost,handleEditClick,setAllPost}) => {
           status:true
         });
       }
-      const handlePageChange = (e,i) =>{
-        setFilteredPost({...filteredPost,pageno:i.activePage}) 
-      }
+      // const handlePageChange = (e,i) =>{
+      //   setFilteredPost({...filteredPost,pageno:i.activePage}) 
+      // }
    
-      const handleSearch = (e) =>{
-        setSearchVal(e.target.value.toLowerCase())
-      }
+      // const handleSearch = (e) =>{
+      //   setSearchVal(e.target.value.toLowerCase())
+      // }
       const handleDelete = (post) =>{
-        const tempPost = allPost.posts.filter((item)=>{
-          if(item._id!==post._id) return item; 
-        })
+        // const tempPost = allPost.posts.filter((item)=>{
+        //   if(item._id!==post._id) return item; 
+        // })
       
-        setAllPost({...allPost,posts:tempPost})
+        // setAllPost({...allPost,posts:tempPost})
+        reload()
       }
-      const handleSearchBtn = (e) =>{
-        e.preventDefault();
-        const SearchResult = allPost.status==='success'?allPost.posts.filter((post)=>{
-          if(post.label.toLowerCase().includes(searchVal)||searchVal===''){
-            return post;
-          }
-        }):[];
-        var l = SearchResult.length;
-        var ans=0;
-        if(l%10) ans++;
-          ans+=Math.floor(l/10);
-        setFilteredPost({
-          post:SearchResult,
-          pageno:1,
-          totalpage:ans, 
-          status:allPost.status})
-      }
-      useEffect(()=>{
-        var l = allPost.posts.length;
-        var ans=0;
-        if(l%10) ans++;
-          ans+=Math.floor(l/10);
-        setFilteredPost({
-          post:allPost.posts,
-          pageno:1,
-          totalpage:ans, 
-          status:allPost.status})
-      },[allPost])
+      // const handleSearchBtn = (e) =>{
+      //   e.preventDefault();
+      //   const SearchResult = allPost.status==='success'?allPost.posts.filter((post)=>{
+      //     if(post.label.toLowerCase().includes(searchVal)||searchVal===''){
+      //       return post;
+      //     }
+      //   }):[];
+      //   var l = SearchResult.length;
+      //   var ans=0;
+      //   if(l%10) ans++;
+      //     ans+=Math.floor(l/10);
+      //   setFilteredPost({
+      //     post:SearchResult,
+      //     pageno:1,
+      //     totalpage:ans, 
+      //     status:allPost.status})
+      // }
+      // useEffect(()=>{
+      //   var l = allPost.posts.length;
+      //   var ans=0;
+      //   if(l%10) ans++;
+      //     ans+=Math.floor(l/10);
+      //   setFilteredPost({
+      //     post:allPost.posts,
+      //     pageno:1,
+      //     totalpage:ans, 
+      //     status:allPost.status})
+      // },[allPost])
     return (
         <Div>
-                <form className='search-cont' onSubmit={handleSearchBtn} >
+                {/* <form className='search-cont' onSubmit={handleSearchBtn} >
                     <input type='text' name='search' placeholder='Search' onChange={handleSearch} value={searchVal}/>
                     <button type='submit'><i className="search icon"></i></button>
-                </form>
+                </form> */}
                 <DeleteModal setOpen = {setDeletePopup} open={deletePopup} setSnackState={setSnackState} handleDelete={handleDelete}/>
                 <div className='show-post'>
                 {
                                 
-                filteredPost.status==="pending"?
-                <h3>Searching</h3>
+                data.status==="pending"?
+                <Dimmer active inverted>
+                  <Loader inverted>Loading</Loader>
+                </Dimmer> 
                 :(
-                (filteredPost.status==="success"&&filteredPost.post.length)?
+                (data.status==="success"&&data.post.length)?
                     <>
                     <div className="grid-search">
                         { 
-                           filteredPost.post.sort((a,b)=> new Date(b.createdAt)-new Date(a.createdAt)).slice((filteredPost.pageno-1)*10,filteredPost.pageno*10).map(post=> (
+                           data.post.map(post=> (
                             <PostCards 
                                 post={post} 
                                 key={post.postId} 
@@ -139,23 +144,24 @@ const PostsList = ({allPost,handleEditClick,setAllPost}) => {
                                 handleDeleteClick = {handleDeleteClick}
                             />
                         ))}
+    
                         </div>  
                             <div className="pagination-custom">
                             <Pagination
-                                defaultActivePage={filteredPost.pageno}
+                                defaultActivePage={data.pageno}
                                 firstItem={null}
                                 lastItem={null}
                                 ellipsisItem={null}
                                 secondary
                                 siblingRange={1}
-                                totalPages={filteredPost.totalpage}
+                                totalPages={data.totalpage}
                                 onPageChange={handlePageChange}
                                 prevItem={{ content: <Icon name='angle left' />, icon: true }}
                                 nextItem={{ content: <Icon name='angle right' />, icon: true }}
                             />
                             </div>
                         </>
-                        : <h3 className="message"> No files found for selected filters ...</h3>
+                        : <h3 className="message">Error while fetching content ....</h3>
                     )
                 }
                 </div>
@@ -173,4 +179,6 @@ const PostsList = ({allPost,handleEditClick,setAllPost}) => {
     )
 }
 
-export default PostsList
+
+
+export default paginatedContent(PostsList)

@@ -30,7 +30,7 @@ const DeleteModal = ({setOpen,open,setSnackState,handleDelete}) => {
             >
             <Modal.Header>Confirm Deletion</Modal.Header>
             <Modal.Content image>
-                <Image size='medium' src={post.thumbLocation?post.thumbLocation:post.Location} wrapped />
+                <Image size='medium' src={post.images&&post.images[0].location} wrapped />
                 <Modal.Description>
                 <Header>{post.label}</Header>
                 <p><strong>Theme: </strong>{post.themes}</p>

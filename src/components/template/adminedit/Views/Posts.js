@@ -8,20 +8,20 @@ const Div =styled.div`
 
 `
 const Posts = () => {
-  const [allPost,setAllPost] = useState({posts:[],status:"pending"});
+  // const [allPost,setAllPost] = useState({posts:[],status:"pending"});
   const [activeView,setActiveView] = useState({view:"find",post:null})
-  useEffect(() => {
-    (async()=>{
-      try{
-        const posts = await axios.post("/getFilteredInfo")
-        setAllPost({posts:posts.data,status:"success"});
-      }
-      catch(e){
-        console.log('error occured while fetching all post')
-        setAllPost({posts:[],status:"failed"});
-      }
-    })()
-  }, [])
+  // useEffect(() => {
+  //   (async()=>{
+  //     try{
+  //       const posts = await axios.post("/getFilteredInfo")
+  //       setAllPost({posts:posts.data,status:"success"});
+  //     }
+  //     catch(e){
+  //       console.log('error occured while fetching all post')
+  //       setAllPost({posts:[],status:"failed"});
+  //     }
+  //   })()
+  // }, [])
 const handleEditClick = (post) =>{
   setActiveView({view:"edit",post:post});
 }
@@ -32,7 +32,7 @@ const handleBackbutton = () =>{
     <Div>
       {
         activeView.view==="find"?
-          <PostsList allPost={allPost} setAllPost={setAllPost} handleEditClick={handleEditClick}/>
+          <PostsList handleEditClick={handleEditClick}/>
           :<PostEdit post={activeView.post} handleBackbutton={handleBackbutton}/>
       }
     </Div>

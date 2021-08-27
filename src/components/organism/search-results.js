@@ -115,7 +115,7 @@ const SearchResults = ({query}) => {
                 status:"pending"
              })
 
-            const res = await axios.post("/getFilteredInfo", {filter:FilterData,page:pageNo,sort:rawQuery.sort})
+            const res = await axios.post("/getFilteredInfo", {filter:FilterData,page:pageNo,sort:rawQuery.sort&&rawQuery.sort[0]})
               
               setData({
                  post:res.data.post,
@@ -129,14 +129,15 @@ const SearchResults = ({query}) => {
                 console.log(error)
                 setData({
                     status:"failed",
+                    post:[],
+                    pageno:1,
+                    totalpage:1, 
+                    totalPost:0,
                 })
             }
         }
-        useEffect(()=>{
-            console.log(data)
-        },[data])
+      
     useEffect(()=>{ 
-        console.log("trigered",query)
         fetchPage(query)
     },[query])  
     return (
