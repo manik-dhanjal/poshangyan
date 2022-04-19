@@ -215,7 +215,7 @@ const Header = () => {
         <Container>
             <Nav location = {path} menu = {isMenuOpen}>
                     <a href="https://niti.gov.in/" className="logo niti-ayaog" target="_blank">
-                        <img src="https://poshan-gyan.s3.ap-south-1.amazonaws.com/niti-aayog-logo.png" alt="logo" />
+                        <img src="https://poshangyan.s3.us-east-1.amazonaws.com/niti-aayog-logo.png" alt="logo" />
                         <div className='govt'>Government of India</div>
                     </a>
                     <div className='main-logo'>

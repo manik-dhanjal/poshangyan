@@ -7,7 +7,7 @@ import './assets/fonts/Lato-Bold.ttf'
 import './assets/fonts/Lato-Regular.ttf'
 import './assets/fonts/Lato-Light.ttf'
 require('dotenv').config()
-axios.defaults.baseURL = process.env.REACT_APP_API_URL||'https://poshangyan-api.niti.gov.in';
+axios.defaults.baseURL = process.env.REACT_APP_API_URL||'https://blooming-fjord-13986.herokuapp.com';
 
 const styleLink = document.createElement("link");
 styleLink.rel = "stylesheet";
