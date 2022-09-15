@@ -2,10 +2,10 @@ token.txt
 # See https://help.github.com/ignore-files/ for more about ignoring files.
 
 # dependencies
-/node_modules
+node_modules
 .env
 # testing
-/coverage
+coverage
 
 # production
 # /build
