@@ -1,7 +1,7 @@
 {
-  "name": "semantic-ui-example-forked",
+  "name": "poshangyan-react-app",
   "version": "0.2.0",
-  "description": "An exported example from Semantic UI React, https://react.semantic-ui.com/",
+  "description": "react application for poshangyan website",
   "private": true,
   "engines": {
     "npm": "6.13.4",

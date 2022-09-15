@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
-  <g id="button" transform="translate(20 20) rotate(180)">
-    <rect id="bg" width="20" height="20" rx="10" transform="translate(0 0)" fill="#17c8af"/>
-    <g id="icons_light_checkmark" data-name="icons/light/checkmark" transform="translate(0.012 0.012)">
-      <rect id="bg-2" data-name="bg" width="17.037" height="18.462" fill="none"/>
-      <path id="check-1" d="M.885,3.388a.5.5,0,0,0-.733,0,.553.553,0,0,0,0,.761L3.781,7.917a.5.5,0,0,0,.733,0l6.739-7a.553.553,0,0,0,0-.761.5.5,0,0,0-.733,0L4.147,6.776Z" transform="translate(14.873 13.714) rotate(180)" fill="#fff"/>
-    </g>
-  </g>
-</svg>
