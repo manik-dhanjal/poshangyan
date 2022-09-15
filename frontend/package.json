@@ -1,7 +1,7 @@
 {
-  "name": "poshangyan-react-app",
+  "name": "poshangyan-frontend",
   "version": "0.2.0",
-  "description": "react application for poshangyan website",
+  "description": "frontend for poshangyan website",
   "private": true,
   "engines": {
     "npm": "6.13.4",
