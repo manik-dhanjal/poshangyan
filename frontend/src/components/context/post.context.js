@@ -22,7 +22,6 @@ export const PostProvider = ({children}) => {
     })
     const fetchPostData = async () => {
         try{
-            console.log("yoyo, ",axios.defaults.baseURL)
             const [postAxios,catAxios] = await axios.all([
                 axios.post(`/getFilteredInfo`),
                 axios.get(`/getSortingData`), 

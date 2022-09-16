@@ -253,7 +253,7 @@ exports.getVisitorAnalytics = async (req,res) => {
   try{
       var uniqueId = req.body.userID;
       const existingUser = await userAnalyticsModel.findById(uniqueId)
-      if(existingUser||uniqueId){
+      if(existingUser){
         existingUser.visits = existingUser.visits+1;
         await existingUser.save();
       }

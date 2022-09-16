@@ -6,6 +6,8 @@ import {useCart,useDeleteCart} from '../context/cart.context'
 import logo from '../../assets/Images/logo.png'
 import CartDrop from '../atom/cart.drop-down/cart.components'
 import AuthOptions from "../auth/authOptions"
+import nitiLogo from "../../assets/Images/niti-aayog-logo.png";
+
 const Nav = styled.nav`
 padding:${({location})=>(
                 location==='/'?'15px 0':'0px 0')};
@@ -215,7 +217,7 @@ const Header = () => {
         <Container>
             <Nav location = {path} menu = {isMenuOpen}>
                     <a href="https://niti.gov.in/" className="logo niti-ayaog" target="_blank">
-                        <img src="https://poshangyan.s3.us-east-1.amazonaws.com/niti-aayog-logo.png" alt="logo" />
+                        <img src={nitiLogo} alt="Niti Aayog logo" />
                         <div className='govt'>Government of India</div>
                     </a>
                     <div className='main-logo'>
