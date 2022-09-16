@@ -302,32 +302,31 @@ schedule.scheduleJob('30 00 19 * * 4', () => {
 //         res.send(err)
 //     }
 // })
-// app.get('/fill-empty',async (req,res)=>{
-//     try{
-//         const posts =await Post.find();
-//         posts.forEach(item => {
-//             // if(!item.files.length)
-//             //     item.files = [...item.images]
-
-//             // if(!item.images.length)
-//                 // console.log(item)
-//                 if(item.files.length){
-//                     const total = item.files.reduce((total,current)=>{
-//                         return current.downloadsCount+total
-//                       },0)
-//                       item.totalDownloads = total;
-//                     item.save();
-//                 }
+app.get('/fill-empty',async (req,res)=>{
+    try{
+        const posts =await Post.find();
+        posts.forEach(item => {
+                if(item.files.length){
+                    // console.log(item.files)
+                    for(let i=0;i<item.files.length;i++){
+                        item.files[i].location = item.files[i].location.replace("poshan-gyan","poshangyan-storage");
+                    }
+                }
+                if(item.images.length){
+                    for(let i=0;i<item.images.length;i++){
+                        item.images[i].location = item.images[i].location.replace("poshan-gyan","poshangyan-storage");
+                    }
+                }
+                item.save();
+            //     await post.save();
            
-//             //     await post.save();
-           
-//         })    
-//         res.send(posts)
-//     }
-//     catch(err){
-//         console.log(err)
-//     }
-// })
+        })    
+        res.send(posts)
+    }
+    catch(err){
+        console.log(err)
+    }
+})
 
 app.use("/2626/", require("./handlers/admin"));
 
@@ -343,7 +342,7 @@ app.use((error, req, res, next) => {
 })
 
 
-    const PORT = process.env.PORT || 3000;
+    const PORT = process.env.PORT || 8000;
     app.listen(PORT,()=>{
         console.log(`${process.env.NODE_ENV || "Production"} server is listening on PORT ${PORT}`)
     })

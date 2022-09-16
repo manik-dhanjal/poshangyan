@@ -1,5 +1,5 @@
-var AWS = require('aws-sdk');
-AWS.config.loadFromPath('./utils/config.json');
+// var AWS = require('aws-sdk');
+// // AWS.config.loadFromPath('/config.json');
 var findRemoveSync = require('find-remove');
 
 const fs = require('fs')
@@ -32,7 +32,7 @@ exports.createZip = (req, res) => {
       res.send(fileName);
     });
     output.on('error',(err)=>{
-      consol.log(err)
+      console.log(err)
         res.status(500)
         res.send(err+'error')
         // res.send({message: "Something went wrong!!"})

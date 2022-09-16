@@ -7,7 +7,7 @@ import './assets/fonts/Lato-Bold.ttf'
 import './assets/fonts/Lato-Regular.ttf'
 import './assets/fonts/Lato-Light.ttf'
 require('dotenv').config()
-axios.defaults.baseURL = process.env.REACT_APP_API_URL||'https://blooming-fjord-13986.herokuapp.com';
+axios.defaults.baseURL ='http://localhost:8080';
 
 const styleLink = document.createElement("link");
 styleLink.rel = "stylesheet";

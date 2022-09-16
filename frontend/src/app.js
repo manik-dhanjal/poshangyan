@@ -33,13 +33,17 @@ const App = () => {
                 localStorage.setItem("auth-token", "");
                 token = "";
             }
-            const tokenResponse = await axios.post('/2626/tokenIsValid', null, {headers: {"x-auth-token": token}});
-            if (tokenResponse.data) {
-                const userRes = await axios.get("/2626/", {headers: { "x-auth-token": token },});
-                setUserData({token:token,user: userRes.data,status:"success"});
-            }
-            else{
-                setUserData({token:null,user: null,status:"failed"});
+            try{
+                const tokenResponse = await axios.post('/2626/tokenIsValid', null, {headers: {"x-auth-token": token}});
+                if (tokenResponse.data) {
+                    const userRes = await axios.get("/2626/", {headers: { "x-auth-token": token },});
+                    setUserData({token:token,user: userRes.data,status:"success"});
+                }
+                else{
+                    setUserData({token:null,user: null,status:"failed"});
+                }
+            }catch(e){
+                console.log(e.message);
             }
         }
             checkLoggedIn();
