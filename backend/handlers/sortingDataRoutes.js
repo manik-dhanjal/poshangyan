@@ -83,18 +83,15 @@ exports.delFromSortingData = (req, res) => {
             res.status(500).send({ err: "Something went wrong!!" })
         })
 }
-// type : 'themes','langs' etc
-// val:  ''
-// new_val: ''
+
 exports.modifySortingData = (req, res) => {
 
-    var case1 = false;  //adding
-    var case2 = false;  //editing
+    var case1 = false; 
+    var case2 = false;  
 
 
     const { type, val, new_val } = req.body;
 
-    // console.log({ type, val, new_val })
 
     if (req.body.new_val) case2 = true;
     else case1 = true;
@@ -197,11 +194,9 @@ exports.modifySortingData = (req, res) => {
                     }
                     break;
             }
-            //console.log(data.languages,"BR")
             return data.save();
         })
         .then((dat) => {
-           // console.log(dat.languages,"AR")
             res.status(200).send(dat);
         })
         .catch(e => {
@@ -209,18 +204,15 @@ exports.modifySortingData = (req, res) => {
         })
 }
 function update(type, val, new_val) {
-    // console.log(type, val, new_val)
     if (type && val && new_val) {
         switch (type) {
             case 'languages':
                 Posts.find()
                     .then(dat => {
                         dat.forEach(element => {
-                            // if(element.languages.)
                             var temp_val = element.languages.replace(val, new_val);
                             let old_val = element.languages
                             element.languages = temp_val
-                            // console.log({new_val,old_val})
                             element.save();
                         });
                     })
@@ -232,11 +224,9 @@ function update(type, val, new_val) {
                 Posts.find()
                     .then(dat => {
                         dat.forEach(element => {
-                            // if(element.languages.)
                             var temp_val = element.themes.replace(val, new_val);
                             let old_val = element.themes
                             element.themes = temp_val
-                            // console.log({new_val,old_val})
                             element.save();
                         });
                     })
@@ -248,11 +238,9 @@ function update(type, val, new_val) {
                 Posts.find()
                     .then(dat => {
                         dat.forEach(element => {
-                            // if(element.languages.)
                             var temp_val = element.mediaType.replace(val, new_val);
                             let old_val = element.mediaType
                             element.mediaType = temp_val
-                            // console.log({new_val,old_val})
                             element.save();
                         });
                     })
@@ -267,11 +255,9 @@ function update(type, val, new_val) {
                 Posts.find()
                     .then(dat => {
                         dat.forEach(element => {
-                            // if(element.languages.)
                             var temp_val = element.targetAudience.replace(val, new_val);
                             let old_val = element.targetAudience
                             element.targetAudience = temp_val
-                            // console.log({new_val,old_val})
                             element.save();
                         });
                     })
@@ -283,11 +269,9 @@ function update(type, val, new_val) {
                 Posts.find()
                     .then(dat => {
                         dat.forEach(element => {
-                            // if(element.languages.)
                             var temp_val = element.source.replace(val, new_val);
                             let old_val = element.source
                             element.source = temp_val
-                            // console.log({new_val,old_val})
                             element.save();
                         });
                     })
@@ -396,11 +380,6 @@ exports.addSortingData = (req, res) => {
     srtDat.targetAudience = targetAudience;
     srtDat.sources = source;
 
-    //   srtDat.save().then((pos)=>{
-    //     console.log(pos)
-    //     res.status(200).send({received:pos})
-    //   })
-
     res.send({ message: "Already Added" })
 
 
@@ -412,17 +391,13 @@ function updatePostsAfterDeletion(type, val) {
             Posts.find()
                 .then(posts => {
                     posts.forEach(post => {
-                        // console.log(post.languages)
                         if (post.languages.includes(val)) {
                             let temp_val = post.languages.split(',');
-                            // console.log(temp_val)
                             removeItemAll(temp_val, val)
                             if (temp_val.length == 0) temp_val.push('Others');
                             temp_val = makeArrayUnique(temp_val);
-                            // console.log(temp_val)
                             let new_val = temp_val.join(',');
                             post.languages = new_val;
-                            // console.log(new_val)
                             post.save();
                         }
                     })
@@ -435,17 +410,13 @@ function updatePostsAfterDeletion(type, val) {
             Posts.find()
                 .then(posts => {
                     posts.forEach(post => {
-                        // console.log(post.themes)
                         if (post.themes.includes(val)) {
                             let temp_val = post.themes.split(',');
-                            // console.log(temp_val)
                             removeItemAll(temp_val, val)
                             if (temp_val.length == 0) temp_val.push('Others');
                             temp_val = makeArrayUnique(temp_val);
-                            // console.log(temp_val)
                             let new_val = temp_val.join(',');
                             post.themes = new_val;
-                            // console.log(new_val)
                             post.save();
                         }
                     })
@@ -458,17 +429,13 @@ function updatePostsAfterDeletion(type, val) {
             Posts.find()
                 .then(posts => {
                     posts.forEach(post => {
-                        // console.log(post.languages)
                         if (post.languages.includes(val)) {
                             let temp_val = post.languages.split(',');
-                            // console.log(temp_val)
                             removeItemAll(temp_val, val)
                             if (temp_val.length == 0) temp_val.push('Others');
                             temp_val = makeArrayUnique(temp_val);
-                            // console.log(temp_val)
                             let new_val = temp_val.join(',');
                             post.languages = new_val;
-                            // console.log(new_val)
                             post.save();
                         }
                     })
@@ -483,17 +450,13 @@ function updatePostsAfterDeletion(type, val) {
             Posts.find()
                 .then(posts => {
                     posts.forEach(post => {
-                        // console.log(post.targetAudience)
                         if (post.targetAudience.includes(val)) {
                             let temp_val = post.targetAudience.split(',');
-                            // console.log(temp_val)
                             removeItemAll(temp_val, val)
                             if (temp_val.length == 0) temp_val.push('Others');
                             temp_val = makeArrayUnique(temp_val);
-                            // console.log(temp_val)
                             let new_val = temp_val.join(',');
                             post.targetAudience = new_val;
-                            // console.log(new_val)
                             post.save();
                         }
                     })
@@ -506,17 +469,13 @@ function updatePostsAfterDeletion(type, val) {
             Posts.find()
                 .then(posts => {
                     posts.forEach(post => {
-                        // console.log(post.languages)
                         if (post.source.includes(val)) {
                             let temp_val = post.source.split(',');
-                            // console.log(temp_val)
                             removeItemAll(temp_val, val)
                             if (temp_val.length == 0) temp_val.push('Others');
                             temp_val = makeArrayUnique(temp_val);
-                            // console.log(temp_val)
                             let new_val = temp_val.join(',');
                             post.source = new_val;
-                            // console.log(new_val)
                             post.save();
                         }
                     })

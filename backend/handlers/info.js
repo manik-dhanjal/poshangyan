@@ -93,121 +93,7 @@ exports.getFilteredInfoV2 = async (req,res) => {
 
 
 }
-// exports.getFilteredInfo = (req, res) => {
 
-//   let filter = {};
-
-//   if(req.body.themes && !(req.body.themes.toLowerCase().includes('any')||(req.body.themes.toLowerCase().includes('all')&&!req.body.themes.toLowerCase().includes('overall'))||req.body.themes=='')){
-//     filter.themes = req.body.themes;
-//   }
-//   if(req.body.languages && !(req.body.languages.toLowerCase().includes('any')||req.body.languages.toLowerCase().includes('all')||req.body.languages=='')){
-//     filter.languages = req.body.languages;
-//   }
-//   if(req.body.targetAudience && !(req.body.targetAudience.toLowerCase().includes('any')||req.body.targetAudience.toLowerCase().includes('all')||req.body.targetAudience=='')){
-//     filter.targetAudience = req.body.targetAudience;
-//   }
-//   if(req.body.source && !(req.body.source.toLowerCase().includes('any')||req.body.source.toLowerCase().includes('all')||req.body.source=='')){
-//     filter.source = req.body.source;
-//   }
-//   if(req.body.mediaType && !(req.body.mediaType.toLowerCase().includes('any')||req.body.mediaType.toLowerCase().includes('all')||req.body.mediaType=='')){
-//     filter.mediaType = req.body.mediaType;
-//   }
-//   if(req.body.mimetype && !(req.body.mimetype.toLowerCase().includes('any')||req.body.mimetype.toLowerCase().includes('all')||req.body.mimetype=='')){
-//     filter.mimetype = req.body.mimetype;
-//   }
-
-//   Post.find({languages:"Hindi"}).sort('createdAt').limit(12)
-  
-//     // .sort({ downloadsCount: -1 })
-//     // .limit(1000)
-//     // .orderBy('viewsCount','desc')
-//     .then(dat=>{
-//     //   let posts=[];
-//     //   console.time("answer time");
-//     //   dat.forEach((doc)=> { 
-//     //     // posts.push(doc); 
-       
-//     //     let currPost = doc;
-//     //     var f=1;
-
-//     //     if(filter.themes){
-//     //       let filt = filter.themes.split(',');
-//     //       var c=0;
-//     //       for(var i=0;i<filt.length;i++)
-//     //       {
-//     //         if(currPost.themes.toLowerCase().includes(filt[i].toLowerCase())) c=1;
-//     //       }
-//     //       if(c==1) ;
-//     //       else f=0;
-//     //     }
-//     //     if(filter.source){
-//     //       let filt = filter.source.split(',');
-//     //       var c=0;
-//     //       for(var i=0;i<filt.length;i++)
-//     //       {
-//     //         if(currPost.source.toLowerCase().includes(filt[i].toLowerCase())) c=1;
-//     //       }
-//     //       if(c==1) ;
-//     //       else f=0;
-//     //     }
-//     //     if(filter.mediaType){
-//     //       let filt = filter.mediaType.split(',');
-//     //       var c=0;
-//     //       for(var i=0;i<filt.length;i++)
-//     //       {
-//     //         if(currPost.mediaType.toLowerCase().includes(filt[i].toLowerCase())) c=1;
-//     //       }
-//     //       if(c==1) ;
-//     //       else f=0;
-//     //     }
-//     //     if(filter.languages){
-//     //       let filt = filter.languages.split(',');
-//     //       var c=0;
-//     //       for(var i=0;i<filt.length;i++)
-//     //       {
-//     //         if(currPost.languages.toLowerCase().includes(filt[i].toLowerCase())) c=1;
-//     //       }
-//     //       if(c==1) ;
-//     //       else f=0;
-//     //     }
-//     //     if(filter.targetAudience){
-//     //       let filt = filter.targetAudience.split(',');
-//     //       var c=0;
-//     //       for(var i=0;i<filt.length;i++)
-//     //       {
-//     //         if(currPost.targetAudience.toLowerCase().includes(filt[i].toLowerCase())) c=1;
-//     //       }
-//     //       if(c==1) ;
-//     //       else f=0;
-//     //     }
-//     //     if(filter.mimetype){
-//     //       let filt = filter.mimetype.split(',');
-//     //       var c=0;
-//     //       for(var i=0;i<filt.length;i++)
-//     //       { 
-          
-//     //         currPost.files.forEach((file)=>{
-//     //           if(file._doc.mimetype === filt[i].toLowerCase()) c=1;
-//     //         })
-//     //         if(filt[i].toLowerCase().includes('other')&&currPost.link) c=1;
-//     //       }
-  
-//     //       if(c==1) ;
-//     //       else f=0;
-//     //     }
-
-//     //     if(f==1) posts.push(currPost)
-
-//     //   });
-//     //   console.timeEnd("answer time");
-//       return res.json(dat);
-//     })
-//     .catch(err => {
-//       console.error(err)
-//       res.send({err:'Something Went Wrong!!'})
-//     });
-
-// }
 exports.setThemeOfTheMonth = (req,res) =>{
   if(req.body.theme) process.env.themeofmonth = req.body.theme;
   if(req.body.quote) process.env.quote = req.body.quote;
@@ -237,10 +123,6 @@ exports.getThemeoftheMonth = async (req, res) => {
 exports.getMostDownloaded =async (req, res) => {
   try{
     const posts =await Post.find({link: { $ne: '' }}).sort({totalDownloads:-1}).limit(12)
-    // const countOf = (item) => item.files.length?item.files.reduce((total,file) => {return total+file.downloadsCount},0):0;
-    // const sortedPost = posts.sort((a,b)=> {
-    //       return countOf(b)-countOf(a)
-    //   } ).slice(0,12)
     res.json(posts)
   }
   catch(errir){
