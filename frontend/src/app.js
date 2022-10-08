@@ -53,7 +53,7 @@ const App = () => {
         <UserContext.Provider value={{ userData, setUserData }}>
             <CartProvider>
                 <PostProvider>
-                    <Router>
+                    <Router basename={process.env.PUBLIC_URL||""}>
                         <Layout>
                             <Switch>
                                     <Route exact path='/' component={Home} />
