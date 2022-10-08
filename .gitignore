@@ -10,7 +10,7 @@ coverage
 # production
 /frontend/build
 /backend/public/zips
-
+/db-exports
 # misc
 .DS_Store
 .env.local
