@@ -7,7 +7,7 @@ import './assets/fonts/Lato-Bold.ttf'
 import './assets/fonts/Lato-Regular.ttf'
 import './assets/fonts/Lato-Light.ttf'
 require('dotenv').config()
-axios.defaults.baseURL = REACT_APP_API_URL || 'http://localhost:8080';
+axios.defaults.baseURL = process.env.REACT_APP_API_URL || 'http://localhost:8080';
 
 const styleLink = document.createElement("link");
 styleLink.rel = "stylesheet";
