@@ -8,8 +8,8 @@ node_modules
 coverage
 
 # production
-# /build
-/backend/public/zips/*
+/frontend/build
+/backend/public/zips
 
 # misc
 .DS_Store
