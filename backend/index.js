@@ -80,8 +80,6 @@ app.use((error, req, res, next) => {
         data: data
     })
 })
-console.log(process.env.PG_PORT)
-
 const PG_PORT = process.env.PG_PORT || 8000;
 app.listen(PG_PORT,()=>{
     console.log(`${process.env.NODE_ENV || "Production"} server is listening on PG_PORT ${PG_PORT}`)
