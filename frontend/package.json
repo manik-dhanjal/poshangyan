@@ -38,7 +38,7 @@
   },
   "scripts": {
     "build": "react-scripts build",
-    "aws-build":"set PUBLIC_URL=https://manikdhanjal.com/projects/poshangyan&&react-scripts build",
+    "aws-build":"export PUBLIC_URL=https://manikdhanjal.com/projects/poshangyan&&export REACT_APP_API_URL=https://manikdhanjal/projects/poshangyan/api&&react-scripts build",
     "start": "react-scripts start",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
