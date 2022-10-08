@@ -4,16 +4,16 @@ const contactFormHandler = async (req, res) => {
         service: 'gmail',
         auth: {
             type: 'OAuth2',
-            user: process.env.EMAIL_USERNAME,
-            pass: process.env.EMAIL_PASSWORD,
-            clientId: process.env.EMAIL_CLIENT_ID,
-            clientSecret: process.env.EMAIL_CLIENT_SECRET,
-            refreshToken: process.env.EMAIL_REFRESH_TOKEN
+            user: process.env.PG_EMAIL_USERNAME,
+            pass: process.env.PG_EMAIL_PASSWORD,
+            clientId: process.env.PG_EMAIL_CLIENT_ID,
+            clientSecret: process.env.PG_EMAIL_CLIENT_SECRET,
+            refreshToken: process.env.PG_EMAIL_REFRESH_TOKEN
         }
     });
 
     var message = {
-        from: process.env.EMAIL_USERNAME,
+        from: process.env.PG_EMAIL_USERNAME,
         to: "manikdhanjal21@gmail.com",
         subject: "Message from Contact Form",
         html: `<p>Hello ,</p>

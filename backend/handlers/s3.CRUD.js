@@ -4,9 +4,9 @@ const Post = require('../schema/postSchema')
 const uuidv4 = require('uuid').v4;
 
 let s3bucket = new AWS.S3({
-  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-  region: process.env.AWS_REGION
+  accessKeyId: process.env.PG_AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.PG_AWS_SECRET_ACCESS_KEY,
+  region: process.env.PG_AWS_REGION
 });
 
 const mimetype = (key) => {
@@ -30,7 +30,7 @@ exports.uploadFile = async (req, res) => {
   const uuid = uuidv4();
   const fileType = file.originalname.substr(file.originalname.lastIndexOf('.'),file.originalname.length)
   var params = {
-    Bucket: process.env.AWS_BUCKET_NAME,
+    Bucket: process.env.PG_AWS_BUCKET_NAME,
     Key: `${uuid+fileType}`,
     Body: file.buffer,
     ContentType: file.mimetype,
@@ -56,7 +56,7 @@ exports.uploadFile = async (req, res) => {
   exports.deleteFile = async (req,res) => {
     const key = req.params.key;
     var params = {
-      Bucket: process.env.AWS_BUCKET_NAME,
+      Bucket: process.env.PG_AWS_BUCKET_NAME,
       Key: key
       };
     s3bucket.deleteObject(params, function (err, data) {
@@ -78,13 +78,13 @@ exports.addDownloadCount = async (req, res) => {
   // console.log(req.body)
   try{
     const s3 = new AWS.S3({
-      accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-      secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-      region: process.env.AWS_REGION,
+      accessKeyId: process.env.PG_AWS_ACCESS_KEY_ID,
+      secretAccessKey: process.env.PG_AWS_SECRET_ACCESS_KEY,
+      region: process.env.PG_AWS_REGION,
       signatureVersion: 'v4',
     });
     let url = await s3.getSignedUrl('getObject', {
-      Bucket: process.env.AWS_BUCKET_NAME , 
+      Bucket: process.env.PG_AWS_BUCKET_NAME , 
       Key: key,
       Expires: 300,
       ResponseContentDisposition :  `attachment; filename=${key}`

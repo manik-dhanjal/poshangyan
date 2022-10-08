@@ -82,8 +82,8 @@ app.use((error, req, res, next) => {
 })
 
 
-const PORT = process.env.PORT || 8000;
-app.listen(PORT,()=>{
-    console.log(`${process.env.NODE_ENV || "Production"} server is listening on PORT ${PORT}`)
+const PG_PORT = process.env.PG_PORT || 8000;
+app.listen(PG_PORT,()=>{
+    console.log(`${process.env.NODE_ENV || "Production"} server is listening on PG_PORT ${PG_PORT}`)
 })
 

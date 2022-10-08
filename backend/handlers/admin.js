@@ -22,7 +22,7 @@ router.post("/login", async (req, res) => {
         if (!isMatch) 
         return res.status(400).json({ msg: "Invalid credentials." });
         
-        const token = jwt.sign({ id: admin._id }, process.env.JWT_SECRET);
+        const token = jwt.sign({ id: admin._id }, process.env.PG_JWT_SECRET);
         res.json({token,admin: {id: admin._id,displayName: admin.displayName,},});
 
     } catch (err) {
@@ -51,7 +51,7 @@ router.post("/tokenIsValid", async (req, res) => {
         console.log(token)
         if (!token) 
             return res.json(false);
-            const verified = jwt.verify(token, process.env.JWT_SECRET);
+            const verified = jwt.verify(token, process.env.PG_JWT_SECRET);
 
         if (!verified) 
             return res.json(false);

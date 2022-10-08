@@ -16,7 +16,7 @@ exports.createZip = (req, res) => {
 
     const output = fs.createWriteStream(join(zip_dir, fileName))
       s3Zip
-      .archive({ region: process.env.AWS_REGION, bucket: process.env.AWS_BUCKET_NAME}, FOLDER, req.body.list)
+      .archive({ region: process.env.PG_AWS_REGION, bucket: process.env.PG_AWS_BUCKET_NAME}, FOLDER, req.body.list)
       .pipe(output)
     output.on('finish', () => {
       res.status(200);
