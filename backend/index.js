@@ -8,8 +8,11 @@ var upload = multer({ storage: storage });
 const connectDB = require("./config/db.config")();
 const auth =  require('./middleware/auth')
 const startMailSheduler = require('./utils/mail-sheduler');
+const logger = require('./utils/logger');
+const {successHandler, errorHandler} = require("./middleware/morgan.middleware");
 
 const app = express();
+
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
@@ -17,6 +20,7 @@ app.use(cors())
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/public'));
+
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*')
     res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PUT,PATCH,DELETE')
@@ -24,6 +28,8 @@ app.use((req, res, next) => {
     next()
 })
 
+app.use(successHandler);
+app.use(errorHandler);
 // sends CSV containg info about files in database to manikdhanjal217@gmail.com weekly
 startMailSheduler('07 19 * * 4')
 
@@ -71,7 +77,7 @@ app.get('/fetch-all-zips',checkZipFiles)
 app.use("/2626/", require("./handlers/admin"));
 
 app.use((error, req, res, next) => {
-    console.log(error)
+    logger.error(error)
     const status = error.statusCode || 500
     const message = error.message
     const data = error.data
@@ -82,6 +88,6 @@ app.use((error, req, res, next) => {
 })
 const PG_PORT = process.env.PG_PORT || 8000;
 app.listen(PG_PORT,()=>{
-    console.log(`${process.env.NODE_ENV || "Production"} server is listening on PG_PORT ${PG_PORT}`)
+    logger.info(`${process.env.NODE_ENV || "development"} server is listening on port: ${PG_PORT}`)
 })
 

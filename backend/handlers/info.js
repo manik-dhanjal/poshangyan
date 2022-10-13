@@ -5,7 +5,6 @@ const userAnalyticsModel = require('../schema/userAnalytics.schema')
 
 
 exports.getFilteredInfoV2 = async (req,res) => {
-
   let filter = {};
   if(req.body.filter){
     if(req.body.filter.themes && !(req.body.filter.themes.toLowerCase().includes('any')||(req.body.filter.themes.toLowerCase().includes('all')&&!req.body.filter.themes.toLowerCase().includes('overall'))||req.body.filter.themes=='')){
@@ -67,7 +66,6 @@ exports.getFilteredInfoV2 = async (req,res) => {
   // if(req.body.postCount) postCount = req.body.postCount;
   try{
     const numberOfPost = await Post.find(filter).countDocuments();
-
     const totalPages =  Math.floor(numberOfPost/postCount)+(numberOfPost%postCount?1:0);
     if(totalPages<currentPage) {
       return res.status(404).json({

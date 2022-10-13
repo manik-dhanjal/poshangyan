@@ -57,28 +57,11 @@ gap:30px;
 }
 `
 
-// const filterButtonCreator = (query) =>{
-// console.log(query)
-// for (const temp in query){
-//     console.log(temp)
-//     query[temp].forEach(()=>{
-
-//     })
-// }
-// }
 const ShowSearchResult = ({query,postNo=0}) => {
     
     return (
         <Div>
             <div className="search-theme"><span className="head">Search: </span> {postNo} results found for {query.Themes?query.Themes.map((a,i) =>{ return  (i? "  ,":"") + a } ):"All Themes"}</div>
-            {/*<div className = "search-filter">
-                <span className="head">Filter: </span>
-                <div className="list">
-                    {filterButtonCreator(query)}
-                    <Link className="filter-btn" to = {{ pathname: '/search', search: "?Themes=Ante Natal Care (ANC)"}} >name <i className="close icon"></i></Link>
-                </div>
-                <span className="clear-all-btn">Clear All</span>
-            </div>*/}
         </Div>
     )
 }

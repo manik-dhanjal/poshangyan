@@ -15,7 +15,6 @@ const MediaLibrary = ({setFiles,files,uploadedFiles,setUploadedFiles,handleError
         try{
             let token = localStorage.getItem("auth-token");
             const response = await axios.delete('/file/'+file.key,{headers: { "x-auth-token": token },})
-            console.log(response)
             setUploadedFiles(prevFilesArr => {
                 return prevFilesArr.reduce((totalArr,prevFile) =>{
                         const check = prevFile.location===file.location

@@ -61,7 +61,6 @@ export class FormExampleInverted extends Component {
       phoneNo: this.state.phoneNo,
       message: this.state.message
     }
-    console.log(data)
     if (data.name.trim() === '' || data.email.trim() === '' || data.phoneNo.trim() === '' || data.message.trim() === '') return;
     if(!this.validateEmail(data.email)){
       this.setState({error:true})

@@ -47,7 +47,6 @@ exports.getPostInfo = (req,res) =>{
 
   exports.updatePostInfo = (req,res) =>{
   let post=req.body;
-  // console.log(post)
   res.send('send');
     Post.findByIdAndUpdate(post.id, {
       label:post.label
@@ -62,7 +61,6 @@ exports.getPostInfo = (req,res) =>{
     }); 
     Post.findById(req.params.postID)
       .then(dat=>{
-        console.log(dat)
         if(dat){
             if(req.body.themes) dat.themes = req.body.themes;
             if(req.body.languages) dat.languages = req.body.languages;
@@ -93,7 +91,6 @@ exports.getPostInfo = (req,res) =>{
         downloadCount:0,
         dataAddedBy:'Admin'
       };
-      console.log(newPostData)
       const post = new Post(newPostData)
       try{
         await post.save();
@@ -122,7 +119,6 @@ exports.getPostInfo = (req,res) =>{
   }
 
 const ObjCreator = (key,location,item) =>{
-  console.log(item,'item=====')
   return  [{
     name:key.substr(0,key.lastIndexOf('.')),
     key: key,

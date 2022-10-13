@@ -48,7 +48,6 @@ router.get("/", auth, async (req, res) => {
 router.post("/tokenIsValid", async (req, res) => {
     try {
         const token = req.header("x-auth-token");
-        console.log(token)
         if (!token) 
             return res.json(false);
             const verified = jwt.verify(token, process.env.PG_JWT_SECRET);
@@ -67,61 +66,35 @@ router.post("/tokenIsValid", async (req, res) => {
     }
 });
 
-exports.addAdmin = (req,res) => {
-    let newAdmin = {
-        username: req.body.username,
-        password: req.body.password
-    }
-    if(req.body.username && req.body.password && req.body.verified){
-                new Admin(newAdmin).save().then((s)=>{
-                    // console.log(s);
-                    res.status(200).send({message:'successfully added'})
-                }).catch(e=>{
-                    res.status(500).send({err:'something went wrong!!'})
-                    console.log(e);
-                })
+router.post("/register", async (req, res) => {
+    try {
+        let { email, password, passwordCheck, displayName } = req.body;
+        // validate
+        if (!email || !password || !passwordCheck)
+            return res.status(400).json({ msg: "Not all fields have been entered." });
 
-    }else{
-        res.status(500).send({err:'something went wrong!!'})
-    }
-}
+        if (password.length < 5)
+            return res.status(400).json({ msg: "The password needs to be at least 5 characters long." });
 
-exports.login = (req,res) =>{
-    let admin = {
-        username: req.body.username,
-        password: req.body.password
-    }
-    let sent = false;
-    if(req.body.username && req.body.password){
-        Admin.find()
-        .then(doc=>{
-            doc.forEach(dat=>{
-                if(dat.username===admin.username){
-                    if(dat.password===admin.password){
-                        let passKEY = uuid.v4();
-                        dat.uuid = passKEY;
-                        sent=true;
-                        res.send({passkey:passKEY})
-                        return dat.save();
-                    }else{
-                        sent=true;
-                        res.status(401).send({message:'Wrong password!!'})
-                        return '';
-                    }
-                }
-            })
-            if(!sent)
-            res.status(401).send({message:'Please check username and password!!'})
-            return '';
-        }).then(()=>{
-            return '';
-        })
-    }else{
-        res.status(500).send({err:'something went wrong!!'})
-    }
-}
+        if (password !== passwordCheck)
+            return res.status(400).json({ msg: "Enter the same password twice for verification." });
 
-exports.validAdmin = (req,res) => {
-    res.status(200).send({msg:true});
-}
+        const existingAdmin = await Admin.findOne({ email: email });
+
+        if (existingAdmin)
+            return res.status(400).json({ msg: "An account with this email already exists." });
+
+        if (!displayName) displayName = email;
+
+            const salt = await bcrypt.genSalt();
+            const passwordHash = await bcrypt.hash(password, salt);
+            const newAdmin = new Admin({email,password: passwordHash,displayName,});
+            const savedAdmin = await newAdmin.save();
+            res.json(savedAdmin);
+        } 
+        catch (err) {
+            res.status(500).json({ error: err.message });
+        }
+})
+
 module.exports = router;

@@ -40,7 +40,6 @@ exports.uploadFile = async (req, res) => {
     if (err) {
       res.status(500).json({ error: true, Message: err });
     } else {
-      console.log(data)
       const fileName = data.Key.substr(0,data.Key.lastIndexOf('.')) 
                           
       res.status(200).json({
@@ -75,7 +74,6 @@ exports.uploadFile = async (req, res) => {
   
 exports.addDownloadCount = async (req, res) => {
   const {_id,key} = req.body
-  // console.log(req.body)
   try{
     const s3 = new AWS.S3({
       accessKeyId: process.env.PG_AWS_ACCESS_KEY_ID,
