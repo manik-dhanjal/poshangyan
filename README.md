@@ -1,8 +1,8 @@
-# Poshangyan
+# <a href="https://manikdhanjal.com/projects/poshangyan" target="_blank">Poshangyan</a>
 ![poshangyan banner](./assets/img/banner.png "https://poshangyan.niti.gov.in")
 
 
-Demo link: [https://manikdhanjal.com/projects/poshangyan](https://manikdhanjal.com/projects/poshangyan)
+Demo link: <a href="https://manikdhanjal.com/projects/poshangyan" target="_blank">https://manikdhanjal.com/projects/poshangyan</a>
 
 Poshan Gyan is designed to be accessible for everybody to use - whether frontline health workers, community leaders, teachers or anyone else seeking to improve nutritional outcomes. 
 
@@ -66,20 +66,45 @@ login to dashboard using url `http://localhost:3000/2626/login` and default cred
 ### Steps to add contend :-
 
 0. now you go to `Data Feeder` tab and select file type whether is it a embeded youtube video or media file.
-![poshangyan dhashobard](./assets/img/add-post.dashboard.png "https://poshangyan.niti.gov.in/2626/dashboard")
-1. To Upload files click on `Upload Files` and in `Upload Files` drag and drop files in dotted area and to preview Uploaded files open `Media Library` tab.
-![Upload files tab](./assets/img/upload-files.dashboard.png "Upload files tab")
-2. Select categories of your content and click `Add Post`.
 
-### Steps to modify/add Categories and Content :-
+    ![poshangyan dhashobard](./assets/img/add-post.dashboard.png "https://poshangyan.niti.gov.in/2626/dashboard")
+1. To Upload files click on `Upload Files` and in `Upload Files` drag and drop files in dotted area.
+    ![Upload files tab](./assets/img/upload-files-2.dashboard.png "Upload files tab")
+2. preview Uploaded files open `Media Library` tab and click `Upload`.
 
-0. Now go to `Update Tab` in dashboard and Click on `Posts` button at top to select the category or post type to modify or delete.
-![poshangyan dhashobard](./assets/img/update-post.dashboard.png "select post to modify")
+    ![Upload files tab](./assets/img/upload-files-1.dashboard.png "Upload files tab")
+3. Select categories of your content and click `Add Post`.
 
-1. To Change Category Click on filter option on top right and select category type.
-![poshangyan dhashobard](./assets/img/category.dashboard.png "select post to modify")
+### Steps to modify/delete Content :-
+
+0. Now go to `Update` tab in dashboard and select `Posts` in filter dropdown at top right.
+
+    ![poshangyan dhashobard](./assets/img/update-post-1.dashboard.png "select post to modify")
+
+1. EDIT: click on `edit icon` which leads to screen below where we can modify categories or title of a post.
+
+    ![poshangyan dhashobard](./assets/img/update-post-2.dashboard.png "select post to modify")
+2. DELETE: click on `trash icon` on left side of post to delete any post completely from database and AWS S3 then click `Delete Permanently` in prompt.
+
+    ![poshangyan dhashobard](./assets/img/delete-post.dashboard.png "select post to modify")
+### Steps to modify/add/delete Categories :-
+
+0. Now go to `Update` tab in dashboard and select category type `Themes`, ` Languages` or `Others` in filter dropdown at top right.
+
+    ![poshangyan dhashobard](./assets/img/category.dashboard.png "select post to modify")
+
+1. `Others` option in filter is consist of `Sources`, `Target Audience`, `File type` and `Media type`.
+
+    ![poshangyan dhashobard](./assets/img/category-2.dashboard.png "select post to modify")
 
 ### Steps to change Theme of month :-
 
+0. To Change Category Click on filter option on top right and select category type.
+
 0. Select `Theme of The month tab` in dashboard, content related to theme of the month will appear below banner on homepage.
-![poshangyan dhashobard](./assets/img/theme-of-month.dashboard.png "select post to modify")
+
+    ![poshangyan dhashobard](./assets/img/theme-of-month.dashboard.png "select post to modify")
+
+## Collaborators
+
+This site is designed by [@manish-sharma](https://in.linkedin.com/in/manish-sharma-55b42670) and developed by [@manik-dhanjal](https://manikdhanjal.com) & [@anshah-sharma](https://github.com/anshajsharma) under [2626 Creative Studio](https://visit.2626.today) for [Niti Aayog](https://www.niti.gov.in/).
